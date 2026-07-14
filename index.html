@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EzyMember — Track, Remind &amp; Renew Memberships Instantly</title>
+    <meta name="description" content="The simplest offline-first Android app to manage gym, salon, and tuition members. Add members in 2 clicks, send WhatsApp reminders, and back up to Google Drive.">
+    <meta name="theme-color" content="#1F9787">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="EzyMember — The Easiest Way to Track, Remind &amp; Renew">
+    <meta property="og:description" content="Manage your gym, salon, or tuition members fast, securely, and in 3 clicks or less. No cloud. No clutter.">
+    <meta property="og:type" content="website">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Favicon — uses logo.png in the same folder -->
+    <link rel="icon" type="image/png" href="logo.png">
+
+    <!-- Tailwind CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary:   { DEFAULT: '#1F9787', light: '#4AB3A6', soft: '#DDF3F0', deep: '#176F63' },
+                        night:     { DEFAULT: '#0F2D29', soft: '#163D37' },
+                        ink:       { DEFAULT: '#1A2E35', muted: '#5A6F78' },
+                        active:    { DEFAULT: '#22A45D', bg: '#E6F9EE' },
+                        soon:      { DEFAULT: '#E87A2D', bg: '#FFF4E6' },
+                        expired:   { DEFAULT: '#D63B3B', bg: '#FEECEC' },
+                        whatsapp:  '#25D366',
+                    },
+                    fontFamily: {
+                        sans:  ['Inter', 'system-ui', 'sans-serif'],
+                        mono:  ['JetBrains Mono', 'monospace'],
+                    },
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* ── Custom Animations ── */
+        @keyframes spin-slow   { to { transform: rotate(360deg); } }
+        @keyframes spin-rev    { to { transform: rotate(-360deg); } }
+        @keyframes float       { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+        @keyframes fade-up     { from { opacity:0; transform:translateY(28px); } to { opacity:1; transform:translateY(0); } }
+        @keyframes pulse-badge { 0%,100% { opacity:1; } 50% { opacity:.6; } }
+        @keyframes slide-tab   { 0%   { transform: translateX(0); }
+                                  33%  { transform: translateX(0); }
+                                  40%  { transform: translateX(100%); }
+                                  73%  { transform: translateX(100%); }
+                                  80%  { transform: translateX(200%); }
+                                  93%  { transform: translateX(200%); }
+                                  100% { transform: translateX(0); } }
+
+        .animate-spin-slow  { animation: spin-slow 55s linear infinite; }
+        .animate-spin-rev   { animation: spin-rev  70s linear infinite; }
+        .animate-float      { animation: float 5s ease-in-out infinite; }
+        .animate-pulse-badge { animation: pulse-badge 2.5s ease-in-out infinite; }
+        .animate-slide-tab  { animation: slide-tab 9s ease-in-out infinite; }
+
+        /* Scroll-triggered reveal */
+        .reveal { opacity: 0; transform: translateY(28px); transition: opacity .7s ease, transform .7s ease; }
+        .reveal.in-view { opacity: 1; transform: translateY(0); }
+
+        /* Respect reduced-motion */
+        @media (prefers-reduced-motion: reduce) {
+            .animate-spin-slow, .animate-spin-rev, .animate-float,
+            .animate-pulse-badge, .animate-slide-tab { animation: none !important; }
+            .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+        }
+
+        /* Gradient text helper */
+        .text-gradient {
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+
+<body class="bg-white font-sans text-ink antialiased">
+
+<!-- Skip-to-content (a11y) -->
+<a href="#hero" class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[60] focus:bg-primary focus:text-white focus:px-4 focus:py-2 focus:rounded-lg">
+    Skip to content
+</a>
+
+<!-- ════════════════════════════════════════════
+     NAVIGATION
+     ════════════════════════════════════════════ -->
+<header id="nav-header" class="fixed top-0 inset-x-0 z-50 bg-white/80 backdrop-blur-lg border-b border-transparent transition-all duration-300">
+    <div class="max-w-6xl mx-auto px-5 flex items-center justify-between py-4">
+        <!-- Logo + Wordmark -->
+        <a href="#hero" class="flex items-center gap-2.5 group">
+            <img src="logo.png" alt="EzyMember logo" class="w-9 h-9 rounded-lg group-hover:scale-105 transition-transform" width="36" height="36">
+            <span class="text-xl font-bold tracking-tight">
+                <span class="text-primary">Ezy</span><span class="text-ink">Member</span>
+            </span>
+        </a>
+
+        <!-- Desktop Nav -->
+        <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-ink-muted">
+            <a href="#features"  class="hover:text-primary transition-colors">Features</a>
+            <a href="#how"       class="hover:text-primary transition-colors">How It Works</a>
+            <a href="#privacy"   class="hover:text-primary transition-colors">Privacy</a>
+            <a href="#download"  class="inline-flex items-center gap-2 bg-primary text-white px-5 py-2.5 rounded-full text-sm font-semibold hover:bg-primary-deep transition-colors focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2">
+                <!-- Google Play icon -->
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.61 1.814L13.793 12 3.61 22.186a1.5 1.5 0 01-.11-.57V2.384c0-.2.04-.39.11-.57zm1.2-.94L15.607 7.67l-3.1 3.1L4.81.874zM16.873 8.33L20.39 10.3c.87.49.87 1.71 0 2.2l-3.517 1.97-3.413-3.413 3.413-3.413zM4.81 23.126l7.697-7.897 3.1 3.1L4.81 23.126z"/></svg>
+                Download App
+            </a>
+        </nav>
+
+        <!-- Mobile Hamburger -->
+        <button id="menu-btn" class="md:hidden p-2 rounded-lg hover:bg-primary-soft transition-colors" aria-label="Toggle navigation menu" aria-expanded="false">
+            <svg class="w-6 h-6 text-ink" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path id="menu-icon" stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
+    </div>
+
+    <!-- Mobile Menu Drawer -->
+    <div id="mobile-menu" class="md:hidden hidden border-t border-gray-100 bg-white/95 backdrop-blur-lg">
+        <nav class="flex flex-col gap-1 p-4 text-base font-medium">
+            <a href="#features" class="mobile-link px-4 py-3 rounded-lg hover:bg-primary-soft transition-colors">Features</a>
+            <a href="#how"      class="mobile-link px-4 py-3 rounded-lg hover:bg-primary-soft transition-colors">How It Works</a>
+            <a href="#privacy"  class="mobile-link px-4 py-3 rounded-lg hover:bg-primary-soft transition-colors">Privacy</a>
+            <a href="#download" class="mobile-link mt-2 text-center bg-primary text-white px-5 py-3 rounded-full font-semibold hover:bg-primary-deep transition-colors">Download App</a>
+        </nav>
+    </div>
+</header>
+
+
+<!-- ════════════════════════════════════════════
+     HERO SECTION
+     ════════════════════════════════════════════ -->
+<section id="hero" class="relative overflow-hidden pt-28 pb-16 md:pt-36 md:pb-24 scroll-mt-24">
+    <!-- Subtle background gradient wash -->
+    <div class="absolute inset-0 bg-gradient-to-br from-primary-soft/60 via-white to-white pointer-events-none" aria-hidden="true"></div>
+
+    <div class="relative max-w-6xl mx-auto px-5 grid md:grid-cols-2 gap-12 md:gap-16 items-center">
+
+        <!-- LEFT: Copy -->
+        <div class="max-w-xl">
+            <p class="font-mono text-xs font-semibold tracking-[.2em] uppercase text-primary mb-4">
+                Fast &bull; Simple &bull; Offline &bull; Private
+            </p>
+
+            <h1 class="text-4xl sm:text-5xl lg:text-[3.4rem] font-extrabold leading-[1.1] tracking-tight text-ink mb-6">
+                The easiest way to
+                <span class="text-gradient bg-gradient-to-r from-primary to-primary-light">track, remind, &amp; renew.</span>
+            </h1>
+
+            <p class="text-lg text-ink-muted leading-relaxed mb-8">
+                Manage your gym, salon, or tuition class members fast, securely, and in <strong class="text-ink font-semibold">3&nbsp;clicks or less</strong>. No cloud subscriptions. Zero clutter.
+            </p>
+
+            <!-- CTA Buttons -->
+            <div class="flex flex-wrap gap-4 mb-6">
+                <!-- TODO: Replace # with your actual Google Play Store URL -->
+                <a href="#download" class="inline-flex items-center gap-2.5 bg-primary text-white px-7 py-3.5 rounded-full text-base font-semibold shadow-lg shadow-primary/25 hover:bg-primary-deep hover:shadow-xl hover:shadow-primary/30 hover:-translate-y-0.5 transition-all focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2">
+                    <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.61 1.814L13.793 12 3.61 22.186a1.5 1.5 0 01-.11-.57V2.384c0-.2.04-.39.11-.57zm1.2-.94L15.607 7.67l-3.1 3.1L4.81.874zM16.873 8.33L20.39 10.3c.87.49.87 1.71 0 2.2l-3.517 1.97-3.413-3.413 3.413-3.413zM4.81 23.126l7.697-7.897 3.1 3.1L4.81 23.126z"/></svg>
+                    Download App
+                </a>
+                <!-- TODO: Replace with your real support email -->
+                <a href="mailto:builtfirst.help@gmail.com" class="inline-flex items-center gap-2 border-2 border-gray-200 text-ink px-7 py-3.5 rounded-full text-base font-semibold hover:border-primary hover:text-primary hover:-translate-y-0.5 transition-all focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2">
+                    Contact Support
+                </a>
+            </div>
+
+            <!-- Trust micro-copy -->
+            <div class="flex flex-wrap items-center gap-x-5 gap-y-2 text-xs font-medium text-ink-muted">
+                <span class="flex items-center gap-1.5">
+                    <svg class="w-4 h-4 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+                    100% Offline
+                </span>
+                <span class="flex items-center gap-1.5">
+                    <svg class="w-4 h-4 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                    Your Data Stays on Your Phone
+                </span>
+                <span class="flex items-center gap-1.5">
+                    <svg class="w-4 h-4 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                    Add Members in 2&nbsp;Clicks
+                </span>
+            </div>
+        </div>
+
+        <!-- RIGHT: App Mockup -->
+        <div class="relative flex justify-center md:justify-end">
+            <!-- Rotating ring (renewal motif from logo) -->
+            <div class="absolute inset-0 flex items-center justify-center pointer-events-none" aria-hidden="true">
+                <svg class="w-[420px] h-[420px] animate-spin-slow opacity-[0.06]" viewBox="0 0 200 200" fill="none">
+                    <circle cx="100" cy="100" r="90" stroke="#1F9787" stroke-width="2" stroke-dasharray="12 8"/>
+                    <!-- Arrowheads at 0° and 180° -->
+                    <polygon points="190,100 183,95 183,105" fill="#1F9787"/>
+                    <polygon points="10,100 17,105 17,95" fill="#1F9787"/>
+                </svg>
+            </div>
+            <div class="absolute inset-0 flex items-center justify-center pointer-events-none" aria-hidden="true">
+                <svg class="w-[340px] h-[340px] animate-spin-rev opacity-[0.04]" viewBox="0 0 200 200" fill="none">
+                    <circle cx="100" cy="100" r="90" stroke="#4AB3A6" stroke-width="1.5" stroke-dasharray="6 10"/>
+                </svg>
+            </div>
+
+            <!-- Phone Mockup Card -->
+            <div class="relative w-full max-w-sm animate-float">
+                <div class="bg-white rounded-[2rem] shadow-2xl shadow-primary/10 border border-gray-100 overflow-hidden">
+                    <!-- Status bar -->
+                    <div class="bg-primary px-5 py-3">
+                        <span class="text-white font-bold text-lg tracking-tight">EzyMember</span>
+                    </div>
+
+                    <!-- Search bar -->
+                    <div class="px-4 pt-3 pb-2">
+                        <div class="flex items-center gap-2 bg-gray-50 rounded-xl px-3 py-2.5 text-sm text-gray-400">
+                            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                            Search by name &amp; phone...
+                        </div>
+                    </div>
+
+                    <!-- Tabs -->
+                    <div class="relative px-4 pb-2">
+                        <div class="flex bg-gray-50 rounded-full p-1 text-xs font-semibold relative">
+                            <!-- Sliding highlight -->
+                            <div class="absolute top-1 left-1 bottom-1 w-1/3 bg-white rounded-full shadow-sm animate-slide-tab"></div>
+                            <span class="relative z-10 flex-1 text-center py-2 text-active">Active</span>
+                            <span class="relative z-10 flex-1 text-center py-2 text-soon">Expiring...</span>
+                            <span class="relative z-10 flex-1 text-center py-2 text-expired">Expired</span>
+                        </div>
+                    </div>
+
+                    <!-- Count bar -->
+                    <div class="mx-4 bg-primary-soft rounded-lg px-3 py-2 flex items-center justify-between text-xs font-semibold mb-2">
+                        <span class="text-primary flex items-center gap-1.5">
+                            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                            Active &nbsp;285
+                        </span>
+                        <span class="text-ink-muted">Sort</span>
+                    </div>
+
+                    <!-- Member Cards -->
+                    <div class="px-4 pb-4 space-y-2">
+                        <!-- Card 1 -->
+                        <div class="bg-white border border-gray-100 rounded-xl p-3 flex items-center justify-between hover:shadow-md transition-shadow">
+                            <div>
+                                <p class="font-semibold text-sm text-ink">Vikram Kumar</p>
+                                <p class="text-[11px] text-ink-muted mt-0.5">+91 83205•••53</p>
+                            </div>
+                            <span class="text-[10px] font-bold px-2.5 py-1 rounded-full bg-active-bg text-active">● Active</span>
+                        </div>
+                        <!-- Card 2 -->
+                        <div class="bg-white border border-gray-100 rounded-xl p-3 flex items-center justify-between hover:shadow-md transition-shadow">
+                            <div>
+                                <p class="font-semibold text-sm text-ink">Nishka Iyer</p>
+                                <p class="text-[11px] text-ink-muted mt-0.5">Exp: 3 days</p>
+                            </div>
+                            <span class="text-[10px] font-bold px-2.5 py-1 rounded-full bg-soon-bg text-soon animate-pulse-badge">● Expiring</span>
+                        </div>
+                        <!-- Card 3 -->
+                        <div class="bg-white border border-gray-100 rounded-xl p-3 flex items-center justify-between hover:shadow-md transition-shadow">
+                            <div>
+                                <p class="font-semibold text-sm text-ink">Alpa Bhatt</p>
+                                <p class="text-[11px] text-ink-muted mt-0.5">Exp: 3m ago</p>
+                            </div>
+                            <span class="text-[10px] font-bold px-2.5 py-1 rounded-full bg-expired-bg text-expired">● Expired</span>
+                        </div>
+                    </div>
+
+                    <!-- Bottom Nav -->
+                    <div class="border-t border-gray-100 flex items-center justify-around py-3">
+                        <span class="text-[10px] font-semibold text-primary flex flex-col items-center gap-1">
+                            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+                            Home
+                        </span>
+                        <span class="flex flex-col items-center gap-1">
+                            <span class="w-11 h-11 rounded-full bg-primary flex items-center justify-center shadow-lg shadow-primary/30 -mt-6">
+                                <svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+                            </span>
+                            <span class="text-[10px] font-semibold text-ink-muted">Add</span>
+                        </span>
+                        <span class="text-[10px] font-semibold text-ink-muted flex flex-col items-center gap-1">
+                            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.066 2.573c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.573 1.066c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.066-2.573c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                            Settings
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Floating Reminder Chip -->
+                <div class="absolute -right-2 bottom-32 bg-white rounded-full shadow-lg shadow-primary/15 border border-primary-soft px-3.5 py-2 flex items-center gap-2 text-xs font-semibold text-primary animate-float" style="animation-delay: .8s;">
+                    <span class="w-6 h-6 rounded-full bg-whatsapp/10 flex items-center justify-center">
+                        <svg class="w-3.5 h-3.5 text-whatsapp" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.625.846 5.059 2.284 7.034L.789 23.492a.5.5 0 00.612.637l4.694-1.228A11.95 11.95 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22a9.94 9.94 0 01-5.382-1.564l-.386-.232-2.786.729.747-2.73-.255-.402A9.935 9.935 0 012 12C2 6.486 6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z"/></svg>
+                    </span>
+                    Reminder sent ✓
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════
+     QUICK FACTS STRIP
+     ════════════════════════════════════════════ -->
+<div class="bg-primary-soft/50 border-y border-primary-soft">
+    <div class="max-w-6xl mx-auto px-5 py-5 flex flex-wrap justify-center gap-x-10 gap-y-3 text-xs font-semibold tracking-wider uppercase text-primary">
+        <span class="flex items-center gap-2">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+            2-Click Setup
+        </span>
+        <span class="flex items-center gap-2">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M18.364 5.636a9 9 0 010 12.728M5.636 18.364a9 9 0 010-12.728m2.828 9.9a5 5 0 010-7.072m7.072 0a5 5 0 010 7.072"/></svg>
+            Works Offline
+        </span>
+        <span class="flex items-center gap-2">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+            Zero Cloud
+        </span>
+        <span class="flex items-center gap-2">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/></svg>
+            WhatsApp Reminders
+        </span>
+        <span class="flex items-center gap-2">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/></svg>
+            Google Drive Backup
+        </span>
+    </div>
+</div>
+
+
+<!-- ════════════════════════════════════════════
+     FEATURES GRID
+     ════════════════════════════════════════════ -->
+<section id="features" class="py-20 md:py-28 scroll-mt-24">
+    <div class="max-w-6xl mx-auto px-5">
+        <!-- Section Header -->
+        <div class="text-center max-w-2xl mx-auto mb-14 reveal">
+            <p class="font-mono text-xs font-semibold tracking-[.2em] uppercase text-primary mb-3">Core Features</p>
+            <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-ink mb-4">
+                Everything you need.<br>Nothing you don't.
+            </h2>
+            <p class="text-ink-muted text-lg">
+                Know exactly who's expiring, send reminders in one tap, and keep your member data private — all without an internet connection.
+            </p>
+        </div>
+
+        <!-- Cards Grid -->
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+            <!-- Feature 1: Speed -->
+            <div class="reveal group bg-white border border-gray-100 rounded-2xl p-6 hover:shadow-xl hover:shadow-primary/5 hover:-translate-y-1 transition-all duration-300">
+                <div class="w-12 h-12 rounded-xl bg-primary-soft flex items-center justify-center mb-5 group-hover:bg-primary group-hover:text-white transition-colors text-primary">
+                    <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                </div>
+                <h3 class="font-bold text-lg text-ink mb-2">Add Members in 2&nbsp;Clicks</h3>
+                <p class="text-ink-muted text-sm leading-relaxed">
+                    Forget long forms. Enter a name and phone number — done. Your new member is saved instantly.
+                </p>
+            </div>
+
+            <!-- Feature 2: 3-Tab Dashboard -->
+            <div class="reveal group bg-white border border-gray-100 rounded-2xl p-6 hover:shadow-xl hover:shadow-primary/5 hover:-translate-y-1 transition-all duration-300" style="transition-delay:.05s">
+                <div class="w-12 h-12 rounded-xl bg-primary-soft flex items-center justify-center mb-5 group-hover:bg-primary group-hover:text-white transition-colors text-primary">
+                    <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 10h16M4 14h16M4 18h16"/></svg>
+                </div>
+                <h3 class="font-bold text-lg text-ink mb-2">Smart 3-Tab Dashboard</h3>
+                <p class="text-ink-muted text-sm leading-relaxed">
+                    One glance shows you <span class="text-active font-semibold">Active</span>, <span class="text-soon font-semibold">Expiring&nbsp;Soon</span>, and <span class="text-expired font-semibold">Expired</span> members. No digging through menus.
+                </p>
+            </div>
+
+            <!-- Feature 3: Smart Filters -->
+            <div class="reveal group bg-white border border-gray-100 rounded-2xl p-6 hover:shadow-xl hover:shadow-primary/5 hover:-translate-y-1 transition-all duration-300" style="transition-delay:.1s">
+                <div class="w-12 h-12 rounded-xl bg-primary-soft flex items-center justify-center mb-5 group-hover:bg-primary group-hover:text-white transition-colors text-primary">
+                    <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/></svg>
+                </div>
+                <h3 class="font-bold text-lg text-ink mb-2">Smart Expiry Filters</h3>
+                <p class="text-ink-muted text-sm leading-relaxed">
+                    Filter the "Expiring Soon" tab by <strong class="text-ink">1&nbsp;week, 2&nbsp;weeks, 3&nbsp;weeks,</strong> or <strong class="text-ink">1&nbsp;month</strong> to always know who to follow up with.
+                </p>
+            </div>
+
+            <!-- Feature 4: WhatsApp Reminders -->
+            <div class="reveal group bg-white border border-gray-100 rounded-2xl p-6 hover:shadow-xl hover:shadow-primary/5 hover:-translate-y-1 transition-all duration-300" style="transition-delay:.15s">
+                <div class="w-12 h-12 rounded-xl bg-primary-soft flex items-center justify-center mb-5 group-hover:bg-whatsapp group-hover:text-white transition-colors text-whatsapp">
+                    <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/></svg>
+                </div>
+                <h3 class="font-bold text-lg text-ink mb-2">1-Click WhatsApp Reminders</h3>
+                <p class="text-ink-muted text-sm leading-relaxed">
+                    Polite, pre-filled messages customized with your business name. Send renewal reminders, expiry alerts, or welcome messages — one tap.
+                </p>
+            </div>
+
+            <!-- Feature 5: Direct Calling -->
+            <div class="reveal group bg-white border border-gray-100 rounded-2xl p-6 hover:shadow-xl hover:shadow-primary/5 hover:-translate-y-1 transition-all duration-300" style="transition-delay:.2s">
+                <div class="w-12 h-12 rounded-xl bg-primary-soft flex items-center justify-center mb-5 group-hover:bg-primary group-hover:text-white transition-colors text-primary">
+                    <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+                </div>
+                <h3 class="font-bold text-lg text-ink mb-2">Direct Calling</h3>
+                <p class="text-ink-muted text-sm leading-relaxed">
+                    Call any member directly from their profile card. No copying numbers, no switching apps.
+                </p>
+            </div>
+
+            <!-- Feature 6: Welcome & Renewal Messages -->
+            <div class="reveal group bg-white border border-gray-100 rounded-2xl p-6 hover:shadow-xl hover:shadow-primary/5 hover:-translate-y-1 transition-all duration-300" style="transition-delay:.25s">
+                <div class="w-12 h-12 rounded-xl bg-primary-soft flex items-center justify-center mb-5 group-hover:bg-primary group-hover:text-white transition-colors text-primary">
+                    <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
+                </div>
+                <h3 class="font-bold text-lg text-ink mb-2">Welcome &amp; Renewal Messages</h3>
+                <p class="text-ink-muted text-sm leading-relaxed">
+                    Automatically send a welcome message with membership details when you add a new member, and a renewal confirmation when they re-subscribe.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════
+     HOW IT WORKS
+     ════════════════════════════════════════════ -->
+<section id="how" class="py-20 md:py-28 bg-gray-50/80 scroll-mt-24">
+    <div class="max-w-6xl mx-auto px-5">
+        <!-- Section Header -->
+        <div class="text-center max-w-2xl mx-auto mb-16 reveal">
+            <p class="font-mono text-xs font-semibold tracking-[.2em] uppercase text-primary mb-3">How It Works</p>
+            <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-ink mb-4">
+                Up and running in minutes
+            </h2>
+            <p class="text-ink-muted text-lg">
+                No training needed. If you can use WhatsApp, you can use EzyMember.
+            </p>
+        </div>
+
+        <!-- Steps -->
+        <div class="relative grid sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-6">
+            <!-- Connecting line (desktop only) -->
+            <div class="hidden lg:block absolute top-10 left-[12.5%] right-[12.5%] h-0.5 bg-gradient-to-r from-primary-soft via-primary/20 to-primary-soft" aria-hidden="true"></div>
+
+            <!-- Step 1 -->
+            <div class="reveal text-center">
+                <div class="relative z-10 w-16 h-16 mx-auto rounded-full bg-primary text-white flex items-center justify-center text-xl font-mono font-bold shadow-lg shadow-primary/20 mb-5">
+                    1
+                </div>
+                <h3 class="font-bold text-ink mb-2">Add a Member</h3>
+                <p class="text-ink-muted text-sm leading-relaxed">
+                    Tap the <strong class="text-ink">+</strong> button, fill in a name and phone number, and hit save. Done in 2 clicks.
+                </p>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="reveal text-center" style="transition-delay:.1s">
+                <div class="relative z-10 w-16 h-16 mx-auto rounded-full bg-primary text-white flex items-center justify-center text-xl font-mono font-bold shadow-lg shadow-primary/20 mb-5">
+                    2
+                </div>
+                <h3 class="font-bold text-ink mb-2">Track Automatically</h3>
+                <p class="text-ink-muted text-sm leading-relaxed">
+                    The dashboard sorts members into <span class="text-active font-semibold">Active</span>, <span class="text-soon font-semibold">Expiring</span>, and <span class="text-expired font-semibold">Expired</span> tabs — automatically.
+                </p>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="reveal text-center" style="transition-delay:.2s">
+                <div class="relative z-10 w-16 h-16 mx-auto rounded-full bg-primary text-white flex items-center justify-center text-xl font-mono font-bold shadow-lg shadow-primary/20 mb-5">
+                    3
+                </div>
+                <h3 class="font-bold text-ink mb-2">Send Reminders</h3>
+                <p class="text-ink-muted text-sm leading-relaxed">
+                    Tap "Remind" on any expiring member. A polite, pre-filled WhatsApp message opens — just hit send.
+                </p>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="reveal text-center" style="transition-delay:.3s">
+                <div class="relative z-10 w-16 h-16 mx-auto rounded-full bg-primary text-white flex items-center justify-center text-xl font-mono font-bold shadow-lg shadow-primary/20 mb-5">
+                    4
+                </div>
+                <h3 class="font-bold text-ink mb-2">Renew &amp; Back Up</h3>
+                <p class="text-ink-muted text-sm leading-relaxed">
+                    Collect payment, renew membership, and let automatic Google Drive backups keep your data safe.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════
+     PRIVACY & OFFLINE
+     ════════════════════════════════════════════ -->
+<section id="privacy" class="py-20 md:py-28 bg-night text-white scroll-mt-24">
+    <div class="max-w-6xl mx-auto px-5">
+        <!-- Section Header -->
+        <div class="text-center max-w-2xl mx-auto mb-14 reveal">
+            <p class="font-mono text-xs font-semibold tracking-[.2em] uppercase text-primary-light mb-3">Privacy &amp; Offline</p>
+            <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight mb-4">
+                Your data. Your device.<br>Your control.
+            </h2>
+            <p class="text-gray-400 text-lg">
+                We never store your customer data on our servers. Everything stays on your phone, backed up to your personal Google Drive.
+            </p>
+        </div>
+
+        <!-- Privacy Cards -->
+        <div class="grid sm:grid-cols-3 gap-6">
+
+            <!-- Zero Cloud -->
+            <div class="reveal bg-night-soft rounded-2xl p-6 border border-white/5 hover:border-primary/30 transition-colors">
+                <div class="w-12 h-12 rounded-xl bg-primary/15 flex items-center justify-center mb-5 text-primary-light">
+                    <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                </div>
+                <h3 class="font-bold text-lg mb-2">100% Private (Zero Cloud)</h3>
+                <p class="text-gray-400 text-sm leading-relaxed">
+                    No third-party servers. No analytics on your customer data. Your membership records never leave your phone.
+                </p>
+            </div>
+
+            <!-- Offline First -->
+            <div class="reveal bg-night-soft rounded-2xl p-6 border border-white/5 hover:border-primary/30 transition-colors" style="transition-delay:.08s">
+                <div class="w-12 h-12 rounded-xl bg-primary/15 flex items-center justify-center mb-5 text-primary-light">
+                    <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M18.364 5.636a9 9 0 010 12.728M5.636 18.364a9 9 0 010-12.728m12.728 0L5.636 18.364"/></svg>
+                </div>
+                <h3 class="font-bold text-lg mb-2">Offline First</h3>
+                <p class="text-gray-400 text-sm leading-relaxed">
+                    Add members, track expirations, and manage your entire business without needing an internet connection.
+                </p>
+            </div>
+
+            <!-- Google Drive Backup -->
+            <div class="reveal bg-night-soft rounded-2xl p-6 border border-white/5 hover:border-primary/30 transition-colors" style="transition-delay:.16s">
+                <div class="w-12 h-12 rounded-xl bg-primary/15 flex items-center justify-center mb-5 text-primary-light">
+                    <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/></svg>
+                </div>
+                <h3 class="font-bold text-lg mb-2">Smart Google Drive Backups</h3>
+                <p class="text-gray-400 text-sm leading-relaxed">
+                    Schedule <strong class="text-gray-300">daily, weekly, or monthly</strong> automatic backups to your personal Google Drive. Easily restore data if you change phones.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════
+     STAFF & EXPORT
+     ════════════════════════════════════════════ -->
+<section class="py-20 md:py-28 scroll-mt-24">
+    <div class="max-w-6xl mx-auto px-5">
+        <!-- Section Header -->
+        <div class="text-center max-w-2xl mx-auto mb-14 reveal">
+            <p class="font-mono text-xs font-semibold tracking-[.2em] uppercase text-primary mb-3">Built For Your Team</p>
+            <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-ink mb-4">
+                Share safely with staff
+            </h2>
+            <p class="text-ink-muted text-lg">
+                Export data for your team without exposing financial details, and let everyone use the app in their preferred language.
+            </p>
+        </div>
+
+        <!-- Two feature cards side-by-side -->
+        <div class="grid md:grid-cols-2 gap-6">
+
+            <!-- Hide Financials Export -->
+            <div class="reveal bg-white border border-gray-100 rounded-2xl p-8 hover:shadow-xl hover:shadow-primary/5 transition-all duration-300">
+                <div class="flex items-start gap-5">
+                    <div class="w-14 h-14 rounded-xl bg-primary-soft flex items-center justify-center shrink-0 text-primary">
+                        <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-lg text-ink mb-2">"Hide Financials" Export</h3>
+                        <p class="text-ink-muted text-sm leading-relaxed mb-4">
+                            Export member lists to <strong class="text-ink">PDF or Excel</strong> by status and time filters. Toggle off financial data so you can safely share contact lists with staff for follow-ups.
+                        </p>
+                        <!-- Mini feature pills -->
+                        <div class="flex flex-wrap gap-2 text-xs">
+                            <span class="bg-primary-soft text-primary font-semibold px-3 py-1 rounded-full">PDF &amp; Spreadsheet</span>
+                            <span class="bg-primary-soft text-primary font-semibold px-3 py-1 rounded-full">Filter by Status</span>
+                            <span class="bg-primary-soft text-primary font-semibold px-3 py-1 rounded-full">Hide Revenue</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Local Language Support -->
+            <div class="reveal bg-white border border-gray-100 rounded-2xl p-8 hover:shadow-xl hover:shadow-primary/5 transition-all duration-300" style="transition-delay:.1s">
+                <div class="flex items-start gap-5">
+                    <div class="w-14 h-14 rounded-xl bg-primary-soft flex items-center justify-center shrink-0 text-primary">
+                        <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/></svg>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-lg text-ink mb-2">Local Language Support</h3>
+                        <p class="text-ink-muted text-sm leading-relaxed mb-4">
+                            Your staff don't need to know English to use EzyMember. Built-in support for local languages means everyone on your team can navigate the app comfortably.
+                        </p>
+                        <!-- Mini feature pills -->
+                        <div class="flex flex-wrap gap-2 text-xs">
+                            <span class="bg-primary-soft text-primary font-semibold px-3 py-1 rounded-full">In-App Translation</span>
+                            <span class="bg-primary-soft text-primary font-semibold px-3 py-1 rounded-full">Staff Friendly</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════
+     FINAL CTA
+     ════════════════════════════════════════════ -->
+<section id="download" class="py-20 md:py-28 bg-gradient-to-br from-primary via-primary-deep to-night scroll-mt-24 relative overflow-hidden">
+    <!-- Decorative ring -->
+    <div class="absolute -right-20 -bottom-20 opacity-10 pointer-events-none" aria-hidden="true">
+        <svg class="w-80 h-80 animate-spin-slow" viewBox="0 0 200 200" fill="none">
+            <circle cx="100" cy="100" r="90" stroke="white" stroke-width="2" stroke-dasharray="12 8"/>
+            <polygon points="190,100 183,95 183,105" fill="white"/>
+            <polygon points="10,100 17,105 17,95" fill="white"/>
+        </svg>
+    </div>
+
+    <div class="relative max-w-3xl mx-auto px-5 text-center text-white">
+        <div class="reveal">
+            <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight mb-5">
+                Ready to simplify your member management?
+            </h2>
+            <p class="text-lg text-white/75 mb-10 max-w-xl mx-auto">
+                Stop chasing renewals on paper. Start managing memberships the easy way — offline, private, and in just a few taps.
+            </p>
+
+            <div class="flex flex-wrap justify-center gap-4">
+                <!-- TODO: Replace # with your actual Google Play Store URL -->
+                <a href="#" class="inline-flex items-center gap-2.5 bg-white text-primary px-8 py-4 rounded-full text-base font-bold shadow-xl hover:shadow-2xl hover:-translate-y-0.5 transition-all focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-primary">
+                    <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.61 1.814L13.793 12 3.61 22.186a1.5 1.5 0 01-.11-.57V2.384c0-.2.04-.39.11-.57zm1.2-.94L15.607 7.67l-3.1 3.1L4.81.874zM16.873 8.33L20.39 10.3c.87.49.87 1.71 0 2.2l-3.517 1.97-3.413-3.413 3.413-3.413zM4.81 23.126l7.697-7.897 3.1 3.1L4.81 23.126z"/></svg>
+                    Download on Google Play
+                </a>
+                <!-- TODO: Replace with your real support email -->
+                <a href="mailto:support@ezymember.app" class="inline-flex items-center gap-2 border-2 border-white/30 text-white px-8 py-4 rounded-full text-base font-bold hover:bg-white/10 hover:border-white/60 hover:-translate-y-0.5 transition-all focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-primary">
+                    Contact Support
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════
+     FOOTER
+     ════════════════════════════════════════════ -->
+<footer class="bg-night text-gray-400 py-12">
+    <div class="max-w-6xl mx-auto px-5">
+        <div class="grid md:grid-cols-3 gap-10 mb-10">
+
+            <!-- Brand -->
+            <div>
+                <a href="#hero" class="flex items-center gap-2.5 mb-4">
+                    <img src="logo.png" alt="EzyMember logo" class="w-8 h-8 rounded-lg" width="32" height="32">
+                    <span class="text-lg font-bold text-white tracking-tight">
+                        <span class="text-primary-light">Ezy</span>Member
+                    </span>
+                </a>
+                <p class="text-sm leading-relaxed">
+                    The easiest way to track, remind, and renew memberships for gyms, salons, tuition classes, and more.
+                </p>
+            </div>
+
+            <!-- Product Links -->
+            <div>
+                <h4 class="text-white font-semibold text-sm uppercase tracking-wider mb-4">Product</h4>
+                <ul class="space-y-2.5 text-sm">
+                    <li><a href="#features" class="hover:text-primary-light transition-colors">Features</a></li>
+                    <li><a href="#how"      class="hover:text-primary-light transition-colors">How It Works</a></li>
+                    <li><a href="#privacy"  class="hover:text-primary-light transition-colors">Privacy</a></li>
+                    <li><a href="#download" class="hover:text-primary-light transition-colors">Download</a></li>
+                </ul>
+            </div>
+
+            <!-- Support -->
+            <div>
+                <h4 class="text-white font-semibold text-sm uppercase tracking-wider mb-4">Support</h4>
+                <ul class="space-y-2.5 text-sm">
+                    <!-- TODO: Replace with your real email -->
+                    <li><a href="mailto:builtfirst.help@gmail.com" class="hover:text-primary-light transition-colors">Privacy Policy</a></li>
+                    <!-- TODO: Add your privacy policy URL (required for Google Play) -->
+                    <li><a href="https://sachinmehta07.github.io/ezymember-privacy/" class="hover:text-primary-light transition-colors">Privacy Policy</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Bottom bar -->
+        <div class="border-t border-white/10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-gray-500">
+            <p>&copy; <span id="year"></span> EzyMember. All rights reserved.</p>
+            <p>Made with care for small business owners.</p>
+        </div>
+    </div>
+</footer>
+
+
+<!-- ════════════════════════════════════════════
+     SCRIPTS
+     ════════════════════════════════════════════ -->
+<script>
+(function(){
+    // ── Dynamic year ──
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // ── Mobile menu toggle ──
+    const menuBtn   = document.getElementById('menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const menuIcon   = document.getElementById('menu-icon');
+    let menuOpen = false;
+
+    menuBtn.addEventListener('click', function(){
+        menuOpen = !menuOpen;
+        mobileMenu.classList.toggle('hidden', !menuOpen);
+        menuBtn.setAttribute('aria-expanded', menuOpen);
+        menuIcon.setAttribute('d', menuOpen
+            ? 'M6 18L18 6M6 6l12 12'   // X icon
+            : 'M4 6h16M4 12h16M4 18h16' // Hamburger
+        );
+    });
+
+    // Close mobile menu on link click
+    document.querySelectorAll('.mobile-link').forEach(function(link){
+        link.addEventListener('click', function(){
+            menuOpen = false;
+            mobileMenu.classList.add('hidden');
+            menuBtn.setAttribute('aria-expanded', 'false');
+            menuIcon.setAttribute('d', 'M4 6h16M4 12h16M4 18h16');
+        });
+    });
+
+    // ── Header shadow on scroll ──
+    var navHeader = document.getElementById('nav-header');
+    window.addEventListener('scroll', function(){
+        if(window.scrollY > 10){
+            navHeader.classList.add('shadow-md','border-gray-100');
+            navHeader.classList.remove('border-transparent');
+        } else {
+            navHeader.classList.remove('shadow-md','border-gray-100');
+            navHeader.classList.add('border-transparent');
+        }
+    }, {passive:true});
+
+    // ── Scroll-reveal via IntersectionObserver ──
+    var revealEls = document.querySelectorAll('.reveal');
+    if('IntersectionObserver' in window){
+        var observer = new IntersectionObserver(function(entries){
+            entries.forEach(function(entry){
+                if(entry.isIntersecting){
+                    entry.target.classList.add('in-view');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+        revealEls.forEach(function(el){ observer.observe(el); });
+    } else {
+        // Fallback: show everything immediately
+        revealEls.forEach(function(el){ el.classList.add('in-view'); });
+    }
+})();
+</script>
+
+</body>
+</html>
