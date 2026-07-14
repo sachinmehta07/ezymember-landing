@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EzyMember - Help & Support</title>
+    <style>
+        /* 
+         * Color Palette inspired by EzyMember Jetpack Compose Theme
+         */
+        :root {
+            --primary: #1F9787;
+            --primary-light: #DDF3F0;
+            --primary-border: #4AB3A6;
+            --bg-color: #F9FAFB;
+            --surface: #FFFFFF;
+            --text-primary: #1C1C1C;
+            --text-secondary: #6B7280;
+            --border: #E5E7EB;
+            --whatsapp: #25D366;
+        }
+
+        body { 
+            font-family: 'Inter', system-ui, -apple-system, sans-serif; 
+            background-color: var(--bg-color); 
+            color: var(--text-primary); 
+            margin: 0; 
+            padding: 0; 
+            line-height: 1.6; 
+        }
+
+        .header-banner { 
+            background-color: var(--primary); 
+            color: white; 
+            padding: 60px 20px; 
+            text-align: center; 
+        }
+
+        .header-banner h1 { 
+            margin: 0; 
+            font-size: 2.5rem; 
+            letter-spacing: -0.02em;
+        }
+
+        .header-banner p { 
+            margin: 10px 0 0; 
+            opacity: 0.9; 
+            font-size: 1.1rem; 
+        }
+
+        .container { 
+            max-width: 800px; 
+            margin: -30px auto 60px; 
+            padding: 0 20px; 
+            position: relative; 
+            z-index: 10; 
+        }
+
+        .card { 
+            background: var(--surface); 
+            border-radius: 12px; 
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02), 0 10px 15px rgba(0,0,0,0.03); 
+            padding: 32px; 
+            margin-bottom: 24px; 
+            border: 1px solid var(--border); 
+        }
+
+        h2 { 
+            color: var(--primary); 
+            border-bottom: 2px solid var(--primary-light); 
+            padding-bottom: 12px; 
+            margin-top: 0; 
+            margin-bottom: 24px; 
+            font-size: 1.5rem; 
+        }
+
+        h3 { 
+            color: var(--text-primary); 
+            margin-top: 28px; 
+            margin-bottom: 12px; 
+            font-size: 1.15rem; 
+        }
+
+        /* Accordion Styles */
+        details { 
+            background: var(--surface); 
+            border: 1px solid var(--border); 
+            border-radius: 8px; 
+            margin-bottom: 12px; 
+            overflow: hidden;
+            transition: all 0.2s ease;
+        }
+
+        summary { 
+            padding: 16px 20px; 
+            font-weight: 600; 
+            cursor: pointer; 
+            color: var(--text-primary); 
+            outline: none; 
+            transition: background 0.2s; 
+            position: relative;
+        }
+
+        summary:hover { 
+            background: var(--bg-color); 
+        }
+
+        details[open] summary { 
+            border-bottom: 1px solid var(--border); 
+            color: var(--primary); 
+            background: var(--primary-light);
+        }
+
+        .faq-answer { 
+            padding: 20px; 
+            color: var(--text-secondary); 
+            background: #FAFAFA; 
+            font-size: 0.95rem;
+        }
+
+        .faq-answer strong {
+            color: var(--text-primary);
+        }
+
+        /* Contact Grid */
+        .contact-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
+            gap: 16px; 
+            margin-top: 24px; 
+        }
+
+        .contact-item { 
+            background: var(--bg-color); 
+            padding: 20px; 
+            border-radius: 8px; 
+            text-align: center; 
+            border: 1px solid var(--border); 
+        }
+
+        .contact-item h4 { 
+            margin: 0 0 8px; 
+            color: var(--text-primary); 
+            font-size: 1.05rem;
+        }
+
+        .contact-item p { 
+            margin: 0; 
+            color: var(--text-secondary); 
+            font-size: 0.95rem; 
+        }
+
+        .contact-item a { 
+            color: var(--primary); 
+            text-decoration: none; 
+            font-weight: 500; 
+        }
+
+        .contact-item a:hover { 
+            text-decoration: underline; 
+        }
+
+        .address-box {
+            margin-top: 24px; 
+            padding-top: 20px; 
+            border-top: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .address-box h4 {
+            margin: 0 0 8px; 
+            color: var(--text-primary);
+        }
+
+        .address-box p {
+            margin: 0; 
+            color: var(--text-secondary); 
+            font-size: 0.95rem;
+            line-height: 1.8;
+        }
+
+        @media (max-width: 600px) {
+            .card { padding: 20px; }
+            .header-banner { padding: 40px 16px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header-banner">
+        <h1>Help & Support</h1>
+        <p>How can we help you with EzyMember?</p>
+    </div>
+
+    <div class="container">
+        
+        <!-- FAQ Section -->
+        <div class="card">
+            <h2>Frequently Asked Questions</h2>
+            
+            <h3>Member Management</h3>
+            <details>
+                <summary>How do I add a new member and their membership details?</summary>
+                <div class="faq-answer">Adding a member is easy! Tap <strong>Add Member</strong> on the home screen. You can quickly auto-fill their details by selecting them from your phone contacts, or type them manually. Just enter their Name, Phone Number, Start Date, Expiry Date, and the Total/Paid Amount. Once you tap <strong>Save</strong>, you can even send them a welcome message directly on WhatsApp!</div>
+            </details>
+            <details>
+                <summary>Can I download my member lists for printing or Excel?</summary>
+                <div class="faq-answer">Absolutely. You can export your data at any time. Go to <strong>Settings &gt; Data Management &gt; Export Data</strong>, and choose whether you want a Spreadsheet (CSV) for editing or a PDF for printing. You can even choose to include or hide financial details if you're printing it for your staff.</div>
+            </details>
+
+            <h3>Renewals & Payments</h3>
+            <details>
+                <summary>How do I track who hasn't paid their full fees?</summary>
+                <div class="faq-answer">We make it simple to track pending payments. On a member's detail page, you will see exactly what their <strong>Total Due</strong> and <strong>Total Paid</strong> amounts are. You can easily record partial or full payments by tapping <strong>Collect</strong>, and the app will keep a full transaction history for you. You can also filter your member list to show only those with an "Outstanding due."</div>
+            </details>
+
+            <h3>Reminders</h3>
+            <details>
+                <summary>Can I send payment reminders to multiple members at once?</summary>
+                <div class="faq-answer">Yes! Save time by using our <strong>Bulk Reminder</strong> feature. Just go to your "Expiring Soon" or "Expired" tabs, select the members you want to remind, and tap <strong>Remind</strong>. You can create a ready-to-go message template, and the app will automatically fill in each member's name and due amount before opening WhatsApp for you to send.</div>
+            </details>
+
+            <h3>Account & Data Security</h3>
+            <details>
+                <summary>Will I lose my data if I change my phone? How does backup work?</summary>
+                <div class="faq-answer">Your data is 100% private and stays on your device—we never store it on our servers! To keep it safe, go to <strong>Settings &gt; Account & Backup</strong> and sign in with your Google account. This securely backs up your data to your own Google Drive. If you get a new phone, just log in with the same Google account to easily restore everything.</div>
+            </details>
+        </div>
+
+        <!-- Contact Section -->
+        <div class="card">
+            <h2>Contact Us</h2>
+            <p style="color: var(--text-secondary); margin-top: 0;">We are always here to support your business. If you have any questions, feedback, or need technical assistance with EzyMember, please reach out to us directly:</p>
+            
+            <div class="contact-grid">
+                <div class="contact-item">
+                    <h4>Email Support</h4>
+                    <p><a href="mailto:builtfirst.help@gmail.com">builtfirst.help@gmail.com</a></p>
+                    <p style="font-size: 0.8rem; margin-top: 6px;">(24-48 hours response)</p>
+                </div>
+               
+                <div class="contact-item">
+                    <h4>Developer</h4>
+                    <p style="font-weight: 500; color: var(--text-primary); margin-top: 2px;">Builtfirst Labs</p>
+                </div>
+            </div>
+
+          
+        </div>
+
+    </div>
+</body>
+</html>
