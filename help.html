@@ -29,6 +29,58 @@
             line-height: 1.6; 
         }
 
+        .site-nav {
+            position: sticky;
+            top: 0;
+            z-index: 20;
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(14px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .site-nav-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 14px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .brand-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--primary);
+            font-weight: 800;
+            font-size: 1.15rem;
+            text-decoration: none;
+        }
+
+        .brand-link img {
+            width: 34px;
+            height: 34px;
+            border-radius: 8px;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
         .header-banner { 
             background-color: var(--primary); 
             color: white; 
@@ -180,12 +232,36 @@
         }
 
         @media (max-width: 600px) {
+            .site-nav-inner {
+                align-items: flex-start;
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+                gap: 12px;
+            }
+
             .card { padding: 20px; }
             .header-banner { padding: 40px 16px; }
         }
     </style>
 </head>
 <body>
+    <nav class="site-nav" aria-label="Global navigation">
+        <div class="site-nav-inner">
+            <a class="brand-link" href="index.html">
+                <img src="app_logo_no_bg.png" alt="EzyMember logo">
+                <span>EzyMember</span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="index.html#features">Features</a>
+                <a href="privacy-policy.html">Privacy Policy</a>
+            </div>
+        </div>
+    </nav>
 
     <div class="header-banner">
         <h1>Help & Support</h1>
