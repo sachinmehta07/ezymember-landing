@@ -161,6 +161,63 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
+
+        @media (max-width: 767px) {
+            section {
+                scroll-margin-top: 88px;
+            }
+
+            .mobile-full-cta {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .phone-preview {
+                max-width: min(100%, 22rem);
+                margin-inline: auto;
+            }
+
+            .phone-ring-large {
+                width: min(88vw, 340px);
+                height: min(88vw, 340px);
+            }
+
+            .phone-ring-small {
+                width: min(74vw, 280px);
+                height: min(74vw, 280px);
+            }
+
+            .reminder-chip {
+                right: 0;
+                bottom: 7.5rem;
+                font-size: 11px;
+            }
+        }
+
+        @media (max-width: 420px) {
+            .app-bottom-nav {
+                padding-inline: 18px;
+            }
+
+            .app-nav-item {
+                width: 54px;
+            }
+
+            .app-fab-ring {
+                width: 66px;
+                height: 66px;
+            }
+
+            .app-fab {
+                width: 56px;
+                height: 56px;
+            }
+
+            .reminder-chip {
+                bottom: 7rem;
+                padding-inline: .75rem;
+            }
+        }
     </style>
 </head>
 
@@ -217,35 +274,35 @@
 <!-- ════════════════════════════════════════════
      HERO SECTION
      ════════════════════════════════════════════ -->
-<section id="hero" class="relative overflow-hidden pt-28 pb-16 md:pt-36 md:pb-24 scroll-mt-24">
+<section id="hero" class="relative overflow-hidden pt-24 pb-12 md:pt-36 md:pb-24 scroll-mt-24">
     <!-- Subtle background gradient wash -->
     <div class="absolute inset-0 bg-gradient-to-br from-primary-soft/60 via-white to-white pointer-events-none" aria-hidden="true"></div>
 
-    <div class="relative max-w-6xl mx-auto px-5 grid md:grid-cols-2 gap-12 md:gap-16 items-center">
+    <div class="relative max-w-6xl mx-auto px-4 sm:px-5 grid md:grid-cols-2 gap-10 md:gap-16 items-center">
 
         <!-- LEFT: Copy -->
         <div class="max-w-xl">
-            <p class="font-mono text-xs font-semibold tracking-[.2em] uppercase text-primary mb-4">
+            <p class="font-mono text-[11px] sm:text-xs font-semibold tracking-[.18em] sm:tracking-[.2em] uppercase text-primary mb-3 sm:mb-4">
                 Fast &bull; Simple &bull; Offline &bull; Private
             </p>
 
-            <h1 class="text-4xl sm:text-5xl lg:text-[3.4rem] font-extrabold leading-[1.1] tracking-tight text-ink mb-6">
+            <h1 class="text-[2.45rem] sm:text-5xl lg:text-[3.4rem] font-extrabold leading-[1.08] sm:leading-[1.1] tracking-tight text-ink mb-5 sm:mb-6">
                 The easiest way to
                 <span class="text-gradient bg-gradient-to-r from-primary to-primary-light">track, remind, &amp; renew.</span>
             </h1>
 
-            <p class="text-lg text-ink-muted leading-relaxed mb-8">
+            <p class="text-base sm:text-lg text-ink-muted leading-relaxed mb-7 sm:mb-8">
                 Manage your gym, salon, or tuition class members fast, securely, and in <strong class="text-ink font-semibold">3&nbsp;clicks or less</strong>. No cloud subscriptions. Zero clutter.
             </p>
 
             <!-- CTA Buttons -->
-            <div class="flex flex-wrap gap-4 mb-6">
+            <div class="flex flex-col sm:flex-row sm:flex-wrap gap-3 sm:gap-4 mb-6">
                 <!-- TODO: Replace # with your actual Google Play Store URL -->
-                <a href="#download" class="inline-flex items-center gap-2.5 bg-primary text-white px-7 py-3.5 rounded-full text-base font-semibold shadow-lg shadow-primary/25 hover:bg-primary-deep hover:shadow-xl hover:shadow-primary/30 hover:-translate-y-0.5 transition-all focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2">
+                <a href="#download" class="mobile-full-cta inline-flex items-center gap-2.5 bg-primary text-white px-7 py-3.5 rounded-full text-base font-semibold shadow-lg shadow-primary/25 hover:bg-primary-deep hover:shadow-xl hover:shadow-primary/30 hover:-translate-y-0.5 transition-all focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2">
                     <svg class="w-5 h-5" viewBox="0 0 512 512" fill="currentColor" aria-hidden="true"><path d="M48 0c-12.9 6.8-22.1 19.4-22.1 35.8v440.4c0 16.4 9.2 29 22.1 35.8l257.1-256L48 0zm279.4 234.1 58.5-58.3L104.1 13.7l223.3 220.4zm0 43.8L104.1 498.3l281.8-162.1-58.5-58.3zm87.6-83.7-65.4 61.8 65.4 61.8 58.8-33.8c16.4-9.4 16.4-46.6 0-56L415 194.2z"/></svg>
                     Download App
                 </a>
-                <a href="https://sachinmehta07.github.io/ezymember-landing/help.html" class="inline-flex items-center gap-2 border-2 border-gray-200 text-ink px-7 py-3.5 rounded-full text-base font-semibold hover:border-primary hover:text-primary hover:-translate-y-0.5 transition-all focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2">
+                <a href="https://sachinmehta07.github.io/ezymember-landing/help.html" class="mobile-full-cta inline-flex items-center gap-2 border-2 border-gray-200 text-ink px-7 py-3.5 rounded-full text-base font-semibold hover:border-primary hover:text-primary hover:-translate-y-0.5 transition-all focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2">
                     Contact Support
                 </a>
             </div>
@@ -271,7 +328,7 @@
         <div class="relative flex justify-center md:justify-end">
             <!-- Rotating ring (renewal motif from logo) -->
             <div class="absolute inset-0 flex items-center justify-center pointer-events-none" aria-hidden="true">
-                <svg class="w-[420px] h-[420px] animate-spin-slow opacity-[0.06]" viewBox="0 0 200 200" fill="none">
+                <svg class="phone-ring-large w-[420px] h-[420px] animate-spin-slow opacity-[0.06]" viewBox="0 0 200 200" fill="none">
                     <circle cx="100" cy="100" r="90" stroke="#1F9787" stroke-width="2" stroke-dasharray="12 8"/>
                     <!-- Arrowheads at 0° and 180° -->
                     <polygon points="190,100 183,95 183,105" fill="#1F9787"/>
@@ -279,13 +336,13 @@
                 </svg>
             </div>
             <div class="absolute inset-0 flex items-center justify-center pointer-events-none" aria-hidden="true">
-                <svg class="w-[340px] h-[340px] animate-spin-rev opacity-[0.04]" viewBox="0 0 200 200" fill="none">
+                <svg class="phone-ring-small w-[340px] h-[340px] animate-spin-rev opacity-[0.04]" viewBox="0 0 200 200" fill="none">
                     <circle cx="100" cy="100" r="90" stroke="#4AB3A6" stroke-width="1.5" stroke-dasharray="6 10"/>
                 </svg>
             </div>
 
             <!-- Phone Mockup Card -->
-            <div class="relative w-full max-w-sm animate-float">
+            <div class="phone-preview relative w-full max-w-sm animate-float">
                 <div class="bg-white rounded-[2rem] shadow-2xl shadow-primary/10 border border-gray-100 overflow-hidden">
                     <!-- Status bar -->
                     <div class="bg-primary px-5 py-3">
@@ -374,7 +431,7 @@
                 </div>
 
                 <!-- Floating Reminder Chip -->
-                <div class="absolute -right-2 bottom-32 bg-white rounded-full shadow-lg shadow-primary/15 border border-primary-soft px-3.5 py-2 flex items-center gap-2 text-xs font-semibold text-primary animate-float" style="animation-delay: .8s;">
+                <div class="reminder-chip absolute -right-2 bottom-32 bg-white rounded-full shadow-lg shadow-primary/15 border border-primary-soft px-3.5 py-2 flex items-center gap-2 text-xs font-semibold text-primary animate-float" style="animation-delay: .8s;">
                     <span class="w-6 h-6 rounded-full bg-whatsapp/10 flex items-center justify-center">
                         <svg class="w-3.5 h-3.5 text-whatsapp" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.625.846 5.059 2.284 7.034L.789 23.492a.5.5 0 00.612.637l4.694-1.228A11.95 11.95 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22a9.94 9.94 0 01-5.382-1.564l-.386-.232-2.786.729.747-2.73-.255-.402A9.935 9.935 0 012 12C2 6.486 6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z"/></svg>
                     </span>
@@ -390,7 +447,7 @@
      QUICK FACTS STRIP
      ════════════════════════════════════════════ -->
 <div class="bg-primary-soft/50 border-y border-primary-soft">
-    <div class="max-w-6xl mx-auto px-5 py-5 flex flex-wrap justify-center gap-x-10 gap-y-3 text-xs font-semibold tracking-wider uppercase text-primary">
+    <div class="max-w-6xl mx-auto px-4 sm:px-5 py-4 sm:py-5 flex flex-wrap justify-center gap-x-6 sm:gap-x-10 gap-y-3 text-[11px] sm:text-xs font-semibold tracking-wider uppercase text-primary">
         <span class="flex items-center gap-2">
             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
             2-Click Setup
@@ -418,24 +475,24 @@
 <!-- ════════════════════════════════════════════
      FEATURES GRID
      ════════════════════════════════════════════ -->
-<section id="features" class="py-20 md:py-28 scroll-mt-24">
-    <div class="max-w-6xl mx-auto px-5">
+<section id="features" class="py-14 md:py-28 scroll-mt-24">
+    <div class="max-w-6xl mx-auto px-4 sm:px-5">
         <!-- Section Header -->
-        <div class="text-center max-w-2xl mx-auto mb-14 reveal">
-            <p class="font-mono text-xs font-semibold tracking-[.2em] uppercase text-primary mb-3">Core Features</p>
-            <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-ink mb-4">
+        <div class="text-center max-w-2xl mx-auto mb-9 sm:mb-14 reveal">
+            <p class="font-mono text-[11px] sm:text-xs font-semibold tracking-[.18em] sm:tracking-[.2em] uppercase text-primary mb-3">Core Features</p>
+            <h2 class="text-2xl sm:text-4xl font-extrabold tracking-tight text-ink mb-3 sm:mb-4">
                 Just the tools you'll actually use.
             </h2>
-            <p class="text-ink-muted text-lg">
+            <p class="text-ink-muted text-base sm:text-lg">
                 Know exactly who's expiring, send reminders in one tap, and keep your member data private — all without an internet connection.
             </p>
         </div>
 
         <!-- Cards Grid -->
-        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
 
             <!-- Feature 1: Speed -->
-            <div class="reveal group bg-white border border-gray-100 rounded-2xl p-6 hover:shadow-xl hover:shadow-primary/5 hover:-translate-y-1 transition-all duration-300">
+            <div class="reveal group bg-white border border-gray-100 rounded-2xl p-5 sm:p-6 hover:shadow-xl hover:shadow-primary/5 hover:-translate-y-1 transition-all duration-300">
                 <div class="w-12 h-12 rounded-xl bg-primary-soft flex items-center justify-center mb-5 group-hover:bg-primary group-hover:text-white transition-colors text-primary">
                     <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                 </div>
@@ -446,7 +503,7 @@
             </div>
 
             <!-- Feature 2: 3-Tab Dashboard -->
-            <div class="reveal group bg-white border border-gray-100 rounded-2xl p-6 hover:shadow-xl hover:shadow-primary/5 hover:-translate-y-1 transition-all duration-300" style="transition-delay:.05s">
+            <div class="reveal group bg-white border border-gray-100 rounded-2xl p-5 sm:p-6 hover:shadow-xl hover:shadow-primary/5 hover:-translate-y-1 transition-all duration-300" style="transition-delay:.05s">
                 <div class="w-12 h-12 rounded-xl bg-primary-soft flex items-center justify-center mb-5 group-hover:bg-primary group-hover:text-white transition-colors text-primary">
                     <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 10h16M4 14h16M4 18h16"/></svg>
                 </div>
@@ -457,7 +514,7 @@
             </div>
 
             <!-- Feature 3: Smart Filters -->
-            <div class="reveal group bg-white border border-gray-100 rounded-2xl p-6 hover:shadow-xl hover:shadow-primary/5 hover:-translate-y-1 transition-all duration-300" style="transition-delay:.1s">
+            <div class="reveal group bg-white border border-gray-100 rounded-2xl p-5 sm:p-6 hover:shadow-xl hover:shadow-primary/5 hover:-translate-y-1 transition-all duration-300" style="transition-delay:.1s">
                 <div class="w-12 h-12 rounded-xl bg-primary-soft flex items-center justify-center mb-5 group-hover:bg-primary group-hover:text-white transition-colors text-primary">
                     <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/></svg>
                 </div>
@@ -468,7 +525,7 @@
             </div>
 
             <!-- Feature 4: WhatsApp Reminders -->
-            <div class="reveal group bg-white border border-gray-100 rounded-2xl p-6 hover:shadow-xl hover:shadow-primary/5 hover:-translate-y-1 transition-all duration-300" style="transition-delay:.15s">
+            <div class="reveal group bg-white border border-gray-100 rounded-2xl p-5 sm:p-6 hover:shadow-xl hover:shadow-primary/5 hover:-translate-y-1 transition-all duration-300" style="transition-delay:.15s">
                 <div class="w-12 h-12 rounded-xl bg-primary-soft flex items-center justify-center mb-5 group-hover:bg-whatsapp group-hover:text-white transition-colors text-whatsapp">
                     <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/></svg>
                 </div>
@@ -479,7 +536,7 @@
             </div>
 
             <!-- Feature 5: Direct Calling -->
-            <div class="reveal group bg-white border border-gray-100 rounded-2xl p-6 hover:shadow-xl hover:shadow-primary/5 hover:-translate-y-1 transition-all duration-300" style="transition-delay:.2s">
+            <div class="reveal group bg-white border border-gray-100 rounded-2xl p-5 sm:p-6 hover:shadow-xl hover:shadow-primary/5 hover:-translate-y-1 transition-all duration-300" style="transition-delay:.2s">
                 <div class="w-12 h-12 rounded-xl bg-primary-soft flex items-center justify-center mb-5 group-hover:bg-primary group-hover:text-white transition-colors text-primary">
                     <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
                 </div>
@@ -490,7 +547,7 @@
             </div>
 
             <!-- Feature 6: Welcome & Renewal Messages -->
-            <div class="reveal group bg-white border border-gray-100 rounded-2xl p-6 hover:shadow-xl hover:shadow-primary/5 hover:-translate-y-1 transition-all duration-300" style="transition-delay:.25s">
+            <div class="reveal group bg-white border border-gray-100 rounded-2xl p-5 sm:p-6 hover:shadow-xl hover:shadow-primary/5 hover:-translate-y-1 transition-all duration-300" style="transition-delay:.25s">
                 <div class="w-12 h-12 rounded-xl bg-primary-soft flex items-center justify-center mb-5 group-hover:bg-primary group-hover:text-white transition-colors text-primary">
                     <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
                 </div>
@@ -507,21 +564,21 @@
 <!-- ════════════════════════════════════════════
      HOW IT WORKS
      ════════════════════════════════════════════ -->
-<section id="how" class="py-20 md:py-28 bg-gray-50/80 scroll-mt-24">
-    <div class="max-w-6xl mx-auto px-5">
+<section id="how" class="py-14 md:py-28 bg-gray-50/80 scroll-mt-24">
+    <div class="max-w-6xl mx-auto px-4 sm:px-5">
         <!-- Section Header -->
-        <div class="text-center max-w-2xl mx-auto mb-16 reveal">
-            <p class="font-mono text-xs font-semibold tracking-[.2em] uppercase text-primary mb-3">How It Works</p>
-            <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-ink mb-4">
+        <div class="text-center max-w-2xl mx-auto mb-10 sm:mb-16 reveal">
+            <p class="font-mono text-[11px] sm:text-xs font-semibold tracking-[.18em] sm:tracking-[.2em] uppercase text-primary mb-3">How It Works</p>
+            <h2 class="text-2xl sm:text-4xl font-extrabold tracking-tight text-ink mb-3 sm:mb-4">
                 Up and running in minutes
             </h2>
-            <p class="text-ink-muted text-lg">
+            <p class="text-ink-muted text-base sm:text-lg">
                 No training needed. If you can use WhatsApp, you can use EzyMember.
             </p>
         </div>
 
         <!-- Steps -->
-        <div class="relative grid sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-6">
+        <div class="relative grid sm:grid-cols-2 lg:grid-cols-4 gap-9 sm:gap-8 lg:gap-6">
             <!-- Connecting line (desktop only) -->
             <div class="hidden lg:block absolute top-10 left-[12.5%] right-[12.5%] h-0.5 bg-gradient-to-r from-primary-soft via-primary/20 to-primary-soft" aria-hidden="true"></div>
 
@@ -576,24 +633,24 @@
 <!-- ════════════════════════════════════════════
      PRIVACY & OFFLINE
      ════════════════════════════════════════════ -->
-<section id="privacy" class="py-20 md:py-28 bg-night text-white scroll-mt-24">
-    <div class="max-w-6xl mx-auto px-5">
+<section id="privacy" class="py-14 md:py-28 bg-night text-white scroll-mt-24">
+    <div class="max-w-6xl mx-auto px-4 sm:px-5">
         <!-- Section Header -->
-        <div class="text-center max-w-2xl mx-auto mb-14 reveal">
-            <p class="font-mono text-xs font-semibold tracking-[.2em] uppercase text-primary-light mb-3">Privacy &amp; Offline</p>
-            <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight mb-4">
+        <div class="text-center max-w-2xl mx-auto mb-9 sm:mb-14 reveal">
+            <p class="font-mono text-[11px] sm:text-xs font-semibold tracking-[.18em] sm:tracking-[.2em] uppercase text-primary-light mb-3">Privacy &amp; Offline</p>
+            <h2 class="text-2xl sm:text-4xl font-extrabold tracking-tight mb-3 sm:mb-4">
                 Your data. Your device.<br>Your control.
             </h2>
-            <p class="text-gray-400 text-lg">
+            <p class="text-gray-400 text-base sm:text-lg">
                 We never store your customer data on our servers. Everything stays on your phone, backed up to your personal Google Drive.
             </p>
         </div>
 
         <!-- Privacy Cards -->
-        <div class="grid sm:grid-cols-3 gap-6">
+        <div class="grid sm:grid-cols-3 gap-4 sm:gap-6">
 
             <!-- Zero Cloud -->
-            <div class="reveal bg-night-soft rounded-2xl p-6 border border-white/5 hover:border-primary/30 transition-colors">
+            <div class="reveal bg-night-soft rounded-2xl p-5 sm:p-6 border border-white/5 hover:border-primary/30 transition-colors">
                 <div class="w-12 h-12 rounded-xl bg-primary/15 flex items-center justify-center mb-5 text-primary-light">
                     <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
                 </div>
@@ -604,7 +661,7 @@
             </div>
 
             <!-- Offline First -->
-            <div class="reveal bg-night-soft rounded-2xl p-6 border border-white/5 hover:border-primary/30 transition-colors" style="transition-delay:.08s">
+            <div class="reveal bg-night-soft rounded-2xl p-5 sm:p-6 border border-white/5 hover:border-primary/30 transition-colors" style="transition-delay:.08s">
                 <div class="w-12 h-12 rounded-xl bg-primary/15 flex items-center justify-center mb-5 text-primary-light">
                     <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M3 3l18 18"/>
@@ -618,7 +675,7 @@
             </div>
 
             <!-- Google Drive Backup -->
-            <div class="reveal bg-night-soft rounded-2xl p-6 border border-white/5 hover:border-primary/30 transition-colors" style="transition-delay:.16s">
+            <div class="reveal bg-night-soft rounded-2xl p-5 sm:p-6 border border-white/5 hover:border-primary/30 transition-colors" style="transition-delay:.16s">
                 <div class="w-12 h-12 rounded-xl bg-primary/15 flex items-center justify-center mb-5 text-primary-light">
                     <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/></svg>
                 </div>
@@ -635,26 +692,26 @@
 <!-- ════════════════════════════════════════════
      STAFF & EXPORT
      ════════════════════════════════════════════ -->
-<section class="py-20 md:py-28 scroll-mt-24">
-    <div class="max-w-6xl mx-auto px-5">
+<section class="py-14 md:py-28 scroll-mt-24">
+    <div class="max-w-6xl mx-auto px-4 sm:px-5">
         <!-- Section Header -->
-        <div class="text-center max-w-2xl mx-auto mb-14 reveal">
-            <p class="font-mono text-xs font-semibold tracking-[.2em] uppercase text-primary mb-3">Built For Your Team</p>
-            <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-ink mb-4">
+        <div class="text-center max-w-2xl mx-auto mb-9 sm:mb-14 reveal">
+            <p class="font-mono text-[11px] sm:text-xs font-semibold tracking-[.18em] sm:tracking-[.2em] uppercase text-primary mb-3">Built For Your Team</p>
+            <h2 class="text-2xl sm:text-4xl font-extrabold tracking-tight text-ink mb-3 sm:mb-4">
                 Share safely with staff
             </h2>
-            <p class="text-ink-muted text-lg">
+            <p class="text-ink-muted text-base sm:text-lg">
                 Export data for your team without exposing financial details, and let everyone use the app in their preferred language.
             </p>
         </div>
 
         <!-- Two feature cards side-by-side -->
-        <div class="grid md:grid-cols-2 gap-6">
+        <div class="grid md:grid-cols-2 gap-4 sm:gap-6">
 
             <!-- Hide Financials Export -->
-            <div class="reveal bg-white border border-gray-100 rounded-2xl p-8 hover:shadow-xl hover:shadow-primary/5 transition-all duration-300">
-                <div class="flex items-start gap-5">
-                    <div class="w-14 h-14 rounded-xl bg-primary-soft flex items-center justify-center shrink-0 text-primary">
+            <div class="reveal bg-white border border-gray-100 rounded-2xl p-5 sm:p-8 hover:shadow-xl hover:shadow-primary/5 transition-all duration-300">
+                <div class="flex flex-col sm:flex-row items-start gap-4 sm:gap-5">
+                    <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-primary-soft flex items-center justify-center shrink-0 text-primary">
                         <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
                     </div>
                     <div>
@@ -673,9 +730,9 @@
             </div>
 
             <!-- Local Language Support -->
-            <div class="reveal bg-white border border-gray-100 rounded-2xl p-8 hover:shadow-xl hover:shadow-primary/5 transition-all duration-300" style="transition-delay:.1s">
-                <div class="flex items-start gap-5">
-                    <div class="w-14 h-14 rounded-xl bg-primary-soft flex items-center justify-center shrink-0 text-primary">
+            <div class="reveal bg-white border border-gray-100 rounded-2xl p-5 sm:p-8 hover:shadow-xl hover:shadow-primary/5 transition-all duration-300" style="transition-delay:.1s">
+                <div class="flex flex-col sm:flex-row items-start gap-4 sm:gap-5">
+                    <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-primary-soft flex items-center justify-center shrink-0 text-primary">
                         <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/></svg>
                     </div>
                     <div>
@@ -699,7 +756,7 @@
 <!-- ════════════════════════════════════════════
      FINAL CTA
      ════════════════════════════════════════════ -->
-<section id="download" class="py-20 md:py-28 bg-gradient-to-br from-primary via-primary-deep to-night scroll-mt-24 relative overflow-hidden">
+<section id="download" class="py-14 md:py-28 bg-gradient-to-br from-primary via-primary-deep to-night scroll-mt-24 relative overflow-hidden">
     <!-- Decorative ring -->
     <div class="absolute -right-20 -bottom-20 opacity-10 pointer-events-none" aria-hidden="true">
         <svg class="w-80 h-80 animate-spin-slow" viewBox="0 0 200 200" fill="none">
@@ -709,22 +766,22 @@
         </svg>
     </div>
 
-    <div class="relative max-w-3xl mx-auto px-5 text-center text-white">
+    <div class="relative max-w-3xl mx-auto px-4 sm:px-5 text-center text-white">
         <div class="reveal">
-            <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight mb-5">
+            <h2 class="text-2xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight mb-4 sm:mb-5">
                 Ready to simplify your member management?
             </h2>
-            <p class="text-lg text-white/75 mb-10 max-w-xl mx-auto">
+            <p class="text-base sm:text-lg text-white/75 mb-7 sm:mb-10 max-w-xl mx-auto">
                 Stop chasing renewals on paper. Start managing memberships the easy way — offline, private, and in just a few taps.
             </p>
 
-            <div class="flex flex-wrap justify-center gap-4">
+            <div class="flex flex-col sm:flex-row sm:flex-wrap justify-center gap-3 sm:gap-4">
                 <!-- TODO: Replace # with your actual Google Play Store URL -->
-                <a href="#" class="inline-flex items-center gap-2.5 bg-white text-primary px-8 py-4 rounded-full text-base font-bold shadow-xl hover:shadow-2xl hover:-translate-y-0.5 transition-all focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-primary">
+                <a href="#" class="mobile-full-cta inline-flex items-center gap-2.5 bg-white text-primary px-8 py-4 rounded-full text-base font-bold shadow-xl hover:shadow-2xl hover:-translate-y-0.5 transition-all focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-primary">
                     <svg class="w-5 h-5" viewBox="0 0 512 512" fill="currentColor" aria-hidden="true"><path d="M48 0c-12.9 6.8-22.1 19.4-22.1 35.8v440.4c0 16.4 9.2 29 22.1 35.8l257.1-256L48 0zm279.4 234.1 58.5-58.3L104.1 13.7l223.3 220.4zm0 43.8L104.1 498.3l281.8-162.1-58.5-58.3zm87.6-83.7-65.4 61.8 65.4 61.8 58.8-33.8c16.4-9.4 16.4-46.6 0-56L415 194.2z"/></svg>
                     Download on Google Play
                 </a>
-                <a href="https://sachinmehta07.github.io/ezymember-landing/help.html" class="inline-flex items-center gap-2 border-2 border-white/30 text-white px-8 py-4 rounded-full text-base font-bold hover:bg-white/10 hover:border-white/60 hover:-translate-y-0.5 transition-all focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-primary">
+                <a href="https://sachinmehta07.github.io/ezymember-landing/help.html" class="mobile-full-cta inline-flex items-center gap-2 border-2 border-white/30 text-white px-8 py-4 rounded-full text-base font-bold hover:bg-white/10 hover:border-white/60 hover:-translate-y-0.5 transition-all focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-primary">
                     Contact Support
                 </a>
             </div>
@@ -736,9 +793,9 @@
 <!-- ════════════════════════════════════════════
      FOOTER
      ════════════════════════════════════════════ -->
-<footer class="bg-night text-gray-400 py-12">
-    <div class="max-w-6xl mx-auto px-5">
-        <div class="grid md:grid-cols-3 gap-10 mb-10">
+<footer class="bg-night text-gray-400 py-10 sm:py-12">
+    <div class="max-w-6xl mx-auto px-4 sm:px-5">
+        <div class="grid md:grid-cols-3 gap-8 sm:gap-10 mb-8 sm:mb-10">
 
             <!-- Brand -->
             <div>
