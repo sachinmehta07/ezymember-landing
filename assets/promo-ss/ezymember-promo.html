@@ -65,14 +65,14 @@
 
     /* TYPOGRAPHY */
     .headline {
-      font-size: 28px;
+      font-size: 26px; /* Slightly reduced to fit new text comfortably */
       font-weight: 800;
       color: var(--dark-text);
       text-align: center;
       line-height: 1.2;
-      margin-bottom: 24px;
       z-index: 10;
       text-shadow: 0px 4px 12px rgba(221, 243, 240, 0.9);
+      width: 100%;
     }
     .headline span {
       color: var(--primary-accent);
@@ -152,6 +152,16 @@
       height: 100%;
       background: var(--primary-border);
     }
+    
+    /* Text wrapper for Scene 1 */
+    .text-container {
+      position: relative;
+      width: 100%;
+      height: 70px;
+      margin-bottom: 16px;
+      display: flex;
+      justify-content: center;
+    }
   </style>
 </head>
 <body>
@@ -161,16 +171,23 @@
 
     <!-- [0:00 - 0:08] SCENE 1: INSTANT ORGANIZATION -->
     <div class="scene" id="scene1">
-      <h1 class="headline">Run your business <br><span>from your pocket.</span></h1>
+      <div class="text-container">
+        <!-- Text 1 (Fades out) -->
+        <h1 class="headline" id="text1a" style="position: absolute;">Run your business <br><span>from your pocket.</span></h1>
+        <!-- Text 2 (Fades in) -->
+        <h1 class="headline" id="text1b" style="position: absolute; opacity: 0; visibility: hidden;">Gym, Salon, Tuition <br><span>or Club Owner?</span></h1>
+      </div>
       <div class="phone-frame">
-        <!-- Scaled to focus on Tabs and Filter Badges -->
+        <!-- Reduced zoom drastically -->
         <img src="screenshot-android-2.png" class="screen-img" id="img-s1" alt="Expiring Soon" />
       </div>
     </div>
 
     <!-- [0:08 - 0:25] SCENE 2: 1-CLICK WHATSAPP -->
     <div class="scene" id="scene2">
-      <h1 class="headline">1-Click <br><span>WhatsApp Reminders.</span></h1>
+      <div class="text-container">
+        <h1 class="headline">1-Click <br><span>WhatsApp Reminders.</span></h1>
+      </div>
       <div class="phone-frame">
         <!-- Image 1: Expired List -->
         <img src="screenshot-android-3.png" class="screen-img" id="img-s2a" style="position:absolute; inset:0;" alt="Expired List" />
@@ -185,7 +202,9 @@
 
     <!-- [0:25 - 0:40] SCENE 3: FAST PAYMENTS -->
     <div class="scene" id="scene3">
-      <h1 class="headline">Log payments <br><span>in seconds.</span></h1>
+      <div class="text-container">
+        <h1 class="headline">Log payments <br><span>in seconds.</span></h1>
+      </div>
       <div class="phone-frame">
         <img src="screenshot-android-5.png" class="screen-img" id="img-s3" alt="Collect Payment" />
       </div>
@@ -193,8 +212,10 @@
 
     <!-- [0:40 - 0:50] SCENE 4: SECURITY -->
     <div class="scene" id="scene4">
-      <h1 class="headline">100% Offline.<br><span>Google Drive Sync.</span></h1>
-      <div class="phone-frame" style="height: 300px; margin-top: 40px;">
+      <div class="text-container">
+        <h1 class="headline">100% Offline.<br><span>Google Drive Sync.</span></h1>
+      </div>
+      <div class="phone-frame" style="height: 340px;">
         <img src="screenshot-android-8.png" class="screen-img" id="img-s4" alt="Backup Progress" />
       </div>
     </div>
@@ -240,31 +261,34 @@
     // SCENE 1: Organization (0s - 8s)
     gsap.set("#scene1", { y: 20 });
     tl.add(inScene("#scene1"), 0)
-      // Pan/Zoom effect on UI
+      // Pan/Zoom effect on UI - drastically reduced scale!
       .fromTo("#img-s1", 
-        { scale: 1.8, y: -40, x: 0 }, 
-        { scale: 1.8, y: -90, duration: 7, ease: "sine.inOut" }, 0.5)
+        { scale: 1.05, y: 0 }, 
+        { scale: 1.15, y: -25, duration: 7, ease: "sine.inOut" }, 0.5)
+      // Transition the text in Scene 1 at the 3.5-second mark
+      .to("#text1a", { autoAlpha: 0, y: -10, duration: 0.5 }, 3.5)
+      .fromTo("#text1b", { autoAlpha: 0, y: 10 }, { autoAlpha: 1, y: 0, duration: 0.5 }, 4.0)
       .add(outScene("#scene1"), 7.5);
 
 
     // SCENE 2: 1-Click WhatsApp (8s - 25s)
     gsap.set("#scene2", { y: 20 });
     tl.add(inScene("#scene2"), 8)
-      // Zoom into expired list member card
+      // Gentle zoom into expired list member card
       .fromTo("#img-s2a", 
-        { scale: 1.6, y: -80, x: 0 }, 
-        { scale: 1.6, y: -120, duration: 4, ease: "power1.out" }, 8.5)
+        { scale: 1.05, y: 0 }, 
+        { scale: 1.15, y: -30, duration: 4, ease: "power1.out" }, 8.5)
       // Tap on "Remind" button
       .fromTo("#tap1", 
-        { top: "60%", left: "65%", scale: 2, opacity: 0 }, 
+        { top: "50%", left: "75%", scale: 2, opacity: 0 }, 
         { scale: 0.8, opacity: 1, duration: 0.4, yoyo: true, repeat: 1 }, 12)
       // Hard cut to message screen
       .set("#img-s2a", { opacity: 0 }, 12.6)
       .set("#img-s2b", { opacity: 1 }, 12.6)
-      // Pan down the message
+      // Gentle pan down the message
       .fromTo("#img-s2b", 
-        { scale: 1.4, y: 20 }, 
-        { scale: 1.4, y: -60, duration: 10, ease: "sine.inOut" }, 12.6)
+        { scale: 1.05, y: 0 }, 
+        { scale: 1.15, y: -30, duration: 10, ease: "sine.inOut" }, 12.6)
       // Tap Send via WhatsApp
       .fromTo("#tap2", 
         { top: "85%", left: "50%", scale: 2, opacity: 0 }, 
@@ -275,20 +299,20 @@
     // SCENE 3: Payments (25s - 40s)
     gsap.set("#scene3", { y: 20 });
     tl.add(inScene("#scene3"), 25)
-      // Zoom into custom payment entry
+      // Gentle zoom into custom payment entry
       .fromTo("#img-s3", 
-        { scale: 1.6, y: 40 }, 
-        { scale: 1.6, y: -50, duration: 13, ease: "sine.inOut" }, 25.5)
+        { scale: 1.05, y: 0 }, 
+        { scale: 1.15, y: -25, duration: 13, ease: "sine.inOut" }, 25.5)
       .add(outScene("#scene3"), 39.5);
 
 
     // SCENE 4: Security/Offline (40s - 50s)
     gsap.set("#scene4", { y: 20 });
     tl.add(inScene("#scene4"), 40)
-      // Heavy zoom directly onto the loading bar
+      // Gentle zoom onto the loading bar
       .fromTo("#img-s4", 
-        { scale: 2.2, y: -110 }, 
-        { scale: 2.2, y: -110, duration: 9 }, 40.5) // Static hold for emphasis
+        { scale: 1.1, y: -10 }, 
+        { scale: 1.2, y: -20, duration: 9 }, 40.5) 
       .add(outScene("#scene4"), 49.5);
 
 
