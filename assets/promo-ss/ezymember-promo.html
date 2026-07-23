@@ -1,0 +1,1139 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>EzyMember App Promo</title>
+  <style>
+    :root {
+      --teal: #0b8075;
+      --teal-2: #0d9b86;
+      --teal-3: #e2f5f1;
+      --green: #138940;
+      --orange: #ef5b05;
+      --red: #dd3035;
+      --ink: #111315;
+      --muted: #586166;
+      --line: #dbe9e6;
+      --paper: #f8fbfa;
+      --white: #fff;
+      --shadow: 0 24px 70px rgba(15, 44, 43, .18);
+      --duration: 60s;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      min-height: 100%;
+      background: #e9f4f2;
+      color: var(--ink);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      overflow: hidden;
+    }
+
+    body {
+      display: grid;
+      place-items: center;
+    }
+
+    .promo-shell {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+      display: grid;
+      place-items: center;
+      background:
+        radial-gradient(circle at 11% 16%, rgba(13, 155, 134, .12), transparent 26%),
+        radial-gradient(circle at 86% 78%, rgba(19, 137, 64, .13), transparent 28%),
+        linear-gradient(135deg, #ffffff 0%, #eef8f6 54%, #d9efec 100%);
+    }
+
+    .stage {
+      width: min(100vw, calc(100vh * 16 / 9));
+      height: min(100vh, calc(100vw * 9 / 16));
+      position: relative;
+      overflow: hidden;
+      background:
+        linear-gradient(135deg, rgba(255,255,255,.96), rgba(235,248,245,.96)),
+        repeating-linear-gradient(90deg, rgba(11,128,117,.05) 0 1px, transparent 1px 92px);
+      isolation: isolate;
+    }
+
+    .stage::before {
+      content: "";
+      position: absolute;
+      inset: -18%;
+      background:
+        linear-gradient(115deg, transparent 0 63%, rgba(11,128,117,.95) 63.2% 72%, transparent 72.3%),
+        radial-gradient(circle at 64% 17%, transparent 0 18%, rgba(11,128,117,.08) 18.2% 18.9%, transparent 19.1%);
+      z-index: -2;
+    }
+
+    .stage::after {
+      content: "";
+      position: absolute;
+      width: 58vmin;
+      aspect-ratio: 1;
+      right: -18vmin;
+      bottom: -23vmin;
+      border-radius: 50%;
+      background: linear-gradient(145deg, rgba(11,128,117,.96), rgba(13,155,134,.82));
+      z-index: -1;
+    }
+
+    .scene {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3.5%;
+      align-items: center;
+      padding: 5.1% 6.2%;
+      opacity: 0;
+      pointer-events: none;
+      transform: scale(1.02);
+      transition: opacity .55s ease, transform .75s ease;
+    }
+
+    .scene.active {
+      opacity: 1;
+      pointer-events: auto;
+      transform: scale(1);
+    }
+
+    .scene.center {
+      grid-template-columns: 1fr;
+      justify-items: center;
+      text-align: center;
+    }
+
+    .copy {
+      position: relative;
+      z-index: 3;
+    }
+
+    .eyebrow {
+      color: var(--teal);
+      font-weight: 800;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      font-size: clamp(13px, 1vw, 20px);
+      margin-bottom: .85rem;
+    }
+
+    h1,
+    h2 {
+      margin: 0;
+      max-width: 10ch;
+      font-weight: 900;
+      line-height: .92;
+      letter-spacing: -0.035em;
+      font-size: clamp(52px, 5.8vw, 108px);
+    }
+
+    h2 {
+      max-width: 11ch;
+      font-size: clamp(44px, 5.1vw, 96px);
+    }
+
+    .wide-title {
+      max-width: 14ch;
+    }
+
+    .accent {
+      color: var(--teal);
+    }
+
+    .subline {
+      max-width: 740px;
+      color: var(--muted);
+      font-size: clamp(21px, 1.82vw, 34px);
+      line-height: 1.26;
+      font-weight: 700;
+      margin: 1.25rem 0 0;
+    }
+
+    .voice {
+      position: absolute;
+      left: 6.2%;
+      right: 6.2%;
+      bottom: 4.8%;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      color: var(--ink);
+      background: rgba(255, 255, 255, .78);
+      border: 1px solid rgba(11, 128, 117, .13);
+      box-shadow: 0 16px 42px rgba(25, 55, 52, .13);
+      backdrop-filter: blur(18px);
+      border-radius: 24px;
+      padding: 16px 22px;
+      font-size: clamp(16px, 1.24vw, 24px);
+      line-height: 1.25;
+      font-weight: 650;
+      transform: translateY(140%);
+      opacity: 0;
+      transition: opacity .35s ease, transform .45s ease;
+    }
+
+    .stage.playing .voice {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .voice b {
+      color: var(--teal);
+    }
+
+    .sound-bars {
+      display: flex;
+      align-items: end;
+      gap: 4px;
+      height: 26px;
+      width: 32px;
+      flex: 0 0 auto;
+    }
+
+    .sound-bars span {
+      width: 5px;
+      border-radius: 999px;
+      background: var(--teal);
+      animation: bars .7s ease-in-out infinite alternate;
+    }
+
+    .sound-bars span:nth-child(1) { height: 38%; animation-delay: -.3s; }
+    .sound-bars span:nth-child(2) { height: 75%; animation-delay: -.1s; }
+    .sound-bars span:nth-child(3) { height: 55%; animation-delay: -.45s; }
+    .sound-bars span:nth-child(4) { height: 96%; animation-delay: -.2s; }
+
+    @keyframes bars {
+      from { transform: scaleY(.5); opacity: .55; }
+      to { transform: scaleY(1); opacity: 1; }
+    }
+
+    .problem-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      width: min(680px, 44vw);
+      perspective: 1000px;
+    }
+
+    .messy-card,
+    .metric-card {
+      background: rgba(255,255,255,.88);
+      border: 1px solid rgba(11,128,117,.13);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+      padding: 18px;
+      min-height: 150px;
+      transform: rotate(var(--r)) translateY(40px);
+      opacity: 0;
+    }
+
+    .scene.active .messy-card,
+    .scene.active .metric-card {
+      animation: riseIn .75s cubic-bezier(.2,.8,.2,1) forwards;
+      animation-delay: var(--d);
+    }
+
+    .messy-card:nth-child(2),
+    .metric-card:nth-child(2) { --r: -3deg; --d: .14s; }
+    .messy-card:nth-child(3),
+    .metric-card:nth-child(3) { --r: 4deg; --d: .26s; }
+    .messy-card:nth-child(4),
+    .metric-card:nth-child(4) { --r: -4deg; --d: .36s; }
+    .messy-card:nth-child(5),
+    .metric-card:nth-child(5) { --r: 2deg; --d: .48s; }
+    .messy-card:nth-child(6),
+    .metric-card:nth-child(6) { --r: -2deg; --d: .58s; }
+
+    .messy-card:nth-child(1),
+    .metric-card:nth-child(1) { --r: 3deg; --d: 0s; }
+
+    .card-top {
+      height: 12px;
+      width: 52%;
+      border-radius: 999px;
+      background: var(--teal);
+      margin-bottom: 16px;
+    }
+
+    .rows {
+      display: grid;
+      gap: 8px;
+    }
+
+    .rows span {
+      height: 12px;
+      border-radius: 999px;
+      background: #d7e4e1;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .rows span:nth-child(2n) { width: 72%; }
+    .rows span:nth-child(3n) { width: 88%; background: #f2d2cb; }
+
+    .rows span::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      width: 38%;
+      background: rgba(239, 91, 5, .58);
+      transform: translateX(-100%);
+      animation: scan 1.4s ease-in-out infinite;
+      animation-delay: var(--d);
+    }
+
+    @keyframes scan {
+      40%, 100% { transform: translateX(280%); }
+    }
+
+    @keyframes riseIn {
+      to {
+        opacity: 1;
+        transform: rotate(var(--r)) translateY(0);
+      }
+    }
+
+    .phone-stack {
+      position: relative;
+      width: min(520px, 34vw);
+      justify-self: center;
+      aspect-ratio: 1080 / 1920;
+      filter: drop-shadow(0 28px 36px rgba(10, 34, 33, .24));
+    }
+
+    .phone-stack.large {
+      width: min(610px, 37.6vw);
+    }
+
+    .phone-img,
+    .poster-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      opacity: 0;
+      transform: translateY(55px) scale(.94);
+      transition: none;
+    }
+
+    .scene.active .phone-img.main,
+    .scene.active .poster-img.main {
+      animation: phoneHero .85s cubic-bezier(.2,.8,.2,1) forwards;
+    }
+
+    .scene.active .phone-img.back {
+      animation: backPhone .9s cubic-bezier(.2,.8,.2,1) forwards;
+      animation-delay: .1s;
+    }
+
+    .phone-img.back {
+      transform-origin: center;
+      filter: saturate(.9) brightness(.96);
+    }
+
+    @keyframes phoneHero {
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    @keyframes backPhone {
+      to {
+        opacity: .46;
+        transform: translate(15%, 5%) rotate(5deg) scale(.88);
+      }
+    }
+
+    .spotlight {
+      position: absolute;
+      border: 6px solid var(--orange);
+      border-radius: 34px;
+      box-shadow: 0 0 0 9999px rgba(0,0,0,.14), 0 0 26px rgba(239,91,5,.45);
+      opacity: 0;
+      transform: scale(.96);
+    }
+
+    .scene.active .spotlight {
+      animation: pulseSpot 1.6s ease-in-out .72s 3 forwards;
+    }
+
+    @keyframes pulseSpot {
+      0%, 100% { opacity: 0; transform: scale(.96); }
+      20%, 70% { opacity: 1; transform: scale(1); }
+    }
+
+    .tap {
+      width: 68px;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      position: absolute;
+      background: rgba(255,255,255,.88);
+      border: 5px solid var(--teal);
+      box-shadow: 0 0 0 0 rgba(13,155,134,.32);
+      opacity: 0;
+    }
+
+    .scene.active .tap {
+      animation: tapPulse 1.15s ease-out .95s 4;
+    }
+
+    @keyframes tapPulse {
+      0% { opacity: 0; transform: scale(.58); box-shadow: 0 0 0 0 rgba(13,155,134,.38); }
+      18% { opacity: 1; transform: scale(1); }
+      100% { opacity: 0; transform: scale(1.35); box-shadow: 0 0 0 38px rgba(13,155,134,0); }
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 28px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 13px 18px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.78);
+      border: 1px solid rgba(11,128,117,.16);
+      color: var(--teal);
+      font-weight: 800;
+      box-shadow: 0 12px 28px rgba(14, 55, 52, .09);
+      font-size: clamp(15px, 1.1vw, 22px);
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    .scene.active .pill {
+      animation: fadeUp .55s ease forwards;
+      animation-delay: var(--d);
+    }
+
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .banner-wrap {
+      position: relative;
+      width: min(820px, 43vw);
+      aspect-ratio: 1536 / 1024;
+      border-radius: 30px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      background: var(--white);
+      transform: translateX(40px) scale(.95);
+      opacity: 0;
+    }
+
+    .scene.active .banner-wrap {
+      animation: bannerIn .95s cubic-bezier(.2,.8,.2,1) forwards;
+    }
+
+    .banner-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    @keyframes bannerIn {
+      to { opacity: 1; transform: translateX(0) scale(1); }
+    }
+
+    .logo-lockup {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      justify-content: center;
+      margin-bottom: 30px;
+    }
+
+    .mark {
+      width: clamp(86px, 8vw, 150px);
+      aspect-ratio: 1;
+      border-radius: 30px;
+      display: grid;
+      place-items: center;
+      color: var(--teal);
+      background: rgba(226,245,241,.9);
+      border: 1px solid rgba(11,128,117,.18);
+      box-shadow: 0 18px 34px rgba(17, 86, 79, .14);
+    }
+
+    .mark svg {
+      width: 70%;
+      height: 70%;
+    }
+
+    .brand-name {
+      font-size: clamp(56px, 6.5vw, 122px);
+      font-weight: 950;
+      letter-spacing: -0.05em;
+      line-height: .88;
+    }
+
+    .play-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 15px;
+      color: var(--white);
+      background: #111315;
+      padding: 16px 24px;
+      border-radius: 14px;
+      font-size: clamp(16px, 1.4vw, 26px);
+      font-weight: 800;
+      box-shadow: 0 20px 45px rgba(17,19,21,.18);
+      margin-top: 36px;
+    }
+
+    .play-triangle {
+      width: 0;
+      height: 0;
+      border-top: 13px solid transparent;
+      border-bottom: 13px solid transparent;
+      border-left: 21px solid #33d17a;
+    }
+
+    .feature-strip {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-top: 30px;
+    }
+
+    .feature-strip .pill {
+      margin: 0;
+    }
+
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(180px, 1fr));
+      gap: 18px;
+      width: min(620px, 42vw);
+    }
+
+    .metric-card {
+      min-height: 168px;
+    }
+
+    .metric {
+      color: var(--teal);
+      font-size: clamp(40px, 4vw, 76px);
+      line-height: 1;
+      font-weight: 950;
+      letter-spacing: -0.04em;
+    }
+
+    .metric-label {
+      color: var(--muted);
+      font-weight: 800;
+      font-size: clamp(16px, 1.15vw, 24px);
+      margin-top: 10px;
+    }
+
+    .whatsapp-pop {
+      position: absolute;
+      right: -14%;
+      top: 32%;
+      width: min(460px, 25vw);
+      background: #dcf8c6;
+      border-radius: 26px 26px 6px 26px;
+      padding: 22px 24px;
+      box-shadow: 0 22px 55px rgba(7, 74, 52, .18);
+      color: #17342a;
+      font-size: clamp(15px, 1.05vw, 22px);
+      line-height: 1.34;
+      font-weight: 700;
+      opacity: 0;
+      transform: translate(30px, 20px) scale(.92);
+    }
+
+    .scene.active .whatsapp-pop {
+      animation: messageIn .7s ease .9s forwards;
+    }
+
+    @keyframes messageIn {
+      to { opacity: 1; transform: translate(0, 0) scale(1); }
+    }
+
+    .secure-split {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(260px, 1fr));
+      gap: 22px;
+      width: min(800px, 48vw);
+    }
+
+    .secure-panel {
+      min-height: 300px;
+      border-radius: 28px;
+      background: rgba(255,255,255,.82);
+      border: 1px solid rgba(11,128,117,.16);
+      box-shadow: var(--shadow);
+      padding: 30px;
+      display: grid;
+      align-content: center;
+      justify-items: center;
+      gap: 16px;
+      opacity: 0;
+      transform: translateY(34px);
+    }
+
+    .secure-panel.floating {
+      position: absolute;
+      left: -22%;
+      bottom: 16%;
+      width: min(260px, 18vw);
+      min-height: auto;
+      padding: 22px;
+      gap: 12px;
+      z-index: 10;
+    }
+
+    .secure-panel.floating .secure-icon {
+      width: 82px;
+    }
+
+    .secure-panel.floating .secure-title {
+      font-size: clamp(18px, 1.25vw, 28px);
+    }
+
+    .scene.active .secure-panel {
+      animation: fadeUp .7s ease forwards;
+      animation-delay: var(--d);
+    }
+
+    .secure-icon {
+      width: 118px;
+      aspect-ratio: 1;
+      border-radius: 28px;
+      background: var(--teal-3);
+      color: var(--teal);
+      display: grid;
+      place-items: center;
+    }
+
+    .secure-icon svg {
+      width: 68%;
+      height: 68%;
+    }
+
+    .secure-title {
+      font-size: clamp(24px, 2vw, 40px);
+      font-weight: 900;
+      text-align: center;
+    }
+
+    .secure-text {
+      font-size: clamp(16px, 1.12vw, 23px);
+      color: var(--muted);
+      font-weight: 700;
+      text-align: center;
+      line-height: 1.28;
+    }
+
+    .wifi-off {
+      position: relative;
+    }
+
+    .wifi-off::after {
+      content: "";
+      width: 95px;
+      height: 7px;
+      border-radius: 999px;
+      background: var(--red);
+      position: absolute;
+      transform: rotate(-42deg);
+    }
+
+    .scene.active .wifi-off::after {
+      animation: slashAway 1.2s ease 1.1s forwards;
+    }
+
+    @keyframes slashAway {
+      to { opacity: 0; transform: rotate(-42deg) translateX(44px); }
+    }
+
+    .controls {
+      position: absolute;
+      top: 18px;
+      left: 18px;
+      right: 18px;
+      z-index: 80;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--ink);
+      transition: opacity .25s ease;
+    }
+
+    .clean .controls,
+    .clean .voice {
+      opacity: 0 !important;
+      pointer-events: none;
+    }
+
+    .control-btn {
+      appearance: none;
+      border: 1px solid rgba(11,128,117,.18);
+      background: rgba(255,255,255,.72);
+      color: var(--ink);
+      font: inherit;
+      font-weight: 800;
+      border-radius: 999px;
+      padding: 10px 14px;
+      cursor: pointer;
+      box-shadow: 0 10px 24px rgba(20, 56, 52, .08);
+      backdrop-filter: blur(12px);
+    }
+
+    .time-readout {
+      margin-left: auto;
+      font-weight: 850;
+      color: var(--teal);
+      background: rgba(255,255,255,.72);
+      border: 1px solid rgba(11,128,117,.18);
+      border-radius: 999px;
+      padding: 10px 14px;
+      box-shadow: 0 10px 24px rgba(20, 56, 52, .08);
+      backdrop-filter: blur(12px);
+    }
+
+    .progress {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      height: 7px;
+      background: rgba(11,128,117,.12);
+      z-index: 70;
+    }
+
+    .progress span {
+      display: block;
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--teal), var(--green));
+    }
+
+    .scene.active .copy > * {
+      animation: copyIn .72s cubic-bezier(.2,.8,.2,1) both;
+    }
+
+    .scene.active .copy > *:nth-child(2) { animation-delay: .1s; }
+    .scene.active .copy > *:nth-child(3) { animation-delay: .2s; }
+    .scene.active .copy > *:nth-child(4) { animation-delay: .3s; }
+
+    @keyframes copyIn {
+      from { opacity: 0; transform: translateY(28px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .cursor {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      border: 4px solid var(--teal);
+      background: rgba(255,255,255,.86);
+      position: absolute;
+      left: 17%;
+      bottom: 11%;
+      opacity: 0;
+      z-index: 12;
+      box-shadow: 0 14px 35px rgba(11,128,117,.22);
+    }
+
+    .scene.active .cursor {
+      animation: cursorMove 2.5s ease .75s forwards;
+    }
+
+    @keyframes cursorMove {
+      0% { opacity: 0; transform: translate(0, 0) scale(.82); }
+      20% { opacity: 1; }
+      50% { transform: translate(310px, -150px) scale(1); }
+      58% { transform: translate(310px, -150px) scale(.72); }
+      68% { transform: translate(310px, -150px) scale(1); }
+      100% { opacity: 0; transform: translate(450px, -30px) scale(1); }
+    }
+
+    .form-lines {
+      position: absolute;
+      left: 12%;
+      right: 12%;
+      bottom: 14%;
+      display: grid;
+      gap: 16px;
+      z-index: 8;
+      opacity: 0;
+    }
+
+    .scene.active .form-lines {
+      animation: formPop 1s ease .6s forwards;
+    }
+
+    @keyframes formPop {
+      to { opacity: 1; }
+    }
+
+    .form-line {
+      height: 30px;
+      border-radius: 999px;
+      background: rgba(226,245,241,.88);
+      border: 1px solid rgba(11,128,117,.18);
+      overflow: hidden;
+    }
+
+    .form-line::after {
+      content: "";
+      display: block;
+      width: 0%;
+      height: 100%;
+      background: linear-gradient(90deg, rgba(13,155,134,.2), rgba(13,155,134,.05));
+      animation: fillLine 1.1s ease forwards;
+    }
+
+    .form-line:nth-child(2)::after { animation-delay: .25s; }
+    .form-line:nth-child(3)::after { animation-delay: .45s; }
+
+    @keyframes fillLine {
+      to { width: 100%; }
+    }
+
+    @media (max-aspect-ratio: 4/3) {
+      body { overflow: auto; }
+      .promo-shell { min-height: 100vh; height: auto; }
+      .stage {
+        width: 100vw;
+        height: auto;
+        min-height: 100vh;
+        aspect-ratio: auto;
+      }
+      .scene {
+        grid-template-columns: 1fr;
+        align-content: start;
+        gap: 28px;
+        padding: 76px 22px 110px;
+      }
+      .phone-stack,
+      .phone-stack.large {
+        width: min(55vw, 330px);
+      }
+      .problem-grid,
+      .metric-grid,
+      .secure-split,
+      .banner-wrap {
+        width: 100%;
+      }
+      .problem-grid,
+      .secure-split {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      h1,
+      h2 {
+        font-size: clamp(42px, 12vw, 68px);
+      }
+      .subline {
+        font-size: clamp(18px, 4.8vw, 26px);
+      }
+      .voice {
+        left: 14px;
+        right: 14px;
+        bottom: 16px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: .001ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="promo-shell" id="shell">
+    <section class="stage playing" id="stage" aria-label="EzyMember promo animation">
+      <div class="controls">
+        <button class="control-btn" type="button" id="playPause">Pause</button>
+        <button class="control-btn" type="button" id="restart">Restart</button>
+        <button class="control-btn" type="button" id="clean">Clean</button>
+        <button class="control-btn" type="button" id="full">Fullscreen</button>
+        <div class="time-readout" id="timeReadout">00:00 / 01:00</div>
+      </div>
+
+      <article class="scene" data-start="0" data-end="8" data-voice="Tired of overwhelming dashboards, complicated settings, and costly cloud subscriptions just to manage your members?">
+        <div class="copy">
+          <div class="eyebrow">The Hook</div>
+          <h1 class="wide-title">Tired of complicated software?</h1>
+          <p class="subline">Messy sheets, bloated dashboards, and costly subscriptions slow down local businesses.</p>
+          <div class="pill-row">
+            <span class="pill" style="--d:.45s">Costly subscriptions</span>
+            <span class="pill" style="--d:.55s">Too many settings</span>
+            <span class="pill" style="--d:.65s">Manual follow-ups</span>
+          </div>
+        </div>
+        <div class="problem-grid" aria-hidden="true">
+          <div class="messy-card"><div class="card-top"></div><div class="rows"><span></span><span></span><span></span><span></span><span></span></div></div>
+          <div class="messy-card"><div class="card-top"></div><div class="rows"><span></span><span></span><span></span><span></span><span></span></div></div>
+          <div class="messy-card"><div class="card-top"></div><div class="rows"><span></span><span></span><span></span><span></span><span></span></div></div>
+          <div class="messy-card"><div class="card-top"></div><div class="rows"><span></span><span></span><span></span><span></span><span></span></div></div>
+          <div class="messy-card"><div class="card-top"></div><div class="rows"><span></span><span></span><span></span><span></span><span></span></div></div>
+          <div class="messy-card"><div class="card-top"></div><div class="rows"><span></span><span></span><span></span><span></span><span></span></div></div>
+        </div>
+      </article>
+
+      <article class="scene" data-start="8" data-end="15" data-voice="Meet EzyMember. Built specifically for local business owners who want to manage members fast, securely, and in three clicks or less.">
+        <div class="copy">
+          <div class="eyebrow">Meet EzyMember</div>
+          <h2>Manage Members. <span class="accent">Track Renewals.</span></h2>
+          <p class="subline">The simple, offline-first app for gyms, coaching classes, salons, and local businesses.</p>
+          <div class="pill-row">
+            <span class="pill" style="--d:.35s">3 clicks or less</span>
+            <span class="pill" style="--d:.48s">Private by design</span>
+            <span class="pill" style="--d:.61s">Drive backup</span>
+          </div>
+        </div>
+        <div class="banner-wrap">
+          <img src="banner.png" alt="EzyMember banner showing manage members, track renewals, and send reminders.">
+        </div>
+      </article>
+
+      <article class="scene" data-start="15" data-end="25" data-voice="Forget tedious forms. Onboard a new customer to your database instantly in just two clicks.">
+        <div class="copy">
+          <div class="eyebrow">Fast Onboarding</div>
+          <h2>Add members in <span class="accent">2 clicks.</span></h2>
+          <p class="subline">Capture the essentials quickly, save, and get back to running the business.</p>
+          <div class="metric-grid" aria-hidden="true">
+            <div class="metric-card"><div class="metric">01</div><div class="metric-label">Enter details</div></div>
+            <div class="metric-card"><div class="metric">02</div><div class="metric-label">Tap save</div></div>
+          </div>
+        </div>
+        <div class="phone-stack large">
+          <img class="phone-img back" src="screenshot-android-4.png" alt="">
+          <img class="phone-img main" src="1_ss_.png" alt="EzyMember all-in-one membership management app poster.">
+          <div class="form-lines" aria-hidden="true">
+            <div class="form-line"></div>
+            <div class="form-line"></div>
+            <div class="form-line"></div>
+          </div>
+          <div class="tap" style="right:20%; bottom:7%"></div>
+          <div class="cursor" aria-hidden="true"></div>
+        </div>
+      </article>
+
+      <article class="scene" data-start="25" data-end="35" data-voice="Our Smart Home Screen Matrix keeps you organized. Easily toggle between Active and Expiring members, and use Quick Filters so you always know exactly who to follow up with.">
+        <div class="copy">
+          <div class="eyebrow">Smart Dashboard</div>
+          <h2>Know who needs attention.</h2>
+          <p class="subline">Active, Expiring Soon, and Expired tabs make every follow-up clear.</p>
+          <div class="pill-row">
+            <span class="pill" style="--d:.42s">Active</span>
+            <span class="pill" style="--d:.54s">Expiring Soon</span>
+            <span class="pill" style="--d:.66s">Expired</span>
+          </div>
+        </div>
+        <div class="phone-stack large">
+          <img class="phone-img back" src="screenshot-android-2.png" alt="">
+          <img class="phone-img main" src="screenshot-android-1.png" alt="EzyMember dashboard with Active, Expiring Soon, and Expired tabs.">
+          <div class="spotlight" style="left:10%; right:9%; top:45%; height:9.5%"></div>
+          <div class="tap" style="right:16%; top:48%"></div>
+        </div>
+      </article>
+
+      <article class="scene" data-start="35" data-end="45" data-voice="Sending renewals is a breeze. Generate polite, pre-written WhatsApp reminders with a single click, or call them directly from their profile.">
+        <div class="copy">
+          <div class="eyebrow">1-Click Reminders</div>
+          <h2>Renewals without chasing.</h2>
+          <p class="subline">Send a polite WhatsApp reminder or call directly from the member profile.</p>
+          <div class="pill-row">
+            <span class="pill" style="--d:.38s">Pre-written message</span>
+            <span class="pill" style="--d:.5s">WhatsApp ready</span>
+            <span class="pill" style="--d:.62s">Direct call</span>
+          </div>
+        </div>
+        <div class="phone-stack large">
+          <img class="phone-img back" src="screenshot-android-3.png" alt="">
+          <img class="phone-img main" src="screenshot-android-6.png" alt="EzyMember send reminder screen with WhatsApp message preview.">
+          <div class="tap" style="right:16%; bottom:4%"></div>
+          <div class="whatsapp-pop">Hi Nishka, your membership is expiring soon. Please renew to continue your plan.</div>
+        </div>
+      </article>
+
+      <article class="scene" data-start="45" data-end="52" data-voice="Best of all? It is one hundred percent private. EzyMember operates entirely offline with zero third-party servers, backing up automatically to your personal Google Drive.">
+        <div class="copy">
+          <div class="eyebrow">Private and Offline</div>
+          <h2>100% offline. <span class="accent">100% yours.</span></h2>
+          <p class="subline">No third-party servers. Secure backups go to your personal Google Drive.</p>
+          <div class="pill-row">
+            <span class="pill" style="--d:.38s">Zero third-party servers</span>
+            <span class="pill" style="--d:.5s">Personal Drive backup</span>
+          </div>
+        </div>
+        <div class="phone-stack large">
+          <img class="phone-img back" src="screenshot-android-9.png" alt="">
+          <img class="phone-img main" src="screenshot-android-8.png" alt="EzyMember backing up data to Google Drive.">
+          <div class="secure-panel floating" style="--d:.65s">
+            <div class="secure-icon wifi-off">
+              <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M8 25c13-11 35-11 48 0"></path>
+                <path d="M18 36c8-7 20-7 28 0"></path>
+                <path d="M28 47c2.5-2 5.5-2 8 0"></path>
+                <path d="M32 54h.01"></path>
+              </svg>
+            </div>
+            <div class="secure-title">Offline-ready</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="scene center" data-start="52" data-end="60" data-voice="Stop wasting time on bloated software. Take control the easy, secure way. Download EzyMember today!">
+        <div class="copy">
+          <div class="logo-lockup">
+            <div class="mark">
+              <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M9 15c9-6 17-5 23 1v39c-6-6-14-7-23-1V15Z"></path>
+                <path d="M55 15c-9-6-17-5-23 1v39c6-6 14-7 23-1V15Z"></path>
+                <path d="M23 35c2.8-5.2 14.2-5.2 18 0"></path>
+                <path d="M22 26h.01M32 24h.01M42 26h.01"></path>
+              </svg>
+            </div>
+            <div class="brand-name"><span class="accent">Ezy</span>Member</div>
+          </div>
+          <h2 class="wide-title">Take control the easy way.</h2>
+          <p class="subline">Built for gyms, coaching centers, salons, and local businesses.</p>
+          <div class="feature-strip">
+            <span class="pill" style="--d:.38s">Staff-Friendly Exports</span>
+            <span class="pill" style="--d:.5s">Multi-Language Support</span>
+            <span class="pill" style="--d:.62s">Secure Backups</span>
+          </div>
+          <div class="play-badge"><span class="play-triangle"></span><span>Get it on Google Play</span></div>
+        </div>
+      </article>
+
+      <div class="voice" id="voiceBox">
+        <div class="sound-bars" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+        <span id="voiceText"></span>
+      </div>
+      <div class="progress" aria-hidden="true"><span id="progressBar"></span></div>
+    </section>
+  </main>
+
+  <script>
+    const TOTAL = 60;
+    const stage = document.getElementById("stage");
+    const shell = document.getElementById("shell");
+    const scenes = Array.from(document.querySelectorAll(".scene"));
+    const voiceText = document.getElementById("voiceText");
+    const progressBar = document.getElementById("progressBar");
+    const playPause = document.getElementById("playPause");
+    const restart = document.getElementById("restart");
+    const clean = document.getElementById("clean");
+    const full = document.getElementById("full");
+    const timeReadout = document.getElementById("timeReadout");
+    let startedAt = performance.now();
+    let pausedAt = 0;
+    let running = true;
+    let currentScene = -1;
+
+    function formatTime(seconds) {
+      const value = Math.max(0, Math.min(TOTAL, Math.floor(seconds)));
+      const m = String(Math.floor(value / 60)).padStart(2, "0");
+      const s = String(value % 60).padStart(2, "0");
+      return `${m}:${s}`;
+    }
+
+    function setScene(index) {
+      if (index === currentScene) return;
+      currentScene = index;
+      scenes.forEach((scene, i) => {
+        scene.classList.toggle("active", i === index);
+      });
+      const scene = scenes[index];
+      voiceText.textContent = scene ? scene.dataset.voice : "";
+    }
+
+    function tick(now) {
+      if (!running) return;
+      const elapsed = Math.min(TOTAL, (now - startedAt) / 1000);
+      const index = scenes.findIndex((scene) => elapsed >= Number(scene.dataset.start) && elapsed < Number(scene.dataset.end));
+      setScene(index === -1 ? scenes.length - 1 : index);
+      progressBar.style.width = `${(elapsed / TOTAL) * 100}%`;
+      timeReadout.textContent = `${formatTime(elapsed)} / 01:00`;
+      if (elapsed >= TOTAL) {
+        running = false;
+        stage.classList.remove("playing");
+        playPause.textContent = "Play";
+        return;
+      }
+      requestAnimationFrame(tick);
+    }
+
+    function play() {
+      if (running) return;
+      running = true;
+      stage.classList.add("playing");
+      playPause.textContent = "Pause";
+      startedAt = performance.now() - pausedAt * 1000;
+      requestAnimationFrame(tick);
+    }
+
+    function pause() {
+      if (!running) return;
+      pausedAt = Math.min(TOTAL, (performance.now() - startedAt) / 1000);
+      running = false;
+      stage.classList.remove("playing");
+      playPause.textContent = "Play";
+    }
+
+    function restartTimeline() {
+      startedAt = performance.now();
+      pausedAt = 0;
+      running = true;
+      currentScene = -1;
+      stage.classList.add("playing");
+      playPause.textContent = "Pause";
+      requestAnimationFrame(tick);
+    }
+
+    playPause.addEventListener("click", () => running ? pause() : play());
+    restart.addEventListener("click", restartTimeline);
+    clean.addEventListener("click", () => {
+      shell.classList.toggle("clean");
+      clean.textContent = shell.classList.contains("clean") ? "Show UI" : "Clean";
+    });
+    full.addEventListener("click", async () => {
+      if (!document.fullscreenElement) {
+        await document.documentElement.requestFullscreen();
+      } else {
+        await document.exitFullscreen();
+      }
+    });
+    window.addEventListener("keydown", (event) => {
+      if (event.code === "Space") {
+        event.preventDefault();
+        running ? pause() : play();
+      }
+      if (event.key.toLowerCase() === "r") restartTimeline();
+      if (event.key.toLowerCase() === "c") clean.click();
+    });
+
+    requestAnimationFrame(tick);
+  </script>
+</body>
+</html>
