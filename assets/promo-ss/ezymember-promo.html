@@ -3,20 +3,20 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>EzyMember Promo Video Animation</title>
+  <title>EzyMember Micro-Interaction Promo</title>
   <!-- Google Fonts & GSAP Animation Engine -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&display=swap" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 
   <style>
-    /* BRAND COLOR PALETTE */
+    /* STRICT BRAND THEME */
     :root {
       --primary-accent: #1F9787;
       --primary-light: #DDF3F0;
       --primary-border: #4AB3A6;
-      --dark-text: #0d322c;
+      --dark-text: #0B2420;
     }
 
     * {
@@ -28,7 +28,7 @@
     }
 
     body {
-      background-color: #121816;
+      background-color: #0d1110;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -37,156 +37,113 @@
       overflow: hidden;
     }
 
-    /* 9:16 VERTICAL REEL / SHORT CONTAINER */
+    /* 9:16 VERTICAL CONTAINER */
     .reel-viewport {
       position: relative;
       width: 380px;
-      height: 675px; /* 9:16 ratio */
+      height: 675px; 
       background-color: var(--primary-light);
       border: 4px solid var(--primary-border);
-      border-radius: 36px;
+      border-radius: 32px;
       overflow: hidden;
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
     }
 
-    /* SCENE COMMON STYLES */
+    /* SCENE MANAGEMENT */
     .scene {
       position: absolute;
       inset: 0;
-      padding: 32px 24px;
+      padding: 40px 24px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: space-between;
+      justify-content: flex-start;
       opacity: 0;
       visibility: hidden;
       will-change: transform, opacity;
     }
 
-    /* PHONE FRAME MOCKUP */
-    .phone-mockup {
-      width: 100%;
-      height: 420px;
-      background: #000;
-      border: 6px solid #2d3748;
-      border-radius: 28px;
-      overflow: hidden;
-      position: relative;
-      box-shadow: 0 15px 30px rgba(31, 151, 135, 0.2);
+    /* TYPOGRAPHY */
+    .headline {
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--dark-text);
+      text-align: center;
+      line-height: 1.2;
+      margin-bottom: 24px;
+      z-index: 10;
+      text-shadow: 0px 4px 12px rgba(221, 243, 240, 0.9);
+    }
+    .headline span {
+      color: var(--primary-accent);
     }
 
-    .phone-screen {
+    /* DEVICE MOCKUP FRAME */
+    .phone-frame {
+      width: 280px;
+      height: 480px;
+      background: #ffffff;
+      border: 8px solid #1a202c;
+      border-radius: 24px;
+      overflow: hidden;
+      position: relative;
+      box-shadow: 0 20px 30px rgba(31, 151, 135, 0.15);
+      z-index: 5;
+    }
+
+    /* ZOOMABLE SCREENSHOTS */
+    .screen-img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       object-position: top;
       will-change: transform;
+      transform-origin: center center;
     }
 
-    /* TYPOGRAPHY & CALLOUTS */
-    .headline {
-      font-size: 24px;
-      font-weight: 800;
-      color: var(--dark-text);
-      text-align: center;
-      line-height: 1.25;
-    }
-
-    .highlight-text {
-      color: var(--primary-accent);
-    }
-
-    .subtext {
-      font-size: 14px;
-      color: #3b635c;
-      text-align: center;
-      margin-top: 8px;
-      font-weight: 600;
-    }
-
-    .badge-pill {
-      background-color: var(--primary-accent);
-      color: white;
-      padding: 8px 16px;
-      border-radius: 50px;
-      font-size: 13px;
-      font-weight: 700;
-      letter-spacing: 0.5px;
-      box-shadow: 0 4px 12px rgba(31, 151, 135, 0.3);
-    }
-
-    /* SCENE SPECIFIC STYLES */
-
-    /* Scene 1: Hook */
-    .messy-card {
-      background: #fff;
-      border: 2px dashed #e53e3e;
-      border-radius: 16px;
-      padding: 16px;
-      width: 100%;
-      margin-top: 20px;
-    }
-    .cross-icon {
-      font-size: 48px;
-      color: #e53e3e;
-      margin-bottom: 12px;
-    }
-
-    /* Scene 3: Tap Target Pointer */
+    /* TAP SIMULATOR */
     .tap-pointer {
       position: absolute;
-      width: 28px;
-      height: 28px;
-      background: rgba(31, 151, 135, 0.6);
-      border: 2px solid #ffffff;
+      width: 36px;
+      height: 36px;
+      background: rgba(31, 151, 135, 0.5);
+      border: 3px solid #ffffff;
       border-radius: 50%;
       pointer-events: none;
-      z-index: 10;
+      opacity: 0;
+      z-index: 20;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
     }
 
-    /* Scene 5: WhatsApp Popup Overlay */
-    .chat-popup {
-      position: absolute;
-      bottom: 20px;
-      left: 12px;
-      right: 12px;
-      background: #25D366;
-      color: white;
-      padding: 12px 16px;
-      border-radius: 16px;
-      font-size: 12px;
-      font-weight: 600;
-      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-    }
-
-    /* PLAYBACK CONTROL BAR AT BOTTOM */
+    /* PLAYBACK CONTROLS */
     .control-bar {
-      margin-top: 20px;
+      margin-top: 24px;
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 16px;
       background: #1e293b;
-      padding: 10px 20px;
+      padding: 12px 24px;
       border-radius: 12px;
       color: white;
       font-size: 14px;
+      font-weight: 700;
     }
 
     .btn {
       background: var(--primary-accent);
       color: white;
       border: none;
-      padding: 6px 14px;
-      border-radius: 6px;
+      padding: 8px 16px;
+      border-radius: 8px;
       cursor: pointer;
       font-weight: 700;
     }
 
     .progress-track {
-      width: 160px;
-      height: 6px;
-      background: #475569;
-      border-radius: 3px;
+      width: 180px;
+      height: 8px;
+      background: #334155;
+      border-radius: 4px;
       overflow: hidden;
     }
 
@@ -199,100 +156,67 @@
 </head>
 <body>
 
-  <!-- 9:16 MOBILE VIDEO VIEWPORT -->
+  <!-- MOBILE CANVAS (9:16) -->
   <div class="reel-viewport" id="viewport">
 
-    <!-- [0:00 - 0:08] SCENE 1: THE HOOK -->
+    <!-- [0:00 - 0:08] SCENE 1: INSTANT ORGANIZATION -->
     <div class="scene" id="scene1">
-      <div style="margin-top: 40px;">
-        <span class="badge-pill" style="background:#e53e3e;">Tired of Chaos?</span>
-        <h1 class="headline" style="margin-top: 16px;">Tired of complicated software & costly subscriptions?</h1>
+      <h1 class="headline">Run your business <br><span>from your pocket.</span></h1>
+      <div class="phone-frame">
+        <!-- Scaled to focus on Tabs and Filter Badges -->
+        <img src="screenshot-android-2.png" class="screen-img" id="img-s1" alt="Expiring Soon" />
       </div>
-      <div class="messy-card" style="text-align: center;">
-        <div class="cross-icon">✕</div>
-        <p style="font-weight:700; color:#c53030;">Overwhelming Dashboards</p>
-        <p style="font-size:12px; color:#742a2a; margin-top:4px;">Expensive Cloud Fees • Complicated Settings</p>
-      </div>
-      <div class="subtext">There’s a better, simpler way...</div>
     </div>
 
-    <!-- [0:08 - 0:15] SCENE 2: THE SOLUTION -->
+    <!-- [0:08 - 0:25] SCENE 2: 1-CLICK WHATSAPP -->
     <div class="scene" id="scene2">
-      <div style="text-align: center;">
-        <span class="badge-pill">INTRODUCING</span>
-        <h1 class="headline" style="margin-top: 10px;">Meet <span class="highlight-text">EzyMember</span></h1>
-        <p class="subtext">Manage Members. Track Renewals in 3 Clicks.</p>
-      </div>
-      <div class="phone-mockup">
-        <img src="screenshot1.png" alt="EzyMember Home" class="phone-screen" />
+      <h1 class="headline">1-Click <br><span>WhatsApp Reminders.</span></h1>
+      <div class="phone-frame">
+        <!-- Image 1: Expired List -->
+        <img src="screenshot-android-3.png" class="screen-img" id="img-s2a" style="position:absolute; inset:0;" alt="Expired List" />
+        <!-- Image 2: Send Message Screen (Hidden initially) -->
+        <img src="screenshot-android-6.png" class="screen-img" id="img-s2b" style="position:absolute; inset:0; opacity:0;" alt="Send Reminder" />
+        
+        <!-- Tap simulators -->
+        <div class="tap-pointer" id="tap1"></div>
+        <div class="tap-pointer" id="tap2"></div>
       </div>
     </div>
 
-    <!-- [0:15 - 0:25] SCENE 3: FAST ONBOARDING -->
+    <!-- [0:25 - 0:40] SCENE 3: FAST PAYMENTS -->
     <div class="scene" id="scene3">
-      <div>
-        <h1 class="headline">Fast & Simple <span class="highlight-text">Onboarding</span></h1>
-        <p class="subtext">Add new members in just two clicks</p>
+      <h1 class="headline">Log payments <br><span>in seconds.</span></h1>
+      <div class="phone-frame">
+        <img src="screenshot-android-5.png" class="screen-img" id="img-s3" alt="Collect Payment" />
       </div>
-      <div class="phone-mockup" style="position:relative;">
-        <img src="screenshot2.png" alt="Add Member" class="phone-screen" />
-        <div class="tap-pointer" id="tapPointer" style="bottom: 25%; right: 20%;"></div>
-      </div>
-      <span class="badge-pill">⚡ Instant Setup</span>
     </div>
 
-    <!-- [0:25 - 0:35] SCENE 4: SMART DASHBOARD & FILTERS -->
+    <!-- [0:40 - 0:50] SCENE 4: SECURITY -->
     <div class="scene" id="scene4">
-      <div>
-        <h1 class="headline">Smart Home Screen <span class="highlight-text">Matrix</span></h1>
-        <p class="subtext">Toggle Active, Expiring Soon & Expired</p>
-      </div>
-      <div class="phone-mockup">
-        <img src="screenshot3.png" alt="Smart Filters" class="phone-screen" />
-      </div>
-      <div style="display:flex; gap:8px;">
-        <span class="badge-pill" style="font-size:11px;">1-Week Filter</span>
-        <span class="badge-pill" style="font-size:11px; background:var(--primary-border);">2-Week Filter</span>
+      <h1 class="headline">100% Offline.<br><span>Google Drive Sync.</span></h1>
+      <div class="phone-frame" style="height: 300px; margin-top: 40px;">
+        <img src="screenshot-android-8.png" class="screen-img" id="img-s4" alt="Backup Progress" />
       </div>
     </div>
 
-    <!-- [0:35 - 0:52] SCENE 5: REMINDERS & PRIVACY -->
-    <div class="scene" id="scene5">
-      <div>
-        <h1 class="headline">1-Click <span class="highlight-text">WhatsApp</span> Reminders</h1>
-        <p class="subtext">100% Private • Operates Fully Offline</p>
-      </div>
-      <div class="phone-mockup" style="position:relative;">
-        <img src="screenshot4.png" alt="Direct Communication" class="phone-screen" />
-        <div class="chat-popup" id="chatPopup">
-          💬 "Hi! Your membership is expiring soon. Click to renew!"
-        </div>
-      </div>
-      <div style="display:flex; gap:12px; align-items:center;">
-        <span class="badge-pill" style="background:#25D366;">WhatsApp</span>
-        <span class="badge-pill" style="background:#4285F4;">Google Drive Sync</span>
-      </div>
-    </div>
-
-    <!-- [0:52 - 1:00] SCENE 6: CALL TO ACTION (OUTRO) -->
-    <div class="scene" id="scene6" style="justify-content: center; gap: 24px;">
-      <img src="../logo/app_logo_no_bg.png" alt="EzyMember Logo" style="width: 120px; height: auto;" />
+    <!-- [0:50 - 1:00] SCENE 5: OUTRO -->
+    <div class="scene" id="scene5" style="justify-content: center; gap: 32px;">
+      <img src="app_logo_no_bg.png" alt="EzyMember Logo" style="width: 140px; filter: drop-shadow(0 10px 15px rgba(31,151,135,0.2));" id="outro-logo" />
       <div style="text-align: center;">
-        <h1 class="headline" style="font-size: 28px;">Take Control <br><span class="highlight-text">The Easy Way</span></h1>
-        <p class="subtext" style="margin-top: 8px;">Staff-Friendly Exports • Multi-Language</p>
+        <h1 class="headline" style="font-size: 26px; margin-bottom: 8px;">Manage Members.<br>Track Renewals.</h1>
+        <h1 class="headline" style="font-size: 22px;"><span>3 Clicks or Less.</span></h1>
       </div>
-      <div class="badge-pill" style="padding: 12px 24px; font-size: 16px;">
-        Download EzyMember Today!
+      <div style="background: var(--primary-accent); color: white; padding: 14px 28px; border-radius: 50px; font-weight: 800; font-size: 16px; box-shadow: 0 8px 20px rgba(31,151,135,0.4);" id="outro-btn">
+        Download EzyMember
       </div>
-      <p style="font-size: 12px; color: #527972; font-weight: 700;">AVAILABLE ON GOOGLE PLAY</p>
     </div>
 
   </div>
 
-  <!-- PLAYBACK RECORDING CONTROLLER -->
+  <!-- PLAYBACK CONTROLS -->
   <div class="control-bar">
     <button class="btn" id="playBtn">Play / Pause</button>
-    <button class="btn" id="resetBtn" style="background:#64748b;">Reset</button>
+    <button class="btn" id="resetBtn" style="background:#475569;">Reset</button>
     <div class="progress-track">
       <div class="progress-fill" id="progressFill"></div>
     </div>
@@ -300,52 +224,83 @@
   </div>
 
   <script>
-    // GSAP 60-SECOND MASTER TIMELINE
+    // Master Timeline (60 seconds fixed)
     const tl = gsap.timeline({ paused: true, onUpdate: updateProgress });
 
-    // Helper to transition scenes cleanly
-    function showScene(sceneId) {
-      return gsap.to(sceneId, { duration: 0.5, autoAlpha: 1, scale: 1, ease: "power2.out" });
+    // Helper functions for scene transitions
+    function inScene(sceneId) {
+      return gsap.to(sceneId, { duration: 0.6, autoAlpha: 1, y: 0, ease: "power2.out" });
     }
-    function hideScene(sceneId) {
-      return gsap.to(sceneId, { duration: 0.5, autoAlpha: 0, scale: 0.95, ease: "power2.in" });
+    function outScene(sceneId) {
+      return gsap.to(sceneId, { duration: 0.6, autoAlpha: 0, y: -20, ease: "power2.in" });
     }
 
-    // --- TIMELINE SEQUENCING (60s total) ---
+    // --- TIMELINE SEQUENCING ---
 
-    // [0:00 - 0:08] Scene 1: The Hook
-    tl.add(showScene("#scene1"), 0)
-      .from("#scene1 .headline", { y: 20, opacity: 0, duration: 0.8 }, 0.2)
-      .from("#scene1 .messy-card", { scale: 0.8, opacity: 0, duration: 0.8, ease: "back.out(1.7)" }, 1)
-      .add(hideScene("#scene1"), 7.5);
+    // SCENE 1: Organization (0s - 8s)
+    gsap.set("#scene1", { y: 20 });
+    tl.add(inScene("#scene1"), 0)
+      // Pan/Zoom effect on UI
+      .fromTo("#img-s1", 
+        { scale: 1.8, y: -40, x: 0 }, 
+        { scale: 1.8, y: -90, duration: 7, ease: "sine.inOut" }, 0.5)
+      .add(outScene("#scene1"), 7.5);
 
-    // [0:08 - 0:15] Scene 2: The Solution
-    tl.add(showScene("#scene2"), 8)
-      .from("#scene2 .phone-mockup", { y: 100, opacity: 0, duration: 1, ease: "power3.out" }, 8.2)
-      .add(hideScene("#scene2"), 14.5);
 
-    // [0:15 - 0:25] Scene 3: Fast Onboarding
-    tl.add(showScene("#scene3"), 15)
-      .from("#tapPointer", { scale: 2, opacity: 0, duration: 0.5 }, 17)
-      .to("#tapPointer", { scale: 0.8, duration: 0.2, yoyo: true, repeat: 1 }, 18)
-      .add(hideScene("#scene3"), 24.5);
+    // SCENE 2: 1-Click WhatsApp (8s - 25s)
+    gsap.set("#scene2", { y: 20 });
+    tl.add(inScene("#scene2"), 8)
+      // Zoom into expired list member card
+      .fromTo("#img-s2a", 
+        { scale: 1.6, y: -80, x: 0 }, 
+        { scale: 1.6, y: -120, duration: 4, ease: "power1.out" }, 8.5)
+      // Tap on "Remind" button
+      .fromTo("#tap1", 
+        { top: "60%", left: "65%", scale: 2, opacity: 0 }, 
+        { scale: 0.8, opacity: 1, duration: 0.4, yoyo: true, repeat: 1 }, 12)
+      // Hard cut to message screen
+      .set("#img-s2a", { opacity: 0 }, 12.6)
+      .set("#img-s2b", { opacity: 1 }, 12.6)
+      // Pan down the message
+      .fromTo("#img-s2b", 
+        { scale: 1.4, y: 20 }, 
+        { scale: 1.4, y: -60, duration: 10, ease: "sine.inOut" }, 12.6)
+      // Tap Send via WhatsApp
+      .fromTo("#tap2", 
+        { top: "85%", left: "50%", scale: 2, opacity: 0 }, 
+        { scale: 0.8, opacity: 1, duration: 0.4, yoyo: true, repeat: 1 }, 22)
+      .add(outScene("#scene2"), 24.5);
 
-    // [0:25 - 0:35] Scene 4: Smart Dashboard
-    tl.add(showScene("#scene4"), 25)
-      .from("#scene4 .phone-screen", { scale: 1.1, duration: 8, ease: "none" }, 25)
-      .add(hideScene("#scene4"), 34.5);
 
-    // [0:35 - 0:52] Scene 5: Reminders & Privacy
-    tl.add(showScene("#scene5"), 35)
-      .from("#chatPopup", { y: 30, opacity: 0, duration: 0.6, ease: "back.out(1.5)" }, 37)
-      .add(hideScene("#scene5"), 51.5);
+    // SCENE 3: Payments (25s - 40s)
+    gsap.set("#scene3", { y: 20 });
+    tl.add(inScene("#scene3"), 25)
+      // Zoom into custom payment entry
+      .fromTo("#img-s3", 
+        { scale: 1.6, y: 40 }, 
+        { scale: 1.6, y: -50, duration: 13, ease: "sine.inOut" }, 25.5)
+      .add(outScene("#scene3"), 39.5);
 
-    // [0:52 - 1:00] Scene 6: Outro CTA
-    tl.add(showScene("#scene6"), 52)
-      .from("#scene6 img", { scale: 0, duration: 0.8, ease: "back.out(1.7)" }, 52.3)
-      .from("#scene6 .badge-pill", { y: 20, opacity: 0, duration: 0.6 }, 54);
 
-    // --- CONTROLLER LOGIC ---
+    // SCENE 4: Security/Offline (40s - 50s)
+    gsap.set("#scene4", { y: 20 });
+    tl.add(inScene("#scene4"), 40)
+      // Heavy zoom directly onto the loading bar
+      .fromTo("#img-s4", 
+        { scale: 2.2, y: -110 }, 
+        { scale: 2.2, y: -110, duration: 9 }, 40.5) // Static hold for emphasis
+      .add(outScene("#scene4"), 49.5);
+
+
+    // SCENE 5: Outro (50s - 60s)
+    tl.add(inScene("#scene5"), 50)
+      .from("#outro-logo", { scale: 0, rotation: -15, duration: 0.8, ease: "back.out(1.5)" }, 50.5)
+      .from("#outro-btn", { y: 30, opacity: 0, duration: 0.6, ease: "power2.out" }, 51.5);
+    
+    // Force exact 60s end
+    tl.set({}, {}, 60);
+
+    // --- CONTROLS LOGIC ---
     const playBtn = document.getElementById("playBtn");
     const resetBtn = document.getElementById("resetBtn");
     const progressFill = document.getElementById("progressFill");
@@ -364,9 +319,13 @@
     });
 
     function updateProgress() {
-      const progress = tl.progress() * 100;
-      const currentTime = Math.floor(tl.time());
-      const formattedTime = `00:${currentTime < 10 ? '0' : ''}${currentTime}`;
+      // Base timing on exactly 60 seconds
+      const maxTime = 60;
+      let currentTime = tl.time();
+      if (currentTime > maxTime) currentTime = maxTime;
+
+      const progress = (currentTime / maxTime) * 100;
+      const formattedTime = `00:${Math.floor(currentTime).toString().padStart(2, '0')}`;
       
       progressFill.style.width = `${progress}%`;
       timeDisplay.innerText = `${formattedTime} / 01:00`;
