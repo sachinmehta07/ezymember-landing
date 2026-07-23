@@ -15,19 +15,12 @@
       --ink: #111715;
       --muted: #50615d;
       --white: #ffffff;
-      --danger: #e33b3b;
-      --warning: #f06b19;
-      --phone-black: #080a0a;
       --reel-width: 380px;
-      --duration: 60s;
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
-    html,
-    body {
+    html, body {
       margin: 0;
       min-height: 100%;
       background: #eef8f6;
@@ -86,13 +79,16 @@
       z-index: -1;
     }
 
+    /* Every scene is: image card (fills the space) + one caption below it.
+       Nothing is ever drawn on top of a screenshot, and nothing repeats
+       text that is already baked into the screenshot itself. */
     .scene {
       position: absolute;
       inset: 0;
       display: grid;
-      grid-template-rows: auto 1fr auto;
+      grid-template-rows: 1fr auto;
       gap: 12px;
-      padding: 28px 24px 32px;
+      padding: 20px 18px 24px;
       opacity: 0;
       transform: translate3d(0, 24px, 0);
       pointer-events: none;
@@ -105,292 +101,96 @@
       text-align: center;
     }
 
-    .headline {
-      display: grid;
-      gap: 8px;
-      justify-items: center;
-      text-align: center;
-      min-height: 86px;
-      align-content: start;
-    }
-
-    .kicker {
-      color: var(--primary-accent);
-      font-size: 10px;
-      line-height: 1;
-      letter-spacing: .17em;
-      text-transform: uppercase;
-      font-weight: 900;
-    }
-
-    h1,
-    h2 {
+    h1 {
       margin: 0;
       color: var(--ink);
       font-weight: 900;
       letter-spacing: -0.04em;
       line-height: .95;
-    }
-
-    h1 {
-      font-size: 42px;
-      max-width: 320px;
-    }
-
-    h2 {
-      font-size: 27px;
-      max-width: 320px;
-    }
-
-    .accent {
-      color: var(--primary-accent);
+      font-size: 40px;
+      max-width: 300px;
     }
 
     .visual {
       position: relative;
       display: grid;
       place-items: center;
-      align-self: center;
-      justify-self: center;
       min-height: 0;
       width: 100%;
-    }
-
-    .phone-frame {
-      position: relative;
-      width: 246px;
-      aspect-ratio: 9 / 16;
-      border: 8px solid var(--phone-black);
-      border-radius: 34px;
-      background: var(--phone-black);
-      overflow: hidden;
-      box-shadow: 0 20px 34px rgba(10, 22, 20, .22);
-      transform: translate3d(0, 24px, 0) scale(.96);
-      opacity: 0;
-    }
-
-    .phone-frame.large {
-      width: 270px;
-    }
-
-    .phone-frame.small {
-      width: 228px;
-    }
-
-    .phone-frame img {
-      display: block;
-      width: 100%;
       height: 100%;
-      object-fit: cover;
-      border-radius: 25px;
-      background: var(--white);
-      transform: translate3d(0, 0, 0) scale(1);
+      padding: 0 3%;
     }
 
-    .poster-frame {
+    /* The screenshot card: sized from each file's REAL aspect ratio, so the
+       full, undistorted screenshot is always what's on screen. */
+    .shot {
       position: relative;
-      width: 306px;
-      border: 7px solid var(--phone-black);
-      border-radius: 24px;
+      border-radius: 22px;
       overflow: hidden;
-      background: var(--phone-black);
-      box-shadow: 0 20px 34px rgba(10, 22, 20, .2);
-      opacity: 0;
-      transform: translate3d(0, 22px, 0) scale(.96);
+      background: var(--primary-light);
+      border: 1px solid rgba(74, 179, 166, .38);
+      box-shadow: 0 18px 34px rgba(15, 74, 68, .18);
     }
 
-    .poster-frame.tall {
-      aspect-ratio: 2 / 3;
-    }
+    .shot.r-916 { height: 100%; width: auto; max-width: 100%; aspect-ratio: 9 / 16; }
+    .shot.r-23  { width: 100%; height: auto; max-height: 100%; aspect-ratio: 2 / 3; }
+    .shot.r-32  { width: 100%; height: auto; max-height: 100%; aspect-ratio: 3 / 2; }
 
-    .poster-frame.wide {
-      aspect-ratio: 16 / 10.67;
-    }
-
-    .poster-frame img {
+    .shot img {
+      position: absolute;
+      inset: 0;
       width: 100%;
       height: 100%;
       object-fit: cover;
       display: block;
-      border-radius: 16px;
     }
 
     .caption {
-      min-height: 76px;
-      border-radius: 20px;
-      padding: 13px 14px;
+      border-radius: 18px;
+      padding: 12px 14px;
       color: var(--ink);
-      background: rgba(255, 255, 255, .78);
+      background: rgba(255, 255, 255, .82);
       border: 1px solid rgba(74, 179, 166, .48);
       box-shadow: 0 12px 28px rgba(24, 86, 80, .11);
-      font-size: 13px;
-      line-height: 1.34;
+      font-size: 14px;
+      line-height: 1.32;
       font-weight: 800;
       text-align: center;
-      align-self: end;
-      opacity: 0;
-      transform: translate3d(0, 18px, 0);
     }
 
-    .hook-card {
-      width: 300px;
-      display: grid;
-      gap: 12px;
-    }
-
-    .messy-card {
-      position: relative;
-      min-height: 82px;
-      padding: 16px;
-      border-radius: 20px;
-      background: rgba(255,255,255,.86);
-      border: 1px solid rgba(74,179,166,.55);
-      box-shadow: 0 16px 30px rgba(19, 79, 72, .14);
-      opacity: 0;
-      transform: translate3d(0, 18px, 0);
-    }
-
-    .messy-card strong {
-      display: block;
-      width: 190px;
-      font-size: 15px;
-      line-height: 1.18;
-    }
-
-    .messy-card span {
-      display: block;
-      width: 76%;
-      height: 9px;
-      margin-top: 12px;
-      border-radius: 999px;
-      background: rgba(31,151,135,.14);
-    }
-
-    .x {
-      position: absolute;
-      right: 14px;
-      top: 14px;
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      display: grid;
-      place-items: center;
-      color: var(--danger);
-      background: rgba(227,59,59,.12);
-      font-weight: 900;
-    }
-
-    .badge {
-      position: absolute;
-      z-index: 5;
-      min-width: 118px;
-      padding: 10px 12px;
-      border-radius: 999px;
-      color: var(--primary-accent);
-      background: rgba(255,255,255,.9);
-      border: 1px solid rgba(74,179,166,.62);
-      box-shadow: 0 12px 24px rgba(24, 86, 80, .14);
-      text-align: center;
-      font-size: 12px;
-      font-weight: 900;
-      opacity: 0;
-      transform: translate3d(0, 16px, 0);
-    }
-
-    .tap {
-      position: absolute;
-      z-index: 8;
-      width: 46px;
-      height: 46px;
-      border-radius: 50%;
-      border: 4px solid var(--primary-accent);
-      background: rgba(255,255,255,.7);
-      opacity: 0;
-      transform: scale(.65);
-    }
-
-    .glow-ring {
-      position: absolute;
-      z-index: 7;
-      border-radius: 999px;
-      border: 3px solid rgba(31,151,135,.72);
-      box-shadow: 0 0 0 0 rgba(31,151,135,.18);
-      opacity: 0;
-      transform: scale(.96);
-    }
-
-    .chat {
-      position: absolute;
-      left: 22px;
-      right: 22px;
-      bottom: 112px;
-      z-index: 8;
-      padding: 14px;
-      border-radius: 18px 18px 18px 6px;
-      background: #dcf8c6;
-      color: #14392f;
-      box-shadow: 0 14px 28px rgba(18, 80, 59, .16);
-      font-size: 12px;
-      line-height: 1.35;
-      font-weight: 800;
-      opacity: 0;
-      transform: translate3d(0, 18px, 0) scale(.94);
-    }
-
-    .progress-note {
-      position: absolute;
-      left: 54px;
-      right: 54px;
-      bottom: 212px;
-      height: 9px;
-      z-index: 8;
-      border-radius: 999px;
-      background: rgba(31,151,135,.18);
-      overflow: hidden;
-      opacity: 0;
-    }
-
-    .progress-note span {
-      display: block;
-      height: 100%;
-      width: 76%;
-      border-radius: inherit;
-      background: var(--primary-accent);
-      transform: scaleX(.12);
-      transform-origin: left center;
-    }
-
-    .transfer-line {
-      position: absolute;
-      top: 104px;
-      left: 104px;
-      width: 94px;
-      height: 4px;
-      border-radius: 999px;
-      z-index: 8;
-      background: linear-gradient(90deg, transparent, var(--primary-accent), transparent);
-      opacity: 0;
-      transform: translate3d(-30px, 0, 0) scaleX(.45);
-    }
-
-    .logo-card {
+    .outro {
       display: grid;
       justify-items: center;
-      gap: 16px;
-      padding-bottom: 8px;
+      gap: 14px;
       opacity: 0;
       transform: translate3d(0, 22px, 0);
     }
 
-    .logo-card img {
-      width: 112px;
-      height: 112px;
-      object-fit: contain;
-      border-radius: 26px;
-      background: rgba(255,255,255,.76);
-      border: 1px solid rgba(74,179,166,.5);
-      padding: 13px;
-      box-shadow: 0 16px 28px rgba(20, 86, 78, .12);
+    .outro-word {
+      font-size: 42px;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      color: var(--ink);
+    }
+
+    .outro-word span { color: var(--primary-accent); }
+
+    .outro-tag {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--muted);
+      letter-spacing: .02em;
+      margin-top: -8px;
+    }
+
+    .outro h2 {
+      margin: 0;
+      color: var(--ink);
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      font-size: 24px;
+      max-width: 280px;
+      line-height: 1.05;
     }
 
     .store-pill {
@@ -443,10 +243,7 @@
       gap: 10px;
     }
 
-    .buttons {
-      display: flex;
-      gap: 8px;
-    }
+    .buttons { display: flex; gap: 8px; }
 
     button {
       appearance: none;
@@ -474,19 +271,15 @@
     }
 
     @media (max-height: 780px) {
-      body {
-        padding: 10px;
-      }
-
-      .app {
-        gap: 8px;
-      }
+      body { padding: 10px; }
+      .app { gap: 8px; }
     }
   </style>
 </head>
 <body>
   <main class="app">
     <section class="reel" id="reel" aria-label="EzyMember promotional reel">
+
       <article class="scene scene-0 center">
         <div></div>
         <h1>Tired of overwhelming dashboards?</h1>
@@ -494,155 +287,70 @@
       </article>
 
       <article class="scene scene-1">
-        <div class="headline">
-          <div class="kicker">Meet EzyMember</div>
-          <h2>All-in-one membership management.</h2>
-        </div>
-        <div class="visual">
-          <div class="poster-frame tall"><img src="1_ss_.png" alt="EzyMember membership management app overview"></div>
-        </div>
+        <div class="visual"><div class="shot r-23"><img src="1_ss_.png" alt="EzyMember membership management app overview"></div></div>
         <div class="caption">Meet EzyMember — the all-in-one membership app for gyms, yoga studios, parlours, and tuition classes. Fast, secure, and 100% offline.</div>
       </article>
 
       <article class="scene scene-2">
-        <div class="headline">
-          <div class="kicker">Dashboard</div>
-          <h2>Active, Expiring, Expired.</h2>
-        </div>
-        <div class="visual">
-          <div class="phone-frame large"><img src="screenshot-android-1.png" alt="EzyMember dashboard"></div>
-          <div class="glow-ring" style="top: 116px; left: 72px; width: 132px; height: 44px;"></div>
-        </div>
+        <div class="visual"><div class="shot r-916"><img src="screenshot-android-1.png" alt="EzyMember dashboard with Active, Expiring and Expired tabs"></div></div>
         <div class="caption">Everything lives in one simple dashboard — Active, Expiring, and Expired — so you always know exactly where you stand.</div>
       </article>
 
       <article class="scene scene-3">
-        <div class="headline">
-          <div class="kicker">Smart Filters</div>
-          <h2>Filter and bulk-remind.</h2>
-        </div>
-        <div class="visual">
-          <div class="phone-frame large"><img src="screenshot-android-2.png" alt="EzyMember expiry filters"></div>
-          <div class="badge" style="right: 12px; top: 166px;">1-Week Filter</div>
-          <div class="badge" style="right: 12px; top: 212px;">2-Week Filter</div>
-        </div>
+        <div class="visual"><div class="shot r-916"><img src="screenshot-android-2.png" alt="EzyMember smart expiry filters"></div></div>
         <div class="caption">Filter members expiring in a week, two weeks, or a month, and send bulk reminders in a single tap.</div>
       </article>
 
       <article class="scene scene-4">
-        <div class="headline">
-          <div class="kicker">Expired Status</div>
-          <h2>See who still owes.</h2>
-        </div>
-        <div class="visual">
-          <div class="phone-frame large"><img src="screenshot-android-3.png" alt="EzyMember expired members"></div>
-          <div class="glow-ring" style="left: 72px; bottom: 156px; width: 150px; height: 46px; border-color: rgba(227,59,59,.72);"></div>
-        </div>
+        <div class="visual"><div class="shot r-916"><img src="screenshot-android-3.png" alt="EzyMember expired members list"></div></div>
         <div class="caption">See exactly who's expired, how long ago, and what they still owe — at a glance.</div>
       </article>
 
       <article class="scene scene-5">
-        <div class="headline">
-          <div class="kicker">Member Profiles</div>
-          <h2>Full story in one place.</h2>
-        </div>
-        <div class="visual">
-          <div class="phone-frame large"><img src="screenshot-android-4.png" alt="EzyMember complete member profile"></div>
-          <div class="glow-ring" style="left: 74px; top: 286px; width: 146px; height: 46px;"></div>
-        </div>
+        <div class="visual"><div class="shot r-916"><img src="screenshot-android-4.png" alt="EzyMember complete member profile"></div></div>
         <div class="caption">Tap into any member for their full story: plan history, payments, and notes, all in one place.</div>
       </article>
 
       <article class="scene scene-6">
-        <div class="headline">
-          <div class="kicker">Payments</div>
-          <h2>Partial payments, live.</h2>
-        </div>
-        <div class="visual">
-          <div class="phone-frame large"><img src="screenshot-android-5.png" alt="EzyMember payment collection"></div>
-          <div class="glow-ring" style="left: 82px; bottom: 160px; width: 132px; height: 44px; border-color: rgba(240,107,25,.72);"></div>
-        </div>
+        <div class="visual"><div class="shot r-916"><img src="screenshot-android-5.png" alt="EzyMember payment collection screen"></div></div>
         <div class="caption">Record partial payments in seconds. The due balance updates automatically, in real time.</div>
       </article>
 
       <article class="scene scene-7">
-        <div class="headline">
-          <div class="kicker">WhatsApp Reminder</div>
-          <h2>Ready to send.</h2>
-        </div>
-        <div class="visual">
-          <div class="phone-frame large"><img src="screenshot-android-6.png" alt="EzyMember WhatsApp reminder"></div>
-          <div class="tap" style="right: 54px; bottom: 90px;"></div>
-        </div>
+        <div class="visual"><div class="shot r-916"><img src="screenshot-android-6.png" alt="EzyMember WhatsApp reminder screen"></div></div>
         <div class="caption">One tap generates a polite, ready-to-send WhatsApp reminder, customized with your business name.</div>
       </article>
 
       <article class="scene scene-8">
-        <div class="headline">
-          <div class="kicker">Reports</div>
-          <h2>Export and share safely.</h2>
-        </div>
-        <div class="visual">
-          <div class="phone-frame large"><img src="screenshot-android-7.png" alt="EzyMember export reports"></div>
-          <div class="badge" style="left: 18px; top: 206px;">PDF</div>
-          <div class="badge" style="right: 18px; top: 206px;">Excel</div>
-          <div class="glow-ring" style="left: 62px; bottom: 76px; width: 172px; height: 48px;"></div>
-        </div>
+        <div class="visual"><div class="shot r-916"><img src="screenshot-android-7.png" alt="EzyMember export data screen"></div></div>
         <div class="caption">Export clean reports to PDF or Excel, and hide financial data before you share lists with staff.</div>
       </article>
 
       <article class="scene scene-9">
-        <div class="headline">
-          <div class="kicker">Google Drive Backup</div>
-          <h2>Secure automatic backup.</h2>
-        </div>
-        <div class="visual">
-          <div class="phone-frame large"><img src="screenshot-android-8.png" alt="EzyMember Google Drive backup"></div>
-          <div class="progress-note"><span></span></div>
-        </div>
+        <div class="visual"><div class="shot r-916"><img src="screenshot-android-8.png" alt="EzyMember Google Drive backup in progress"></div></div>
         <div class="caption">Your entire business, backed up automatically and securely, straight to your own Google Drive.</div>
       </article>
 
       <article class="scene scene-10">
-        <div class="headline">
-          <div class="kicker">Backup Schedule</div>
-          <h2>Your data, your schedule.</h2>
-        </div>
-        <div class="visual">
-          <div class="phone-frame large"><img src="screenshot-android-9.png" alt="EzyMember backup schedule"></div>
-          <div class="glow-ring" style="left: 58px; bottom: 74px; width: 178px; height: 48px;"></div>
-        </div>
+        <div class="visual"><div class="shot r-916"><img src="screenshot-android-9.png" alt="EzyMember backup schedule options"></div></div>
         <div class="caption">Choose how often you're protected: daily, weekly, or monthly. Your data, on your schedule.</div>
       </article>
 
       <article class="scene scene-11">
-        <div class="headline">
-          <div class="kicker">Restore</div>
-          <h2>New phone? No problem.</h2>
-        </div>
-        <div class="visual">
-          <div class="phone-frame large"><img src="screenshot-android-10.png" alt="EzyMember restore from Google Drive"></div>
-          <div class="transfer-line"></div>
-          <div class="glow-ring" style="right: 52px; bottom: 76px; width: 116px; height: 46px;"></div>
-        </div>
+        <div class="visual"><div class="shot r-916"><img src="screenshot-android-10.png" alt="EzyMember restore from Google Drive"></div></div>
         <div class="caption">New phone? No problem. Restore your entire business with a single tap.</div>
       </article>
 
       <article class="scene scene-12">
-        <div class="headline">
-          <div class="kicker">EzyMember</div>
-          <h2>All in three clicks.</h2>
-        </div>
-        <div class="visual">
-          <div class="poster-frame wide"><img src="banner.png" alt="EzyMember manage members track renewals banner"></div>
-        </div>
+        <div class="visual"><div class="shot r-32"><img src="banner.png" alt="EzyMember manage members track renewals banner"></div></div>
         <div class="caption">Manage members. Track renewals. Send reminders. All in three clicks. EzyMember — download free today.</div>
       </article>
 
       <article class="scene scene-13 center">
         <div></div>
-        <div class="logo-card">
-          <img src="../../app_logo_no_bg.png" alt="EzyMember logo" onerror="this.style.display='none'">
+        <div class="outro">
+          <div class="outro-word">Ezy<span>Member</span></div>
+          <div class="outro-tag">Fast. Simple. Offline.</div>
           <h2>Download EzyMember free today.</h2>
           <div class="store-pill"><span class="play-icon"></span><span>Get it on Google Play</span></div>
         </div>
@@ -681,9 +389,7 @@
         timer.textContent = `${formatTime(time)} / 01:00`;
         gsap.set(progressFill, { scaleX: time / DURATION });
       },
-      onComplete: () => {
-        playPauseButton.textContent = "Play";
-      }
+      onComplete: () => { playPauseButton.textContent = "Play"; }
     });
 
     gsap.set(".scene", { autoAlpha: 0, y: 24 });
@@ -697,92 +403,83 @@
       master.set(selector, { autoAlpha: 0 }, end);
     }
 
+    // Fades the screenshot card + caption in. Nothing else — no headline
+    // layer, because every screenshot already carries its own.
     function revealBasics(selector, start) {
-      master.fromTo(`${selector} .headline > *, ${selector} .caption`, { y: 16, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: .38, stagger: .07 }, start + .14);
-      master.to(`${selector} .phone-frame, ${selector} .poster-frame`, { y: 0, scale: 1, autoAlpha: 1, duration: .5 }, start + .28);
+      master.fromTo(`${selector} .shot`, { y: 24, autoAlpha: 0, scale: .97 }, { y: 0, autoAlpha: 1, scale: 1, duration: .5 }, start + .05);
+      master.fromTo(`${selector} .caption`, { y: 14, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: .4 }, start + .22);
     }
 
     sceneInOut(".scene-0", 0, 2.5);
     master.fromTo(".scene-0 h1, .scene-0 .caption", { y: 18, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: .45, stagger: .1 }, .25);
 
+    // Scene 1 — 1_ss_.png (2:3, taller than the reel): pre-scaled 1.15x so
+    // there is always image to pan through, then a slow top-to-lower pan.
+    // Bounds are kept well inside the true overflow, so no edge is ever exposed.
     sceneInOut(".scene-1", 2.5, 8.5);
     revealBasics(".scene-1", 2.5);
-    master.to(".scene-1 .poster-frame img", { y: -88, duration: 4.1, ease: "none" }, 3.4);
+    gsap.set(".scene-1 .shot img", { scale: 1.15, transformOrigin: "top center" });
+    master.fromTo(".scene-1 .shot img", { yPercent: 0 }, { yPercent: -9, duration: 5.2, ease: "none" }, 3.1);
 
+    // Scenes 2–11 — screenshot-android-*.png are exactly 9:16, same as the
+    // reel: the full screenshot fills its card with zero cropping. The only
+    // motion is a gentle centered zoom (no panning needed, nothing to guess).
     sceneInOut(".scene-2", 8.5, 12.5);
     revealBasics(".scene-2", 8.5);
-    master.to(".scene-2 .phone-frame img", { scale: 1.1, y: 22, duration: 2.6 }, 9.25);
-    master.to(".scene-2 .glow-ring", { autoAlpha: 1, scale: 1.08, duration: .26, yoyo: true, repeat: 1 }, 10.65);
+    master.fromTo(".scene-2 .shot img", { scale: 1 }, { scale: 1.06, duration: 3.6, ease: "none" }, 8.9);
 
     sceneInOut(".scene-3", 12.5, 17);
     revealBasics(".scene-3", 12.5);
-    master.to(".scene-3 .phone-frame img", { scale: 1.08, y: -18, duration: 2.6 }, 13.25);
-    master.to(".scene-3 .badge", { y: 0, autoAlpha: 1, duration: .32, stagger: .32 }, 14.15);
-    master.to(".scene-3 .badge", { scale: 1.06, duration: .18, yoyo: true, repeat: 1, stagger: .38 }, 14.95);
+    master.fromTo(".scene-3 .shot img", { scale: 1 }, { scale: 1.06, duration: 4.1, ease: "none" }, 12.9);
 
     sceneInOut(".scene-4", 17, 21.5);
     revealBasics(".scene-4", 17);
-    master.to(".scene-4 .phone-frame img", { y: -60, scale: 1.06, duration: 2.5, ease: "none" }, 17.8);
-    master.to(".scene-4 .glow-ring", { autoAlpha: 1, scale: 1.08, duration: .3, yoyo: true, repeat: 1 }, 19.75);
+    master.fromTo(".scene-4 .shot img", { scale: 1 }, { scale: 1.06, duration: 4.1, ease: "none" }, 17.4);
 
     sceneInOut(".scene-5", 21.5, 26.5);
     revealBasics(".scene-5", 21.5);
-    master.to(".scene-5 .phone-frame img", { y: -70, scale: 1.06, duration: 3.0, ease: "none" }, 22.3);
-    master.to(".scene-5 .glow-ring", { autoAlpha: 1, scale: 1.08, duration: .35, yoyo: true, repeat: 1 }, 24.15);
+    master.fromTo(".scene-5 .shot img", { scale: 1 }, { scale: 1.07, duration: 4.6, ease: "none" }, 21.9);
 
     sceneInOut(".scene-6", 26.5, 31);
     revealBasics(".scene-6", 26.5);
-    master.to(".scene-6 .phone-frame img", { scale: 1.1, y: -24, duration: 2.2 }, 27.25);
-    master.to(".scene-6 .glow-ring", { autoAlpha: 1, scale: 1.08, duration: .28, yoyo: true, repeat: 1 }, 28.75);
+    master.fromTo(".scene-6 .shot img", { scale: 1 }, { scale: 1.06, duration: 4.1, ease: "none" }, 26.9);
 
     sceneInOut(".scene-7", 31, 35);
     revealBasics(".scene-7", 31);
-    master.to(".scene-7 .phone-frame img", { y: -110, scale: 1.08, duration: 2.5 }, 31.7);
-    master.to(".scene-7 .tap", { autoAlpha: 1, scale: 1, duration: .16 }, 33.45);
-    master.to(".scene-7 .tap", { autoAlpha: 0, scale: 1.55, duration: .52 }, 33.62);
+    master.fromTo(".scene-7 .shot img", { scale: 1 }, { scale: 1.06, duration: 3.6, ease: "none" }, 31.4);
 
     sceneInOut(".scene-8", 35, 40);
     revealBasics(".scene-8", 35);
-    master.to(".scene-8 .phone-frame img", { y: -54, scale: 1.08, duration: 2.4 }, 35.75);
-    master.to(".scene-8 .badge", { y: 0, autoAlpha: 1, duration: .28, stagger: .25 }, 36.75);
-    master.to(".scene-8 .glow-ring", { autoAlpha: 1, scale: 1.08, duration: .32, yoyo: true, repeat: 1 }, 38.5);
+    master.fromTo(".scene-8 .shot img", { scale: 1 }, { scale: 1.06, duration: 4.6, ease: "none" }, 35.4);
 
     sceneInOut(".scene-9", 40, 44);
     revealBasics(".scene-9", 40);
-    master.to(".scene-9 .phone-frame img", { scale: 1.08, y: -22, duration: 2.4 }, 40.65);
-    master.to(".scene-9 .progress-note", { autoAlpha: 1, duration: .2 }, 41.2);
-    master.fromTo(".scene-9 .progress-note span", { scaleX: .12 }, { scaleX: .78, duration: 2.3 }, 41.25);
+    master.fromTo(".scene-9 .shot img", { scale: 1 }, { scale: 1.05, duration: 3.6, ease: "none" }, 40.4);
 
     sceneInOut(".scene-10", 44, 48);
     revealBasics(".scene-10", 44);
-    master.to(".scene-10 .phone-frame img", { scale: 1.08, y: -20, duration: 2.4 }, 44.65);
-    master.to(".scene-10 .glow-ring", { autoAlpha: 1, scale: 1.08, duration: .32, yoyo: true, repeat: 1 }, 46.4);
+    master.fromTo(".scene-10 .shot img", { scale: 1 }, { scale: 1.05, duration: 3.6, ease: "none" }, 44.4);
 
     sceneInOut(".scene-11", 48, 52.5);
     revealBasics(".scene-11", 48);
-    master.to(".scene-11 .transfer-line", { autoAlpha: 1, x: 58, scaleX: 1, duration: .55 }, 49.1);
-    master.to(".scene-11 .transfer-line", { autoAlpha: 0, duration: .25 }, 49.65);
-    master.to(".scene-11 .phone-frame img", { y: -78, scale: 1.07, duration: 2.3 }, 49.5);
-    master.to(".scene-11 .glow-ring", { autoAlpha: 1, scale: 1.08, duration: .3, yoyo: true, repeat: 1 }, 51.1);
+    master.fromTo(".scene-11 .shot img", { scale: 1 }, { scale: 1.06, duration: 4.1, ease: "none" }, 48.4);
 
+    // Scene 12 — banner.png (3:2, landscape): same pre-scale + pan technique
+    // as scene 1, but horizontal — sweeps left (logo/headline) to right (phone).
     sceneInOut(".scene-12", 52.5, 58);
     revealBasics(".scene-12", 52.5);
-    master.to(".scene-12 .poster-frame img", { x: -58, scale: 1.12, duration: 3.7, ease: "none" }, 53.2);
+    gsap.set(".scene-12 .shot img", { scale: 1.15, transformOrigin: "left center" });
+    master.fromTo(".scene-12 .shot img", { xPercent: 0 }, { xPercent: -9, duration: 4.6, ease: "none" }, 53.1);
 
     sceneInOut(".scene-13", 58, 60);
-    master.to(".scene-13 .logo-card", { y: 0, autoAlpha: 1, duration: .45 }, 58.25);
+    master.to(".scene-13 .outro", { y: 0, autoAlpha: 1, duration: .45 }, 58.25);
     master.to(".scene-13 .store-pill", { scale: 1.04, duration: .35, repeat: 1, yoyo: true }, 59);
 
     master.play(0);
 
     playPauseButton.addEventListener("click", () => {
-      if (master.paused()) {
-        master.play();
-        playPauseButton.textContent = "Pause";
-      } else {
-        master.pause();
-        playPauseButton.textContent = "Play";
-      }
+      if (master.paused()) { master.play(); playPauseButton.textContent = "Pause"; }
+      else { master.pause(); playPauseButton.textContent = "Play"; }
     });
 
     resetButton.addEventListener("click", () => {
