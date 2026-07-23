@@ -3,20 +3,19 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>EzyMember Micro-Interaction Promo</title>
-  <!-- Google Fonts & GSAP Animation Engine -->
+  <title>EzyMember Kinetic Text Promo</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;800;900&display=swap" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 
   <style>
-    /* STRICT BRAND THEME */
     :root {
       --primary-accent: #1F9787;
       --primary-light: #DDF3F0;
       --primary-border: #4AB3A6;
       --dark-text: #0B2420;
+      --danger: #e53e3e;
     }
 
     * {
@@ -37,7 +36,6 @@
       overflow: hidden;
     }
 
-    /* 9:16 VERTICAL CONTAINER */
     .reel-viewport {
       position: relative;
       width: 380px;
@@ -47,75 +45,68 @@
       border-radius: 32px;
       overflow: hidden;
       box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
     }
 
-    /* SCENE MANAGEMENT */
     .scene {
       position: absolute;
       inset: 0;
-      padding: 40px 24px;
+      padding: 40px 30px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: flex-start;
+      justify-content: center;
       opacity: 0;
       visibility: hidden;
       will-change: transform, opacity;
     }
 
-    /* TYPOGRAPHY */
-    .headline {
-      font-size: 26px; /* Slightly reduced to fit new text comfortably */
-      font-weight: 800;
+    /* KINETIC TYPOGRAPHY STYLES */
+    .mega-text {
+      font-size: 42px;
+      font-weight: 900;
       color: var(--dark-text);
-      text-align: center;
-      line-height: 1.2;
-      z-index: 10;
-      text-shadow: 0px 4px 12px rgba(221, 243, 240, 0.9);
-      width: 100%;
+      line-height: 1.1;
+      text-transform: uppercase;
+      letter-spacing: -1px;
     }
-    .headline span {
+    
+    .mega-text span {
       color: var(--primary-accent);
     }
 
-    /* DEVICE MOCKUP FRAME */
-    .phone-frame {
-      width: 280px;
-      height: 480px;
-      background: #ffffff;
-      border: 8px solid #1a202c;
-      border-radius: 24px;
-      overflow: hidden;
-      position: relative;
-      box-shadow: 0 20px 30px rgba(31, 151, 135, 0.15);
-      z-index: 5;
+    .mega-text .bad {
+      color: var(--danger);
     }
 
-    /* ZOOMABLE SCREENSHOTS */
-    .screen-img {
+    .feature-list {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
       width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: top;
-      will-change: transform;
-      transform-origin: center center;
+      text-align: left;
     }
 
-    /* TAP SIMULATOR */
-    .tap-pointer {
-      position: absolute;
-      width: 36px;
-      height: 36px;
-      background: rgba(31, 151, 135, 0.5);
-      border: 3px solid #ffffff;
-      border-radius: 50%;
-      pointer-events: none;
+    .feature-item {
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--dark-text);
+      background: #ffffff;
+      padding: 16px 20px;
+      border-radius: 16px;
+      box-shadow: 0 8px 24px rgba(31, 151, 135, 0.15);
+      border-left: 6px solid var(--primary-accent);
+      transform: translateX(-50px);
       opacity: 0;
-      z-index: 20;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
     }
 
-    /* PLAYBACK CONTROLS */
+    .feature-item span {
+      color: var(--primary-accent);
+    }
+
     .control-bar {
       margin-top: 24px;
       display: flex;
@@ -152,89 +143,46 @@
       height: 100%;
       background: var(--primary-border);
     }
-    
-    /* Text wrapper for Scene 1 */
-    .text-container {
-      position: relative;
-      width: 100%;
-      height: 70px;
-      margin-bottom: 16px;
-      display: flex;
-      justify-content: center;
-    }
   </style>
 </head>
 <body>
 
-  <!-- MOBILE CANVAS (9:16) -->
   <div class="reel-viewport" id="viewport">
 
-    <!-- [0:00 - 0:08] SCENE 1: INSTANT ORGANIZATION -->
+    <!-- [0:00 - 0:10] SCENE 1: THE PAIN -->
     <div class="scene" id="scene1">
-      <div class="text-container">
-        <!-- Text 1 (Fades out) -->
-        <h1 class="headline" id="text1a" style="position: absolute;">Run your business <br><span>from your pocket.</span></h1>
-        <!-- Text 2 (Fades in) -->
-        <h1 class="headline" id="text1b" style="position: absolute; opacity: 0; visibility: hidden;">Gym, Salon, Tuition <br><span>or Club Owner?</span></h1>
-      </div>
-      <div class="phone-frame">
-        <!-- Reduced zoom drastically -->
-        <img src="screenshot-android-2.png" class="screen-img" id="img-s1" alt="Expiring Soon" />
-      </div>
+      <h1 class="mega-text" id="pain1" style="position: absolute;">Managing members is <br><span class="bad">chaos.</span></h1>
+      <h1 class="mega-text" id="pain2" style="position: absolute; opacity: 0;">Messy<br>Spreadsheets.</h1>
+      <h1 class="mega-text" id="pain3" style="position: absolute; opacity: 0;">Missing<br>Payments.</h1>
     </div>
 
-    <!-- [0:08 - 0:25] SCENE 2: 1-CLICK WHATSAPP -->
+    <!-- [0:10 - 0:20] SCENE 2: THE SHIFT -->
     <div class="scene" id="scene2">
-      <div class="text-container">
-        <h1 class="headline">1-Click <br><span>WhatsApp Reminders.</span></h1>
-      </div>
-      <div class="phone-frame">
-        <!-- Image 1: Expired List -->
-        <img src="screenshot-android-3.png" class="screen-img" id="img-s2a" style="position:absolute; inset:0;" alt="Expired List" />
-        <!-- Image 2: Send Message Screen (Hidden initially) -->
-        <img src="screenshot-android-6.png" class="screen-img" id="img-s2b" style="position:absolute; inset:0; opacity:0;" alt="Send Reminder" />
-        
-        <!-- Tap simulators -->
-        <div class="tap-pointer" id="tap1"></div>
-        <div class="tap-pointer" id="tap2"></div>
-      </div>
+      <h1 class="mega-text" id="shift1" style="position: absolute;">What if it took...</h1>
+      <h1 class="mega-text" id="shift2" style="position: absolute; opacity: 0; font-size: 64px;"><span>3 CLICKS?</span></h1>
     </div>
 
-    <!-- [0:25 - 0:40] SCENE 3: FAST PAYMENTS -->
+    <!-- [0:20 - 0:45] SCENE 3: THE SUPERPOWERS -->
     <div class="scene" id="scene3">
-      <div class="text-container">
-        <h1 class="headline">Log payments <br><span>in seconds.</span></h1>
-      </div>
-      <div class="phone-frame">
-        <img src="screenshot-android-5.png" class="screen-img" id="img-s3" alt="Collect Payment" />
+      <div class="feature-list">
+        <div class="feature-item" id="f1">1-Click <span>WhatsApp</span> Reminders</div>
+        <div class="feature-item" id="f2">Smart <span>Auto-Filters</span></div>
+        <div class="feature-item" id="f3">Log Payments <span>Instantly</span></div>
+        <div class="feature-item" id="f4" style="border-left-color: #4285F4;">100% Offline + <span>Drive Sync</span></div>
       </div>
     </div>
 
-    <!-- [0:40 - 0:50] SCENE 4: SECURITY -->
+    <!-- [0:45 - 1:00] SCENE 4: OUTRO -->
     <div class="scene" id="scene4">
-      <div class="text-container">
-        <h1 class="headline">100% Offline.<br><span>Google Drive Sync.</span></h1>
-      </div>
-      <div class="phone-frame" style="height: 340px;">
-        <img src="screenshot-android-8.png" class="screen-img" id="img-s4" alt="Backup Progress" />
-      </div>
-    </div>
-
-    <!-- [0:50 - 1:00] SCENE 5: OUTRO -->
-    <div class="scene" id="scene5" style="justify-content: center; gap: 32px;">
-      <img src="app_logo_no_bg.png" alt="EzyMember Logo" style="width: 140px; filter: drop-shadow(0 10px 15px rgba(31,151,135,0.2));" id="outro-logo" />
-      <div style="text-align: center;">
-        <h1 class="headline" style="font-size: 26px; margin-bottom: 8px;">Manage Members.<br>Track Renewals.</h1>
-        <h1 class="headline" style="font-size: 22px;"><span>3 Clicks or Less.</span></h1>
-      </div>
-      <div style="background: var(--primary-accent); color: white; padding: 14px 28px; border-radius: 50px; font-weight: 800; font-size: 16px; box-shadow: 0 8px 20px rgba(31,151,135,0.4);" id="outro-btn">
+      <img src="app_logo_no_bg.png" alt="EzyMember Logo" style="width: 160px; filter: drop-shadow(0 10px 15px rgba(31,151,135,0.2)); margin-bottom: 24px;" id="outro-logo" />
+      <h1 class="mega-text" style="font-size: 32px; text-transform: none; margin-bottom: 32px;">Run your business <br><span>from your pocket.</span></h1>
+      <div style="background: var(--primary-accent); color: white; padding: 18px 36px; border-radius: 50px; font-weight: 900; font-size: 18px; box-shadow: 0 8px 20px rgba(31,151,135,0.4);" id="outro-btn">
         Download EzyMember
       </div>
     </div>
 
   </div>
 
-  <!-- PLAYBACK CONTROLS -->
   <div class="control-bar">
     <button class="btn" id="playBtn">Play / Pause</button>
     <button class="btn" id="resetBtn" style="background:#475569;">Reset</button>
@@ -245,114 +193,59 @@
   </div>
 
   <script>
-    // Master Timeline (60 seconds fixed)
     const tl = gsap.timeline({ paused: true, onUpdate: updateProgress });
 
-    // Helper functions for scene transitions
-    function inScene(sceneId) {
-      return gsap.to(sceneId, { duration: 0.6, autoAlpha: 1, y: 0, ease: "power2.out" });
-    }
-    function outScene(sceneId) {
-      return gsap.to(sceneId, { duration: 0.6, autoAlpha: 0, y: -20, ease: "power2.in" });
-    }
+    // Scene 1: The Pain (0-10s)
+    gsap.set("#scene1", { autoAlpha: 1 });
+    tl.fromTo("#pain1", { scale: 0.8, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.8, ease: "back.out(1.5)" }, 0.5)
+      .to("#pain1", { scale: 1.2, opacity: 0, duration: 0.5 }, 3)
+      
+      .fromTo("#pain2", { scale: 0.8, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.5, ease: "power2.out" }, 3.5)
+      .to("#pain2", { scale: 1.2, opacity: 0, duration: 0.5 }, 6)
+      
+      .fromTo("#pain3", { scale: 0.8, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.5, ease: "power2.out" }, 6.5)
+      .to("#scene1", { opacity: 0, duration: 0.5 }, 9.5);
 
-    // --- TIMELINE SEQUENCING ---
+    // Scene 2: The Shift (10-20s)
+    tl.set("#scene2", { autoAlpha: 1 }, 10)
+      .fromTo("#shift1", { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8 }, 10.5)
+      .to("#shift1", { y: -30, opacity: 0, duration: 0.5 }, 14)
+      
+      .fromTo("#shift2", { scale: 0.2, opacity: 0 }, { scale: 1, opacity: 1, duration: 1, ease: "elastic.out(1, 0.5)" }, 14.5)
+      .to("#scene2", { opacity: 0, duration: 0.5 }, 19.5);
 
-    // SCENE 1: Organization (0s - 8s)
-    gsap.set("#scene1", { y: 20 });
-    tl.add(inScene("#scene1"), 0)
-      // Pan/Zoom effect on UI - drastically reduced scale!
-      .fromTo("#img-s1", 
-        { scale: 1.05, y: 0 }, 
-        { scale: 1.15, y: -25, duration: 7, ease: "sine.inOut" }, 0.5)
-      // Transition the text in Scene 1 at the 3.5-second mark
-      .to("#text1a", { autoAlpha: 0, y: -10, duration: 0.5 }, 3.5)
-      .fromTo("#text1b", { autoAlpha: 0, y: 10 }, { autoAlpha: 1, y: 0, duration: 0.5 }, 4.0)
-      .add(outScene("#scene1"), 7.5);
+    // Scene 3: The Superpowers (20-45s)
+    tl.set("#scene3", { autoAlpha: 1 }, 20)
+      .to("#f1", { x: 0, opacity: 1, duration: 0.6, ease: "power3.out" }, 21)
+      .to("#f2", { x: 0, opacity: 1, duration: 0.6, ease: "power3.out" }, 26)
+      .to("#f3", { x: 0, opacity: 1, duration: 0.6, ease: "power3.out" }, 31)
+      .to("#f4", { x: 0, opacity: 1, duration: 0.6, ease: "power3.out" }, 36)
+      .to("#scene3", { opacity: 0, y: -50, duration: 0.8 }, 44);
 
-
-    // SCENE 2: 1-Click WhatsApp (8s - 25s)
-    gsap.set("#scene2", { y: 20 });
-    tl.add(inScene("#scene2"), 8)
-      // Gentle zoom into expired list member card
-      .fromTo("#img-s2a", 
-        { scale: 1.05, y: 0 }, 
-        { scale: 1.15, y: -30, duration: 4, ease: "power1.out" }, 8.5)
-      // Tap on "Remind" button
-      .fromTo("#tap1", 
-        { top: "50%", left: "75%", scale: 2, opacity: 0 }, 
-        { scale: 0.8, opacity: 1, duration: 0.4, yoyo: true, repeat: 1 }, 12)
-      // Hard cut to message screen
-      .set("#img-s2a", { opacity: 0 }, 12.6)
-      .set("#img-s2b", { opacity: 1 }, 12.6)
-      // Gentle pan down the message
-      .fromTo("#img-s2b", 
-        { scale: 1.05, y: 0 }, 
-        { scale: 1.15, y: -30, duration: 10, ease: "sine.inOut" }, 12.6)
-      // Tap Send via WhatsApp
-      .fromTo("#tap2", 
-        { top: "85%", left: "50%", scale: 2, opacity: 0 }, 
-        { scale: 0.8, opacity: 1, duration: 0.4, yoyo: true, repeat: 1 }, 22)
-      .add(outScene("#scene2"), 24.5);
-
-
-    // SCENE 3: Payments (25s - 40s)
-    gsap.set("#scene3", { y: 20 });
-    tl.add(inScene("#scene3"), 25)
-      // Gentle zoom into custom payment entry
-      .fromTo("#img-s3", 
-        { scale: 1.05, y: 0 }, 
-        { scale: 1.15, y: -25, duration: 13, ease: "sine.inOut" }, 25.5)
-      .add(outScene("#scene3"), 39.5);
-
-
-    // SCENE 4: Security/Offline (40s - 50s)
-    gsap.set("#scene4", { y: 20 });
-    tl.add(inScene("#scene4"), 40)
-      // Gentle zoom onto the loading bar
-      .fromTo("#img-s4", 
-        { scale: 1.1, y: -10 }, 
-        { scale: 1.2, y: -20, duration: 9 }, 40.5) 
-      .add(outScene("#scene4"), 49.5);
-
-
-    // SCENE 5: Outro (50s - 60s)
-    tl.add(inScene("#scene5"), 50)
-      .from("#outro-logo", { scale: 0, rotation: -15, duration: 0.8, ease: "back.out(1.5)" }, 50.5)
-      .from("#outro-btn", { y: 30, opacity: 0, duration: 0.6, ease: "power2.out" }, 51.5);
+    // Scene 4: Outro (45-60s)
+    tl.set("#scene4", { autoAlpha: 1 }, 45)
+      .from("#outro-logo", { scale: 0, rotation: 15, duration: 1, ease: "back.out(1.5)" }, 45.5)
+      .from("#scene4 .mega-text", { y: 20, opacity: 0, duration: 0.8 }, 46.5)
+      .from("#outro-btn", { y: 30, opacity: 0, duration: 0.8, ease: "power2.out" }, 47.5);
     
-    // Force exact 60s end
     tl.set({}, {}, 60);
 
-    // --- CONTROLS LOGIC ---
+    // Controls Logic
     const playBtn = document.getElementById("playBtn");
     const resetBtn = document.getElementById("resetBtn");
     const progressFill = document.getElementById("progressFill");
     const timeDisplay = document.getElementById("timeDisplay");
 
-    playBtn.addEventListener("click", () => {
-      if (tl.isActive()) {
-        tl.pause();
-      } else {
-        tl.play();
-      }
-    });
-
-    resetBtn.addEventListener("click", () => {
-      tl.restart().pause();
-    });
+    playBtn.addEventListener("click", () => { tl.isActive() ? tl.pause() : tl.play(); });
+    resetBtn.addEventListener("click", () => { tl.restart().pause(); });
 
     function updateProgress() {
-      // Base timing on exactly 60 seconds
       const maxTime = 60;
       let currentTime = tl.time();
       if (currentTime > maxTime) currentTime = maxTime;
-
       const progress = (currentTime / maxTime) * 100;
-      const formattedTime = `00:${Math.floor(currentTime).toString().padStart(2, '0')}`;
-      
       progressFill.style.width = `${progress}%`;
-      timeDisplay.innerText = `${formattedTime} / 01:00`;
+      timeDisplay.innerText = `00:${Math.floor(currentTime).toString().padStart(2, '0')} / 01:00`;
     }
   </script>
 </body>
