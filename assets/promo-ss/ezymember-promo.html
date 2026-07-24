@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>EzyMember – Promo Reel</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+  <style>
+    /* ══════════════════════════════════════════
+       DESIGN TOKENS
+    ══════════════════════════════════════════ */
+    :root {
+      --accent: #1F9787;
+      --accent-soft: rgba(31,151,135,0.12);
+      --accent-glow: rgba(31,151,135,0.25);
+      --bg: #DDF3F0;
+      --bg-deep: #c8ebe5;
+      --border: #4AB3A6;
+      --dark: #0B2420;
+      --dark-soft: #1a3d35;
+      --muted: #5a8a80;
+      --danger: #e53e3e;
+      --white: #ffffff;
+      --card-shadow: 0 8px 32px rgba(11,36,32,0.08);
+      --card-shadow-lg: 0 16px 48px rgba(11,36,32,0.12);
+    }
+
+    /* ══════════════════════════════════════════
+       RESET
+    ══════════════════════════════════════════ */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0; padding: 0;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      background: #080e0d;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      overflow: hidden;
+    }
+
+    /* ══════════════════════════════════════════
+       9:16 VIEWPORT
+    ══════════════════════════════════════════ */
+    .viewport {
+      position: relative;
+      width: 380px;
+      height: 675px;
+      background: var(--bg);
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow:
+        0 0 0 1px rgba(74,179,166,0.2),
+        0 30px 80px rgba(0,0,0,0.5);
+    }
+
+    /* ══════════════════════════════════════════
+       SCENES – absolute stacked layers
+    ══════════════════════════════════════════ */
+    .sc {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 28px;
+      opacity: 0;
+      visibility: hidden;
+      will-change: transform, opacity;
+    }
+
+    /* ══════════════════════════════════════════
+       TYPOGRAPHY – clean, no all-caps
+    ══════════════════════════════════════════ */
+    .headline {
+      font-weight: 900;
+      color: var(--dark);
+      line-height: 1.12;
+      letter-spacing: -0.5px;
+      text-align: center;
+    }
+    .headline.h-48 { font-size: 44px; }
+    .headline.h-40 { font-size: 38px; }
+    .headline.h-36 { font-size: 34px; }
+    .headline.h-32 { font-size: 30px; }
+    .headline.h-28 { font-size: 26px; }
+    .headline.h-64 { font-size: 58px; letter-spacing: -1.5px; }
+    .headline .accent { color: var(--accent); }
+    .headline .danger { color: var(--danger); }
+
+    .subtext {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--muted);
+      text-align: center;
+      line-height: 1.5;
+      max-width: 300px;
+    }
+
+    /* ══════════════════════════════════════════
+       AMBIENT – subtle moving gradient orb
+    ══════════════════════════════════════════ */
+    .orb {
+      position: absolute;
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(31,151,135,0.18) 0%, transparent 70%);
+      pointer-events: none;
+      will-change: transform, opacity;
+      opacity: 0;
+    }
+
+    /* ══════════════════════════════════════════
+       SCENE 1 – PROBLEM: floating pain chips
+    ══════════════════════════════════════════ */
+    .pain-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--white);
+      padding: 12px 20px;
+      border-radius: 14px;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--dark);
+      box-shadow: var(--card-shadow);
+      position: absolute;
+      opacity: 0;
+      will-change: transform, opacity;
+    }
+    .pain-chip .icon {
+      font-size: 18px;
+    }
+    .pain-chip.bad {
+      border: 2px solid rgba(229,62,62,0.25);
+      color: var(--danger);
+    }
+
+    /* red X marks */
+    .x-mark {
+      position: absolute;
+      font-size: 32px;
+      font-weight: 900;
+      color: var(--danger);
+      opacity: 0;
+      will-change: transform, opacity;
+    }
+
+    /* ══════════════════════════════════════════
+       SCENE 2 – "3 clicks" counter
+    ══════════════════════════════════════════ */
+    .click-dot {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--border);
+      opacity: 0.3;
+      will-change: transform, opacity;
+    }
+    .click-dot.on {
+      background: var(--accent);
+      opacity: 1;
+    }
+    .click-row {
+      display: flex;
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    /* ══════════════════════════════════════════
+       SCENE 3 – FEATURE SHOWCASE
+       Simulated app UI cards
+    ══════════════════════════════════════════ */
+
+    /* -- Mini phone frame -- */
+    .phone-frame {
+      width: 200px;
+      height: 360px;
+      background: var(--white);
+      border-radius: 28px;
+      box-shadow: var(--card-shadow-lg);
+      border: 3px solid #e8f5f2;
+      position: absolute;
+      overflow: hidden;
+      opacity: 0;
+      will-change: transform, opacity;
+    }
+    .phone-frame .status-bar {
+      height: 28px;
+      background: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: 0.5px;
+    }
+    .phone-frame .screen-body {
+      padding: 12px;
+    }
+
+    /* -- Tab bar inside phone -- */
+    .tab-bar {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 10px;
+    }
+    .tab-pill {
+      flex: 1;
+      padding: 6px 0;
+      text-align: center;
+      font-size: 9px;
+      font-weight: 800;
+      border-radius: 8px;
+      color: var(--muted);
+      background: var(--bg);
+    }
+    .tab-pill.active {
+      background: var(--accent);
+      color: var(--white);
+    }
+
+    /* -- Member row inside phone -- */
+    .member-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 10px;
+      border-radius: 10px;
+      background: var(--bg);
+      margin-bottom: 6px;
+    }
+    .member-avatar {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: var(--border);
+      flex-shrink: 0;
+    }
+    .member-info {
+      flex: 1;
+    }
+    .member-name {
+      font-size: 10px;
+      font-weight: 800;
+      color: var(--dark);
+    }
+    .member-exp {
+      font-size: 8px;
+      font-weight: 600;
+      color: var(--muted);
+    }
+    .member-badge {
+      font-size: 8px;
+      font-weight: 800;
+      padding: 3px 6px;
+      border-radius: 6px;
+    }
+    .badge-active { background: #d4f5e9; color: #0e7a50; }
+    .badge-expiring { background: #fff3cd; color: #856404; }
+    .badge-expired { background: #fde2e2; color: #c53030; }
+
+    /* -- Feature info card -- */
+    .feat-card {
+      background: var(--white);
+      border-radius: 18px;
+      padding: 22px 22px;
+      box-shadow: var(--card-shadow-lg);
+      width: 100%;
+      opacity: 0;
+      will-change: transform, opacity;
+    }
+    .feat-card .feat-emoji {
+      font-size: 32px;
+      margin-bottom: 8px;
+    }
+    .feat-card .feat-title {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--dark);
+      line-height: 1.2;
+      margin-bottom: 6px;
+    }
+    .feat-card .feat-title .accent { color: var(--accent); }
+    .feat-card .feat-desc {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+
+    /* -- WhatsApp bubble -- */
+    .wa-bubble {
+      background: #dcf8c6;
+      padding: 10px 16px;
+      border-radius: 16px 16px 16px 4px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #1a3a2f;
+      position: absolute;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+      opacity: 0;
+      will-change: transform, opacity;
+      max-width: 200px;
+      line-height: 1.4;
+    }
+    .wa-tail {
+      position: absolute;
+      bottom: -5px;
+      left: 8px;
+      width: 12px;
+      height: 12px;
+      background: #dcf8c6;
+      transform: rotate(45deg);
+      border-radius: 2px;
+    }
+
+    /* -- Checkmark that pops -- */
+    .check-pop {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      opacity: 0;
+      will-change: transform, opacity;
+      box-shadow: 0 4px 16px var(--accent-glow);
+    }
+    .check-pop svg {
+      width: 22px; height: 22px;
+      fill: none;
+      stroke: var(--white);
+      stroke-width: 3;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    /* -- Sync ring animation -- */
+    .sync-ring {
+      width: 60px;
+      height: 60px;
+      border: 3px solid var(--border);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      position: absolute;
+      opacity: 0;
+      will-change: transform, opacity;
+    }
+
+    /* -- Payment receipt card -- */
+    .receipt-card {
+      background: var(--white);
+      border-radius: 14px;
+      padding: 14px 18px;
+      box-shadow: var(--card-shadow);
+      position: absolute;
+      opacity: 0;
+      will-change: transform, opacity;
+    }
+    .receipt-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+    .receipt-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--muted);
+    }
+    .receipt-amount {
+      font-size: 18px;
+      font-weight: 900;
+      color: var(--accent);
+    }
+    .receipt-status {
+      font-size: 10px;
+      font-weight: 800;
+      color: #0e7a50;
+      background: #d4f5e9;
+      padding: 3px 8px;
+      border-radius: 6px;
+      margin-top: 6px;
+      display: inline-block;
+    }
+
+    /* -- Offline badge -- */
+    .offline-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--dark);
+      color: var(--white);
+      padding: 8px 16px;
+      border-radius: 10px;
+      font-size: 12px;
+      font-weight: 700;
+      position: absolute;
+      opacity: 0;
+      will-change: transform, opacity;
+    }
+    .offline-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: #48bb78;
+    }
+
+    /* ══════════════════════════════════════════
+       SCENE 4 – OUTRO
+    ══════════════════════════════════════════ */
+    .logo-img {
+      width: 120px;
+      filter: drop-shadow(0 8px 24px var(--accent-glow));
+      opacity: 0;
+      will-change: transform, opacity;
+    }
+
+    .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--accent);
+      color: var(--white);
+      font-size: 17px;
+      font-weight: 800;
+      padding: 16px 36px;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 8px 28px var(--accent-glow);
+      opacity: 0;
+      will-change: transform, opacity;
+    }
+
+    @keyframes ctaGlow {
+      0%, 100% { box-shadow: 0 8px 28px var(--accent-glow); }
+      50% { box-shadow: 0 8px 48px rgba(31,151,135,0.45), 0 0 0 6px rgba(31,151,135,0.1); }
+    }
+
+    .tagline-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 16px;
+    }
+    .tag-chip {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--accent);
+      background: var(--accent-soft);
+      padding: 6px 14px;
+      border-radius: 20px;
+      opacity: 0;
+      will-change: transform, opacity;
+    }
+
+    /* ══════════════════════════════════════════
+       EXPANDING RINGS (outro)
+    ══════════════════════════════════════════ */
+    .ring {
+      position: absolute;
+      border-radius: 50%;
+      border: 2px solid var(--border);
+      opacity: 0;
+      will-change: transform, opacity;
+      pointer-events: none;
+    }
+
+    /* ══════════════════════════════════════════
+       CONTROL BAR
+    ══════════════════════════════════════════ */
+    .ctrl {
+      margin-top: 18px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: #111c1a;
+      padding: 10px 20px;
+      border-radius: 14px;
+      border: 1px solid #1e3430;
+    }
+    .ctrl-btn {
+      background: var(--accent);
+      color: var(--white);
+      border: none;
+      padding: 7px 16px;
+      border-radius: 8px;
+      font-weight: 800;
+      font-size: 12px;
+      cursor: pointer;
+      transition: opacity 0.15s;
+    }
+    .ctrl-btn:hover { opacity: 0.85; }
+    .ctrl-btn.dim { background: #2a3f3a; }
+    .ctrl-track {
+      flex: 1;
+      height: 5px;
+      background: #1e3430;
+      border-radius: 3px;
+      overflow: hidden;
+      min-width: 80px;
+    }
+    .ctrl-fill {
+      width: 0%;
+      height: 100%;
+      background: linear-gradient(90deg, var(--border), var(--accent));
+      border-radius: 3px;
+    }
+    .ctrl-time {
+      color: #6fa99f;
+      font-size: 12px;
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
+    }
+  </style>
+</head>
+<body>
+
+<div class="viewport" id="vp">
+
+  <!-- ═══ AMBIENT ORBS ═══ -->
+  <div class="orb" id="orb1" style="top:-60px;left:-40px;"></div>
+  <div class="orb" id="orb2" style="bottom:-60px;right:-40px;"></div>
+
+  <!-- ═══════════════════════════════════════
+       SCENE 1 – THE HOOK / PROBLEM  [0s – 8s]
+       "Still managing members like this?"
+  ═══════════════════════════════════════ -->
+  <div class="sc" id="s1">
+    <h1 class="headline h-40" id="hook1" style="opacity:0;">Still managing<br>members <span class="danger">like this?</span></h1>
+
+    <!-- Floating pain chips -->
+    <div class="pain-chip bad" id="pc1" style="top:15%;left:8%;"><span class="icon">📋</span> Messy spreadsheets</div>
+    <div class="pain-chip bad" id="pc2" style="top:28%;right:6%;"><span class="icon">💸</span> Missing payments</div>
+    <div class="pain-chip bad" id="pc3" style="bottom:28%;left:12%;"><span class="icon">😤</span> Forgot to remind</div>
+    <div class="pain-chip bad" id="pc4" style="bottom:15%;right:10%;"><span class="icon">🔌</span> Needs internet</div>
+
+    <!-- X marks that stamp in -->
+    <div class="x-mark" id="x1" style="top:18%;left:62%;">✕</div>
+    <div class="x-mark" id="x2" style="top:32%;left:8%;">✕</div>
+    <div class="x-mark" id="x3" style="bottom:24%;right:60%;">✕</div>
+  </div>
+
+  <!-- ═══════════════════════════════════════
+       SCENE 2 – THE SHIFT  [8s – 15s]
+       "What if it took just 3 clicks?"
+  ═══════════════════════════════════════ -->
+  <div class="sc" id="s2">
+    <h1 class="headline h-40" id="sh1" style="opacity:0;">What if it took<br>just...</h1>
+    <h1 class="headline h-64" id="sh2" style="opacity:0;margin-top:12px;"><span class="accent">3 clicks?</span></h1>
+    <div class="click-row" id="clickRow" style="opacity:0;">
+      <div class="click-dot" id="cd1"></div>
+      <div class="click-dot" id="cd2"></div>
+      <div class="click-dot" id="cd3"></div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════
+       SCENE 3A – FEATURE: Member Tracking  [15s – 21s]
+  ═══════════════════════════════════════ -->
+  <div class="sc" id="s3a">
+    <h1 class="headline h-28" id="s3a_title" style="opacity:0;margin-bottom:16px;">Track every member<br><span class="accent">at a glance</span></h1>
+
+    <!-- Mini phone mockup with simulated UI -->
+    <div class="phone-frame" id="phone1" style="position:relative;">
+      <div class="status-bar">EzyMember</div>
+      <div class="screen-body">
+        <div class="tab-bar">
+          <div class="tab-pill active">Active</div>
+          <div class="tab-pill">Expiring</div>
+          <div class="tab-pill">Expired</div>
+        </div>
+        <div class="member-row">
+          <div class="member-avatar"></div>
+          <div class="member-info">
+            <div class="member-name">Priya Sharma</div>
+            <div class="member-exp">Exp: 15 Aug 2026</div>
+          </div>
+          <div class="member-badge badge-active">Active</div>
+        </div>
+        <div class="member-row">
+          <div class="member-avatar" style="background:#f6ad55;"></div>
+          <div class="member-info">
+            <div class="member-name">Rahul Verma</div>
+            <div class="member-exp">Exp: 28 Jul 2026</div>
+          </div>
+          <div class="member-badge badge-expiring">Soon</div>
+        </div>
+        <div class="member-row">
+          <div class="member-avatar" style="background:#fc8181;"></div>
+          <div class="member-info">
+            <div class="member-name">Anita Patel</div>
+            <div class="member-exp">Exp: 10 Jul 2026</div>
+          </div>
+          <div class="member-badge badge-expired">Expired</div>
+        </div>
+        <div class="member-row">
+          <div class="member-avatar" style="background:#9ae6b4;"></div>
+          <div class="member-info">
+            <div class="member-name">Vikram Singh</div>
+            <div class="member-exp">Exp: 30 Sep 2026</div>
+          </div>
+          <div class="member-badge badge-active">Active</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════
+       SCENE 3B – FEATURE: WhatsApp Reminders  [21s – 27s]
+  ═══════════════════════════════════════ -->
+  <div class="sc" id="s3b">
+    <div class="feat-card" id="fc_wa">
+      <div class="feat-emoji">💬</div>
+      <div class="feat-title">1-click <span class="accent">WhatsApp</span> reminders</div>
+      <div class="feat-desc">Polite, pre-written messages. Preview, edit, and send in one tap.</div>
+    </div>
+
+    <div class="wa-bubble" id="waBub" style="bottom:22%;right:14%;">
+      Hi Priya! Your gym membership expires on Jul 28. Renew today? 🙏
+      <div class="wa-tail"></div>
+    </div>
+
+    <div class="check-pop" id="chk1" style="bottom:16%;left:16%;">
+      <svg viewBox="0 0 24 24"><polyline points="6 12 10 16 18 8"/></svg>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════
+       SCENE 3C – FEATURE: Instant Payments  [27s – 33s]
+  ═══════════════════════════════════════ -->
+  <div class="sc" id="s3c">
+    <div class="feat-card" id="fc_pay">
+      <div class="feat-emoji">💰</div>
+      <div class="feat-title">Log payments <span class="accent">instantly</span></div>
+      <div class="feat-desc">No complicated forms. Record payments in seconds, not minutes.</div>
+    </div>
+
+    <div class="receipt-card" id="recCard" style="bottom:18%;left:50%;transform:translateX(-50%);">
+      <div class="receipt-row">
+        <div>
+          <div class="receipt-label">Priya Sharma</div>
+          <div class="receipt-amount">₹1,500</div>
+        </div>
+      </div>
+      <div class="receipt-status">✓ Paid</div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════
+       SCENE 3D – FEATURE: Offline + Sync  [33s – 40s]
+  ═══════════════════════════════════════ -->
+  <div class="sc" id="s3d">
+    <div class="feat-card" id="fc_sync">
+      <div class="feat-emoji">☁️</div>
+      <div class="feat-title">100% offline. <span class="accent">Google Drive</span> backup.</div>
+      <div class="feat-desc">Your data never leaves your device. Auto-backup to your personal Drive.</div>
+    </div>
+
+    <div class="offline-badge" id="offBadge" style="bottom:22%;left:50%;transform:translateX(-50%);">
+      <div class="offline-dot"></div>
+      Works without internet
+    </div>
+
+    <div class="sync-ring" id="syncRing" style="bottom:10%;right:20%;"></div>
+  </div>
+
+  <!-- ═══════════════════════════════════════
+       SCENE 4 – OUTRO  [40s – 50s]
+  ═══════════════════════════════════════ -->
+  <div class="sc" id="s4">
+    <!-- Expanding rings -->
+    <div class="ring" id="ring1" style="width:40px;height:40px;top:50%;left:50%;transform:translate(-50%,-50%);"></div>
+    <div class="ring" id="ring2" style="width:40px;height:40px;top:50%;left:50%;transform:translate(-50%,-50%);"></div>
+
+    <img class="logo-img" id="logo" src="app_logo_no_bg.png" alt="EzyMember" />
+
+    <h1 class="headline h-32" id="outTag" style="opacity:0;margin-top:20px;">
+      Run your business<br><span class="accent">from your pocket.</span>
+    </h1>
+
+    <div class="tagline-list" id="tagChips">
+      <div class="tag-chip" id="tc1">Gyms</div>
+      <div class="tag-chip" id="tc2">Salons</div>
+      <div class="tag-chip" id="tc3">Tuition</div>
+      <div class="tag-chip" id="tc4">Clubs</div>
+    </div>
+
+    <button class="cta-btn" id="ctaBtn">
+      <span>📲</span> Download EzyMember
+    </button>
+
+    <p class="subtext" id="outSub" style="margin-top:14px;opacity:0;">Free · No cloud subscriptions · 100% private</p>
+  </div>
+
+</div>
+
+<!-- ═══ CONTROLS ═══ -->
+<div class="ctrl">
+  <button class="ctrl-btn" id="btnPlay">▶ Play</button>
+  <button class="ctrl-btn dim" id="btnPause">⏸</button>
+  <button class="ctrl-btn dim" id="btnReset">↺</button>
+  <div class="ctrl-track"><div class="ctrl-fill" id="cFill"></div></div>
+  <span class="ctrl-time" id="cTime">00:00 / 00:50</span>
+</div>
+
+<script>
+/* ═════════════════════════════════════════════
+   HELPERS
+═════════════════════════════════════════════ */
+const $ = s => document.querySelector(s);
+const DURATION = 50; // total seconds
+
+/* ═════════════════════════════════════════════
+   MASTER TIMELINE
+═════════════════════════════════════════════ */
+const master = gsap.timeline({ paused: true, onUpdate: tick });
+
+/* ── AMBIENT ORBS (drift throughout) ── */
+master.to('#orb1', { x: 80, y: 60, opacity: 0.6, duration: 20, ease: 'sine.inOut', yoyo: true, repeat: 2 }, 0);
+master.to('#orb2', { x: -60, y: -80, opacity: 0.5, duration: 18, ease: 'sine.inOut', yoyo: true, repeat: 2 }, 0);
+
+
+/* ═════════════════════════════════════════════
+   SCENE 1 – THE HOOK  [0 – 8s]
+   Premium SaaS style: problem-first, emotional
+═════════════════════════════════════════════ */
+const t1 = gsap.timeline();
+
+t1.set('#s1', { autoAlpha: 1 })
+
+  // Headline slides up
+  .fromTo('#hook1', { y: 40, opacity: 0 },
+    { y: 0, opacity: 1, duration: 0.7, ease: 'expo.out' }, 0.3)
+
+  // Pain chips float in one-by-one with stagger
+  .fromTo('#pc1', { y: 30, opacity: 0, scale: 0.85 },
+    { y: 0, opacity: 1, scale: 1, duration: 0.5, ease: 'back.out(1.4)' }, 1.2)
+  .fromTo('#pc2', { y: 30, opacity: 0, scale: 0.85 },
+    { y: 0, opacity: 1, scale: 1, duration: 0.5, ease: 'back.out(1.4)' }, 1.7)
+  .fromTo('#pc3', { y: 30, opacity: 0, scale: 0.85 },
+    { y: 0, opacity: 1, scale: 1, duration: 0.5, ease: 'back.out(1.4)' }, 2.2)
+  .fromTo('#pc4', { y: 30, opacity: 0, scale: 0.85 },
+    { y: 0, opacity: 1, scale: 1, duration: 0.5, ease: 'back.out(1.4)' }, 2.7)
+
+  // X marks stamp in with slight shake
+  .fromTo('#x1', { scale: 2, opacity: 0 },
+    { scale: 1, opacity: 0.6, duration: 0.25, ease: 'back.out(2)' }, 3.5)
+  .fromTo('#x2', { scale: 2, opacity: 0 },
+    { scale: 1, opacity: 0.6, duration: 0.25, ease: 'back.out(2)' }, 3.9)
+  .fromTo('#x3', { scale: 2, opacity: 0 },
+    { scale: 1, opacity: 0.6, duration: 0.25, ease: 'back.out(2)' }, 4.3)
+
+  // Gentle float on chips
+  .to('#pc1', { y: -4, duration: 1, yoyo: true, repeat: 1, ease: 'sine.inOut' }, 4.5)
+  .to('#pc3', { y: -3, duration: 1, yoyo: true, repeat: 1, ease: 'sine.inOut' }, 4.8)
+
+  // Exit — everything fades + scales down
+  .to('#s1', { scale: 0.9, opacity: 0, duration: 0.6, ease: 'power3.in' }, 7.2);
+
+master.add(t1, 0);
+
+
+/* ═════════════════════════════════════════════
+   SCENE 2 – THE SHIFT  [8 – 15s]
+   Tension → explosive reveal
+═════════════════════════════════════════════ */
+const t2 = gsap.timeline();
+
+t2.set('#s2', { autoAlpha: 1 })
+
+  // "What if it took just..."
+  .fromTo('#sh1', { y: 30, opacity: 0 },
+    { y: 0, opacity: 1, duration: 0.6, ease: 'expo.out' }, 0.3)
+
+  // Hold tension
+  .to('#sh1', { scale: 1.03, duration: 1.2, ease: 'sine.inOut' }, 1.5)
+
+  // Wipe question
+  .to('#sh1', { y: -20, opacity: 0, duration: 0.3, ease: 'expo.in' }, 3.0)
+
+  // "3 clicks?" — elastic pop
+  .fromTo('#sh2', { scale: 0.3, opacity: 0 },
+    { scale: 1, opacity: 1, duration: 0.8, ease: 'elastic.out(1, 0.45)' }, 3.5)
+
+  // Click dots appear + light up one by one
+  .to('#clickRow', { opacity: 1, duration: 0.3 }, 3.8)
+  .to('#cd1', { scale: 1.4, opacity: 1, background: '#1F9787', duration: 0.2, ease: 'back.out(3)' }, 4.2)
+  .to('#cd2', { scale: 1.4, opacity: 1, background: '#1F9787', duration: 0.2, ease: 'back.out(3)' }, 4.6)
+  .to('#cd3', { scale: 1.4, opacity: 1, background: '#1F9787', duration: 0.2, ease: 'back.out(3)' }, 5.0)
+
+  // Pulse the number
+  .to('#sh2', { scale: 1.06, duration: 0.4, yoyo: true, repeat: 1, ease: 'sine.inOut' }, 5.5)
+
+  // Exit
+  .to('#s2', { opacity: 0, y: -30, duration: 0.5, ease: 'power3.in' }, 6.5);
+
+master.add(t2, 8);
+
+
+/* ═════════════════════════════════════════════
+   SCENE 3A – Member Tracking  [15 – 21s]
+   Show simulated app UI — feels real
+═════════════════════════════════════════════ */
+const t3a = gsap.timeline();
+
+t3a.set('#s3a', { autoAlpha: 1 })
+
+  // Title
+  .fromTo('#s3a_title', { y: 20, opacity: 0 },
+    { y: 0, opacity: 1, duration: 0.5, ease: 'expo.out' }, 0.3)
+
+  // Phone frame rises up
+  .fromTo('#phone1', { y: 80, opacity: 0, scale: 0.9 },
+    { y: 0, opacity: 1, scale: 1, duration: 0.7, ease: 'expo.out' }, 0.6)
+
+  // Phone gentle float
+  .to('#phone1', { y: -6, duration: 1.5, yoyo: true, repeat: 1, ease: 'sine.inOut' }, 2.0)
+
+  // Exit
+  .to('#s3a', { opacity: 0, x: -40, duration: 0.5, ease: 'power3.in' }, 5.2);
+
+master.add(t3a, 15);
+
+
+/* ═════════════════════════════════════════════
+   SCENE 3B – WhatsApp Reminders  [21 – 27s]
+═════════════════════════════════════════════ */
+const t3b = gsap.timeline();
+
+t3b.set('#s3b', { autoAlpha: 1 })
+
+  // Feature card slides in
+  .fromTo('#fc_wa', { y: 40, opacity: 0 },
+    { y: 0, opacity: 1, duration: 0.6, ease: 'expo.out' }, 0.3)
+
+  // WhatsApp bubble pops up
+  .fromTo('#waBub', { y: 30, opacity: 0, scale: 0.8 },
+    { y: 0, opacity: 1, scale: 1, duration: 0.5, ease: 'back.out(1.8)' }, 1.2)
+
+  // Checkmark pops
+  .fromTo('#chk1', { scale: 0, opacity: 0 },
+    { scale: 1, opacity: 1, duration: 0.4, ease: 'elastic.out(1, 0.5)' }, 2.0)
+
+  // Gentle hover on bubble
+  .to('#waBub', { y: -5, duration: 1, yoyo: true, repeat: 1, ease: 'sine.inOut' }, 2.5)
+
+  // Exit
+  .to('#s3b', { opacity: 0, x: 40, duration: 0.5, ease: 'power3.in' }, 5.2);
+
+master.add(t3b, 21);
+
+
+/* ═════════════════════════════════════════════
+   SCENE 3C – Payments  [27 – 33s]
+═════════════════════════════════════════════ */
+const t3c = gsap.timeline();
+
+t3c.set('#s3c', { autoAlpha: 1 })
+
+  .fromTo('#fc_pay', { y: 40, opacity: 0 },
+    { y: 0, opacity: 1, duration: 0.6, ease: 'expo.out' }, 0.3)
+
+  // Receipt card slides up
+  .fromTo('#recCard', { y: 40, opacity: 0, scale: 0.9 },
+    { y: 0, opacity: 1, scale: 1, duration: 0.5, ease: 'back.out(1.5)' }, 1.3)
+
+  // Hold
+  .to('#recCard', { y: -4, duration: 1, yoyo: true, repeat: 1, ease: 'sine.inOut' }, 2.0)
+
+  // Exit
+  .to('#s3c', { opacity: 0, scale: 0.95, duration: 0.5, ease: 'power3.in' }, 5.2);
+
+master.add(t3c, 27);
+
+
+/* ═════════════════════════════════════════════
+   SCENE 3D – Offline + Sync  [33 – 40s]
+═════════════════════════════════════════════ */
+const t3d = gsap.timeline();
+
+t3d.set('#s3d', { autoAlpha: 1 })
+
+  .fromTo('#fc_sync', { y: 40, opacity: 0 },
+    { y: 0, opacity: 1, duration: 0.6, ease: 'expo.out' }, 0.3)
+
+  // Offline badge
+  .fromTo('#offBadge', { y: 20, opacity: 0 },
+    { y: 0, opacity: 1, duration: 0.4, ease: 'back.out(1.5)' }, 1.2)
+
+  // Sync ring spins in
+  .fromTo('#syncRing', { scale: 0, opacity: 0 },
+    { scale: 1, opacity: 0.7, duration: 0.5, ease: 'back.out(1.5)' }, 1.8)
+  .to('#syncRing', { rotation: 360, duration: 3, ease: 'linear', repeat: 1 }, 2.0)
+
+  // Exit
+  .to('#s3d', { opacity: 0, y: -30, duration: 0.5, ease: 'power3.in' }, 6.2);
+
+master.add(t3d, 33);
+
+
+/* ═════════════════════════════════════════════
+   SCENE 4 – OUTRO  [40 – 50s]
+   Clean, confident, aspirational
+═════════════════════════════════════════════ */
+const t4 = gsap.timeline();
+
+t4.set('#s4', { autoAlpha: 1 })
+
+  // Expanding rings
+  .to('#ring1', { scale: 10, opacity: 0.12, duration: 1.5, ease: 'expo.out' }, 0.1)
+  .to('#ring2', { scale: 14, opacity: 0.06, duration: 2, ease: 'expo.out' }, 0.3)
+
+  // Logo
+  .fromTo('#logo', { scale: 0, opacity: 0, rotation: 10 },
+    { scale: 1, opacity: 1, rotation: 0, duration: 0.8, ease: 'elastic.out(1, 0.5)' }, 0.4)
+
+  // Tagline
+  .fromTo('#outTag', { y: 25, opacity: 0 },
+    { y: 0, opacity: 1, duration: 0.6, ease: 'expo.out' }, 1.6)
+
+  // Category chips stagger in
+  .fromTo('#tc1', { y: 12, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: 'back.out(1.5)' }, 2.6)
+  .fromTo('#tc2', { y: 12, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: 'back.out(1.5)' }, 2.8)
+  .fromTo('#tc3', { y: 12, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: 'back.out(1.5)' }, 3.0)
+  .fromTo('#tc4', { y: 12, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: 'back.out(1.5)' }, 3.2)
+
+  // CTA button
+  .fromTo('#ctaBtn', { y: 30, opacity: 0, scale: 0.9 },
+    { y: 0, opacity: 1, scale: 1, duration: 0.6, ease: 'back.out(1.8)' }, 3.8)
+
+  // Start CTA glow
+  .call(() => { $('#ctaBtn').style.animation = 'ctaGlow 1.2s ease-in-out infinite'; }, [], 4.5)
+
+  // Sub text
+  .fromTo('#outSub', { y: 10, opacity: 0 },
+    { y: 0, opacity: 1, duration: 0.5, ease: 'expo.out' }, 4.8)
+
+  // Logo gentle float
+  .to('#logo', { y: -5, duration: 1.5, yoyo: true, repeat: 2, ease: 'sine.inOut' }, 3.0)
+
+  // Second ring pulse
+  .set('#ring1', { scale: 1, opacity: 0 }, 6.5)
+  .to('#ring1', { scale: 8, opacity: 0.08, duration: 1.2, ease: 'expo.out' }, 6.6)
+  .to('#ring1', { opacity: 0, duration: 0.5 }, 7.8)
+
+  // Hold to end
+  .set({}, {}, 10);
+
+master.add(t4, 40);
+
+// Hard stop at 50s
+master.set({}, {}, DURATION);
+
+
+/* ═════════════════════════════════════════════
+   PLAYBACK CONTROLS
+═════════════════════════════════════════════ */
+$('#btnPlay').addEventListener('click', () => {
+  if (master.progress() >= 1) master.restart();
+  else master.play();
+});
+$('#btnPause').addEventListener('click', () => master.pause());
+$('#btnReset').addEventListener('click', () => {
+  $('#ctaBtn').style.animation = 'none';
+  master.restart().pause();
+});
+
+function tick() {
+  let t = master.time();
+  if (t > DURATION) t = DURATION;
+  $('#cFill').style.width = (t / DURATION * 100) + '%';
+  const m = Math.floor(t / 60);
+  const s = Math.floor(t % 60);
+  $('#cTime').textContent =
+    String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0') + ' / 00:50';
+}
+
+// Keyboard
+document.addEventListener('keydown', e => {
+  if (e.code === 'Space') { e.preventDefault(); master.isActive() ? master.pause() : (master.progress() >= 1 ? master.restart() : master.play()); }
+  if (e.code === 'KeyR') { $('#ctaBtn').style.animation = 'none'; master.restart().pause(); }
+});
+</script>
+</body>
+</html>
