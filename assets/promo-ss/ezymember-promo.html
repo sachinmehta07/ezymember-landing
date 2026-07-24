@@ -410,6 +410,7 @@
     .feat-card .feat-emoji { font-size: 32px; margin-bottom: 8px; }
     .feat-card .feat-icon-wrap { margin-bottom: 8px; }
     .feat-card .feat-icon-wrap svg { width: 36px; height: 36px; }
+    .feat-card .feat-icon-wrap img { width: 36px; height: 36px; }
     .feat-card .feat-title {
       font-size: 20px;
       font-weight: 800;
@@ -699,7 +700,7 @@
       <div class="cat-card" id="cc3">
         <div class="cat-icon">
           <!-- Scissors/parlour icon -->
-          <svg viewBox="0 0 24 24"><circle cx="6" cy="6" r="2.5" fill="none" stroke="currentColor" stroke-width="1.5" style="stroke:var(--accent)"/><circle cx="6" cy="18" r="2.5" fill="none" stroke="currentColor" stroke-width="1.5" style="stroke:var(--accent)"/><path d="M8.12 7.47L19 16M8.12 16.53L19 8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" style="stroke:var(--accent)"/></svg>
+          <svg viewBox="0 0 24 24"><circle cx="6" cy="6" r="2.5" fill="none" stroke="currentColor" stroke-width="1.5" style="stroke:var(--accent)"/><circle cx="6" cy="18" r="2.5" fill="none" stroke="currentColor" stroke-width="1.5" style="stroke:var(--accent)"/><path d="M10 8l8 8M10 16l8-8" stroke="currentColor" stroke-width="1.5" style="stroke:var(--accent)" stroke-linecap="round"/></svg>
         </div>
         <div>
           <div class="cat-name">Parlours</div>
@@ -789,7 +790,7 @@
         <!-- WhatsApp official SVG icon -->
         <svg viewBox="0 0 48 48" width="36" height="36">
           <path fill="#25D366" d="M24 4C12.95 4 4 12.95 4 24c0 3.54.93 6.86 2.55 9.74L4 44l10.55-2.77A19.87 19.87 0 0 0 24 44c11.05 0 20-8.95 20-20S35.05 4 24 4z"/>
-          <path fill="#fff" d="M34.6 29.2c-.55-.28-3.27-1.62-3.78-1.8-.5-.18-.87-.28-1.24.28-.36.55-1.42 1.8-1.74 2.16-.32.37-.64.42-1.19.14-.55-.28-2.33-.86-4.44-2.74-1.64-1.46-2.75-3.27-3.07-3.82-.32-.55-.03-.85.24-1.13.25-.25.55-.64.82-.96.28-.32.37-.55.55-.92.18-.36.1-.69-.05-.96-.14-.28-1.24-2.99-1.7-4.1-.45-1.07-.9-0.92-1.24-.94l-1.06-.02c-.36 0-.96.14-1.46.69-.5.55-1.92 1.87-1.92 4.58s1.97 5.3 2.24 5.67c.28.37 3.88 5.92 9.4 8.3 1.31.57 2.34.9 3.14 1.16 1.32.42 2.52.36 3.47.22 1.06-.16 3.27-1.34 3.73-2.63.46-1.29.46-2.39.32-2.63-.14-.23-.5-.37-1.06-.64z"/>
+          <path fill="#fff" d="M34.6 29.2c-.55-.28-3.27-1.62-3.78-1.8-.5-.18-.87-.28-1.24.28-.36.55-1.42 1.8-1.74 2.16-.32.37-.64.42-1.19.14-.55-.28-2.33-.86-4.44-2.74-1.64-1.46-2.75-3.27-3.07-3.82-.3-.55.03-.86.29-1.14.25-.26.55-.68.83-1.02.27-.34.37-.58.55-.96.19-.39.09-.73-.04-.99s-.96-2.31-1.31-3.16c-.34-.8-.69-.69-.95-.7h-.81c-.27 0-.71.1-.99.48-.29.39-.99 1.01-.99 2.46s1.01 2.85 1.15 3.05c.14.2 1.95 3.08 4.95 4.25 2.43 1 3.32 1.03 3.99.86.74-.2 2.39-.98 2.72-1.92.33-.94.33-1.75.23-1.91z"/>
         </svg>
       </div>
       <div class="feat-title">1-click <span class="accent">WhatsApp</span> reminders</div>
@@ -837,8 +838,8 @@
   <div class="sc" id="s3d">
     <div class="feat-card" id="fc_sync">
       <div class="feat-icon-wrap">
-        <!-- Google icon from asset -->
-        <img src="assets/promo-ss/google-icon.svg" alt="Google Drive" width="36" height="36" style="object-fit:contain;" />
+        <!-- Google Drive icon from absolute URL -->
+        <img src="https://raw.githubusercontent.com/sachinmehta07/ezymember-landing/main/assets/promo-ss/google-icon.svg" alt="Google Drive" width="36" height="36" style="object-fit:contain;" />
       </div>
       <div class="feat-title">100% offline. <span class="accent">Google Drive</span> backup.</div>
       <div class="feat-desc">Your data never leaves your device. Auto-backup to your personal Drive.</div>
@@ -850,7 +851,7 @@
     </div>
 
     <div class="gdrive-badge" id="gdBadge" style="bottom:16%;left:50%;transform:translateX(-50%);">
-      <img src="assets/promo-ss/google-icon.svg" alt="Google Drive" width="24" height="24" style="object-fit:contain;" />
+      <img src="https://raw.githubusercontent.com/sachinmehta07/ezymember-landing/main/assets/promo-ss/google-icon.svg" alt="Google Drive" width="24" height="24" style="object-fit:contain;" />
       Synced to your Drive
     </div>
   </div>
@@ -877,7 +878,7 @@
     </div>
 
     <button class="cta-btn" id="ctaBtn">
-      <img src="assets/promo-ss/playstore-icon.svg" class="play-icon" alt="Play Store" />
+      <img src="https://raw.githubusercontent.com/sachinmehta07/ezymember-landing/main/assets/promo-ss/playstore-icon.svg" class="play-icon" alt="Play Store" />
       Download&nbsp;<span class="cta-accent">Ezy</span>Member
     </button>
 
@@ -1003,192 +1004,164 @@ master.add(t2h, 14);
 
 
 /* ═════════════════════════════════════════════
-   SCENE 3A – Member Tracking  [21 – 27s]
+   SCENE 3A – MEMBER TRACKING  [21 – 27s]
    Enters from RIGHT
 ═════════════════════════════════════════════ */
 const t3a = gsap.timeline();
-t3a.set('#s3a', { autoAlpha: 1 })
+t3a.set('#s3a', { autoAlpha: 1, x: 300 })
 
-  // Entire scene slides from right
-  .fromTo('#s3a', { x: 380 }, { x: 0, duration: 0.6, ease: 'expo.out' }, 0)
+  .fromTo('#s3a_title', { y: 20, opacity: 0 },
+    { y: 0, opacity: 1, duration: 0.5, ease: 'expo.out' }, 0.3)
+  .fromTo('#s3a_sub', { y: 15, opacity: 0 },
+    { y: 0, opacity: 1, duration: 0.5, ease: 'expo.out' }, 0.5)
+  .fromTo('#s3a_pills', { y: 10, opacity: 0 },
+    { y: 0, opacity: 1, duration: 0.5, ease: 'expo.out' }, 0.7)
 
-  // Second 1: Title big, subtitle normal
-  .fromTo('#s3a_title', { y: 20, opacity: 0, scale: 0.9 },
-    { y: 0, opacity: 1, scale: 1.15, duration: 0.6, ease: 'back.out(1.3)' }, 0.3)
-  .fromTo('#s3a_sub', { y: 10, opacity: 0 },
-    { y: 0, opacity: 1, duration: 0.4, ease: 'expo.out' }, 0.7)
+  .fromTo(['#sp_g', '#sp_y', '#sp_r'], { scale: 0.8, opacity: 0 },
+    { scale: 1, opacity: 1, duration: 0.4, stagger: 0.1, ease: 'back.out(1.2)' }, 1.0)
 
-  // Status pills pop in
-  .fromTo('#sp_g', { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3, ease: 'back.out(2)' }, 1.0)
-  .fromTo('#sp_y', { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3, ease: 'back.out(2)' }, 1.2)
-  .fromTo('#sp_r', { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3, ease: 'back.out(2)' }, 1.4)
+  .fromTo('#phone1', { scale: 0.8, opacity: 0 },
+    { scale: 1, opacity: 1, duration: 0.6, ease: 'elastic.out(1, 0.55)' }, 1.5)
 
-  // Second 2: Title shrinks, subtitle scales up
-  .to('#s3a_title', { scale: 0.8, duration: 0.5, ease: 'expo.out' }, 2.0)
-  .to('#s3a_sub', { scale: 1.3, duration: 0.5, ease: 'expo.out' }, 2.0)
-  .to('#s3a_pills', { scale: 1.15, duration: 0.5, ease: 'expo.out' }, 2.0)
+  // Slight bounce
+  .to('#phone1', { y: -8, duration: 0.6, yoyo: true, repeat: 1, ease: 'sine.inOut' }, 2.3)
 
-  // Phone rises
-  .fromTo('#phone1', { y: 60, opacity: 0, scale: 0.9 },
-    { y: 0, opacity: 1, scale: 1, duration: 0.6, ease: 'expo.out' }, 2.5)
-  .to('#phone1', { y: -5, duration: 1.2, yoyo: true, repeat: 1, ease: 'sine.inOut' }, 3.2)
-
-  // Exit slides left
-  .to('#s3a', { x: -380, opacity: 0, duration: 0.5, ease: 'power3.in' }, 5.2);
+  // Exit
+  .to('#s3a', { x: -300, opacity: 0, duration: 0.5, ease: 'power3.in' }, 5.2);
 
 master.add(t3a, 21);
 
 
 /* ═════════════════════════════════════════════
-   SCENE 3B – WhatsApp  [27 – 33s]
+   SCENE 3B – WHATSAPP REMINDERS  [27 – 33s]
    Enters from LEFT
 ═════════════════════════════════════════════ */
 const t3b = gsap.timeline();
-t3b.set('#s3b', { autoAlpha: 1 })
+t3b.set('#s3b', { autoAlpha: 1, x: -300 })
 
-  // Entire scene slides from left
-  .fromTo('#s3b', { x: -380 }, { x: 0, duration: 0.6, ease: 'expo.out' }, 0)
+  .fromTo('#fc_wa', { scale: 0.8, opacity: 0 },
+    { scale: 1, opacity: 1, duration: 0.6, ease: 'elastic.out(1, 0.55)' }, 0.3)
 
-  .fromTo('#fc_wa', { y: 30, opacity: 0 },
-    { y: 0, opacity: 1, duration: 0.5, ease: 'expo.out' }, 0.4)
-  .fromTo('#waBub', { y: 30, opacity: 0, scale: 0.8 },
-    { y: 0, opacity: 1, scale: 1, duration: 0.5, ease: 'back.out(1.8)' }, 1.3)
+  .fromTo('#waBub', { x: 40, opacity: 0 },
+    { x: 0, opacity: 1, duration: 0.5, ease: 'expo.out' }, 1.0)
+  .fromTo('#waRead', { x: -40, opacity: 0 },
+    { x: 0, opacity: 1, duration: 0.5, ease: 'expo.out' }, 1.3)
 
-  // Yellow read-receipt bubble appears
-  .fromTo('#waRead', { y: 15, opacity: 0, scale: 0.8 },
-    { y: 0, opacity: 1, scale: 1, duration: 0.4, ease: 'back.out(1.5)' }, 2.0)
+  // Animate read ticks to blue
+  .to('#waTicks', { color: '#53bdeb', duration: 0.4 }, 1.8)
 
-  // Ticks turn blue (read receipt animation)
-  .call(() => { document.getElementById('waTicks').classList.add('read'); }, [], 2.8)
+  // Gentle float
+  .to('#waBub', { y: -6, duration: 1.0, yoyo: true, repeat: 1, ease: 'sine.inOut' }, 2.2)
 
-  .to('#waBub', { y: -4, duration: 1, yoyo: true, repeat: 1, ease: 'sine.inOut' }, 2.5)
-
-  // Exit slides right
-  .to('#s3b', { x: 380, opacity: 0, duration: 0.5, ease: 'power3.in' }, 5.2);
+  // Exit
+  .to('#s3b', { x: 300, opacity: 0, duration: 0.5, ease: 'power3.in' }, 5.3);
 
 master.add(t3b, 27);
 
 
 /* ═════════════════════════════════════════════
-   SCENE 3C – Payments  [33 – 39s]
+   SCENE 3C – INSTANT PAYMENTS  [33 – 39s]
    Enters from RIGHT
 ═════════════════════════════════════════════ */
 const t3c = gsap.timeline();
-t3c.set('#s3c', { autoAlpha: 1 })
+t3c.set('#s3c', { autoAlpha: 1, x: 300 })
 
-  // Enters from right
-  .fromTo('#s3c', { x: 380 }, { x: 0, duration: 0.6, ease: 'expo.out' }, 0)
+  .fromTo('#fc_pay', { scale: 0.8, opacity: 0 },
+    { scale: 1, opacity: 1, duration: 0.6, ease: 'elastic.out(1, 0.55)' }, 0.3)
 
-  .fromTo('#fc_pay', { y: 30, opacity: 0 },
-    { y: 0, opacity: 1, duration: 0.5, ease: 'expo.out' }, 0.4)
-  .fromTo('#recCard', { y: 40, opacity: 0, scale: 0.9 },
-    { y: 0, opacity: 1, scale: 1, duration: 0.5, ease: 'back.out(1.5)' }, 1.4)
-  .to('#recCard', { y: -3, duration: 1, yoyo: true, repeat: 1, ease: 'sine.inOut' }, 2.2)
+  .fromTo('#recCard', { y: 30, opacity: 0, scale: 0.9 },
+    { y: 0, opacity: 1, scale: 1, duration: 0.5, ease: 'back.out(1.3)' }, 1.2)
 
-  // Exit slides left
-  .to('#s3c', { x: -380, opacity: 0, duration: 0.5, ease: 'power3.in' }, 5.2);
+  .to('#recCard', { y: -8, duration: 0.8, yoyo: true, repeat: 1, ease: 'sine.inOut' }, 1.9)
+
+  // Exit
+  .to('#s3c', { x: -300, opacity: 0, duration: 0.5, ease: 'power3.in' }, 5.4);
 
 master.add(t3c, 33);
 
 
 /* ═════════════════════════════════════════════
-   SCENE 3D – Offline + Drive  [39 – 45s]
-   Enters from LEFT, NO sync ring
+   SCENE 3D – OFFLINE + DRIVE  [39 – 45s]
+   Enters from LEFT
 ═════════════════════════════════════════════ */
 const t3d = gsap.timeline();
-t3d.set('#s3d', { autoAlpha: 1 })
+t3d.set('#s3d', { autoAlpha: 1, x: -300 })
 
-  // Enters from left
-  .fromTo('#s3d', { x: -380 }, { x: 0, duration: 0.6, ease: 'expo.out' }, 0)
+  .fromTo('#fc_sync', { scale: 0.8, opacity: 0 },
+    { scale: 1, opacity: 1, duration: 0.6, ease: 'elastic.out(1, 0.55)' }, 0.3)
 
-  .fromTo('#fc_sync', { y: 30, opacity: 0 },
-    { y: 0, opacity: 1, duration: 0.5, ease: 'expo.out' }, 0.4)
-  .fromTo('#offBadge', { y: 20, opacity: 0 },
-    { y: 0, opacity: 1, duration: 0.4, ease: 'back.out(1.5)' }, 1.3)
+  .fromTo('#offBadge', { y: 20, opacity: 0, scale: 0.9 },
+    { y: 0, opacity: 1, scale: 1, duration: 0.5, ease: 'back.out(1.3)' }, 1.1)
   .fromTo('#gdBadge', { y: 20, opacity: 0, scale: 0.9 },
-    { y: 0, opacity: 1, scale: 1, duration: 0.4, ease: 'back.out(1.5)' }, 1.8)
+    { y: 0, opacity: 1, scale: 1, duration: 0.5, ease: 'back.out(1.3)' }, 1.4)
 
-  // Gentle float on badges
-  .to('#offBadge', { y: -3, duration: 1, yoyo: true, repeat: 1, ease: 'sine.inOut' }, 2.5)
-  .to('#gdBadge', { y: -3, duration: 1, yoyo: true, repeat: 1, ease: 'sine.inOut' }, 2.8)
+  // Pulse the dot
+  .to('#offline-dot', { scale: 1.3, duration: 0.4, yoyo: true, repeat: 1 }, 1.5)
 
-  // Exit fades
-  .to('#s3d', { opacity: 0, y: -30, duration: 0.5, ease: 'power3.in' }, 5.2);
+  // Exit
+  .to('#s3d', { x: 300, opacity: 0, duration: 0.5, ease: 'power3.in' }, 5.5);
 
 master.add(t3d, 39);
 
 
 /* ═════════════════════════════════════════════
    SCENE 4 – OUTRO  [45 – 55s]
-   Kept as-is
 ═════════════════════════════════════════════ */
 const t4 = gsap.timeline();
 t4.set('#s4', { autoAlpha: 1 })
 
-  .to('#ring1', { scale: 10, opacity: 0.12, duration: 1.5, ease: 'expo.out' }, 0.1)
-  .to('#ring2', { scale: 14, opacity: 0.06, duration: 2, ease: 'expo.out' }, 0.3)
+  // Expanding rings
+  .fromTo('#ring1', { scale: 0.3, opacity: 0.8 },
+    { scale: 2.5, opacity: 0, duration: 1.2, ease: 'power2.out' }, 0.3)
+  .fromTo('#ring2', { scale: 0.3, opacity: 0.8 },
+    { scale: 2.5, opacity: 0, duration: 1.2, ease: 'power2.out' }, 0.6, '<')
 
-  .fromTo('#logo', { scale: 0, opacity: 0, rotation: 10 },
-    { scale: 1, opacity: 1, rotation: 0, duration: 0.8, ease: 'elastic.out(1, 0.5)' }, 0.4)
+  // Logo
+  .fromTo('#logo', { scale: 0.5, opacity: 0 },
+    { scale: 1, opacity: 1, duration: 0.8, ease: 'elastic.out(1, 0.5)' }, 0.5)
 
-  .fromTo('#outTag', { y: 25, opacity: 0 },
-    { y: 0, opacity: 1, duration: 0.6, ease: 'expo.out' }, 1.6)
+  // Headline
+  .fromTo('#outTag', { y: 30, opacity: 0 },
+    { y: 0, opacity: 1, duration: 0.6, ease: 'expo.out' }, 1.2)
 
-  .fromTo('#tc1', { y: 12, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: 'back.out(1.5)' }, 2.6)
-  .fromTo('#tc2', { y: 12, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: 'back.out(1.5)' }, 2.8)
-  .fromTo('#tc3', { y: 12, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: 'back.out(1.5)' }, 3.0)
-  .fromTo('#tc4', { y: 12, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: 'back.out(1.5)' }, 3.2)
+  // Tag chips
+  .fromTo(['#tc1', '#tc2', '#tc3', '#tc4'], { scale: 0.7, opacity: 0 },
+    { scale: 1, opacity: 1, duration: 0.4, stagger: 0.08, ease: 'back.out(1.3)' }, 2.0)
 
-  .fromTo('#ctaBtn', { y: 30, opacity: 0, scale: 0.9 },
-    { y: 0, opacity: 1, scale: 1, duration: 0.6, ease: 'back.out(1.8)' }, 3.8)
-  .call(() => { $('#ctaBtn').style.animation = 'ctaGlow 1.2s ease-in-out infinite'; }, [], 4.5)
+  // CTA button
+  .fromTo('#ctaBtn', { scale: 0.8, opacity: 0 },
+    { scale: 1, opacity: 1, duration: 0.7, ease: 'elastic.out(1, 0.55)' }, 2.6)
 
-  .fromTo('#outSub', { y: 10, opacity: 0 },
-    { y: 0, opacity: 1, duration: 0.5, ease: 'expo.out' }, 4.8)
+  // Button glow pulse
+  .to('#ctaBtn', { boxShadow: '0 8px 48px rgba(31,151,135,0.45), 0 0 0 6px rgba(31,151,135,0.1)', duration: 0.5, yoyo: true, repeat: 3, ease: 'sine.inOut' }, 3.5)
 
-  .to('#logo', { y: -5, duration: 1.5, yoyo: true, repeat: 2, ease: 'sine.inOut' }, 3.0)
-
-  .set('#ring1', { scale: 1, opacity: 0 }, 6.5)
-  .to('#ring1', { scale: 8, opacity: 0.08, duration: 1.2, ease: 'expo.out' }, 6.6)
-  .to('#ring1', { opacity: 0, duration: 0.5 }, 7.8)
-
-  .set({}, {}, 10);
+  // Subtext
+  .fromTo('#outSub', { opacity: 0 },
+    { opacity: 1, duration: 0.5, ease: 'expo.out' }, 3.8);
 
 master.add(t4, 45);
 
-// Hard stop
-master.set({}, {}, DURATION);
-
-
-/* ═════════════════════════════════════════════
-   CONTROLS
-═════════════════════════════════════════════ */
-$('#btnPlay').addEventListener('click', () => {
-  if (master.progress() >= 1) master.restart();
-  else master.play();
-});
-$('#btnPause').addEventListener('click', () => master.pause());
-$('#btnReset').addEventListener('click', () => {
-  $('#ctaBtn').style.animation = 'none';
-  const ticks = document.getElementById('waTicks');
-  if (ticks) ticks.classList.remove('read');
-  master.restart().pause();
-});
-
 function tick() {
-  let t = master.time();
-  if (t > DURATION) t = DURATION;
-  $('#cFill').style.width = (t / DURATION * 100) + '%';
-  const m = Math.floor(t / 60);
-  const s = Math.floor(t % 60);
-  $('#cTime').textContent =
-    String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0') + ' / 00:55';
+  const time = master.time();
+  const percent = (time / DURATION) * 100;
+  $('#cFill').style.width = percent + '%';
+  $('#cTime').textContent = formatTime(time) + ' / ' + formatTime(DURATION);
 }
 
-document.addEventListener('keydown', e => {
-  if (e.code === 'Space') { e.preventDefault(); master.isActive() ? master.pause() : (master.progress() >= 1 ? master.restart() : master.play()); }
-  if (e.code === 'KeyR') { $('#ctaBtn').style.animation = 'none'; master.restart().pause(); }
-});
+function formatTime(secs) {
+  const m = Math.floor(secs / 60);
+  const s = Math.floor(secs % 60);
+  return (m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s;
+}
+
+$('#btnPlay').onclick = () => master.play();
+$('#btnPause').onclick = () => master.pause();
+$('#btnReset').onclick = () => {
+  master.pause();
+  master.seek(0);
+  tick();
+};
 </script>
+
 </body>
 </html>
