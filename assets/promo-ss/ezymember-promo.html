@@ -425,7 +425,7 @@
        SCENE 4 – OUTRO
     ══════════════════════════════════════════ */
     .logo-img {
-      width: 120px;
+      width: 160px;
       filter: drop-shadow(0 8px 24px var(--accent-glow));
       opacity: 0;
       will-change: transform, opacity;
@@ -998,7 +998,6 @@ function tick() {
 // Keyboard
 document.addEventListener('keydown', e => {
   if (e.code === 'Space') { e.preventDefault(); master.isActive() ? master.pause() : (master.progress() >= 1 ? master.restart() : master.play()); }
-  if (e.code === 'KeyR') { $('#ctaBtn').style.animation = 'none'; master.restart().pause(); }
 });
 </script>
 </body>
